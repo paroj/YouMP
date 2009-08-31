@@ -1,0 +1,182 @@
+youamp (0.6.0-1) jaunty; urgency=low
+
+  * allow reordering inside a playlist
+  * allow column resizing
+  * fix icon for dnd
+  * many dnd bugfixes
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Wed, 13 May 2009 14:05:00 +0200
+
+youamp (0.5.9.1-1) jaunty; urgency=low
+
+  * fix some refactoring bug fallout
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Fri, 01 May 2009 13:36:04 +0200
+
+youamp (0.5.9-6) jaunty; urgency=low
+
+  * use Tracker as indexer
+  * allow multiline drag n drop
+  * drop mutagen from depends as no longer needed
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Thu, 16 Apr 2009 16:31:24 +0200
+
+youamp (0.5.8-2) jaunty; urgency=low
+
+  * changed order by artist to order by album
+  * updated translations
+  * some ordering bug fixes
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Fri, 27 Mar 2009 20:01:18 +0100
+
+youamp (0.5.7-1) jaunty; urgency=low
+
+  * fix for newer sqlite
+  * gapless playback
+  * better rg volume adaption
+  * more ui in glade
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Sun, 14 Sep 2008 18:20:57 +0200
+
+youamp (0.5.6-1) jaunty; urgency=low
+
+  * fix for use with compiz
+  * better compability with notify-osd
+  * code refactoring & new bugs
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Sun, 14 Sep 2008 18:20:57 +0200
+
+youamp (0.5.5-1) intrepid; urgency=low
+
+  * show notifications on song change when iconified
+  * support multimedia keys
+  * make text selectable
+  * iconify animations
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Sun, 14 Sep 2008 18:20:57 +0200
+
+youamp (0.5.0-1) diablo; urgency=low
+
+  * restore scroll position
+  * more verbose last.fm connection status
+  * display cover
+  * right click menu
+  
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Sun, 14 Sep 2008 18:20:57 +0200
+
+youamp (0.4.2-2) diablo; urgency=low
+
+  * fix several regressions introduced with 0.4.1
+  
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Sun, 14 Sep 2008 18:20:57 +0200
+
+youamp (0.4.1-4) diablo; urgency=low
+
+  * code cleanup
+  * submits to last.fm are now non-blocking
+  * fix submission logic
+  * move cursor on shuffeling/ unshuffeling
+  
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Tue, 09 Sep 2008 18:49:07 +0200
+
+youamp (0.4.0-2) diablo; urgency=low
+
+  * last.fm submission support
+  * refresh view when database updated
+  * also support mp4, wmv files
+  
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Fri, 11 Jul 2008 14:39:53 +0200
+
+youamp (0.3.8-3) diablo; urgency=low
+
+  * also count restarted tracks
+  * use mtime as date
+  * fix bug where first browse displayed old search results
+  * configurable music folder
+  * fix bug where cursor would not advance
+  * do not generate wakeups when player is paused
+  
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Fri, 11 Jul 2008 14:39:53 +0200
+
+youamp (0.3.7-4) diablo; urgency=low
+
+  * changed domain
+  * correctly restore position after restart
+  * D-Bus interface
+  * finally fixed OGG replaygain
+  
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Thu, 07 Aug 2008 17:44:48 +0200
+
+youamp (0.3.6-3) unstable; urgency=low
+
+  * added some translations
+  * bugfixes & code cleanup
+  
+ -- Pavel Rojtberg <pavel@madman2k.net>  Fri, 11 Jul 2008 14:39:53 +0200
+
+youamp (0.3.5.2-1) unstable; urgency=low
+
+  * actually commit playcount updates
+  * support migrating from older database
+  
+ -- Pavel Rojtberg <pavel@madman2k.net>  Fri, 11 Jul 2008 14:39:53 +0200
+
+youamp (0.3.5.1-1) unstable; urgency=low
+
+  * compatible with python-launcher
+  * fixed bug when upgrading from older youamp
+  
+ -- Pavel Rojtberg <pavel@madman2k.net>  Tue, 08 Jul 2008 15:42:26 +0200
+
+youamp (0.3.5-2) unstable; urgency=low
+
+  * changed the way to switch the views
+  * improved browser behaviour
+  * preference for ordering the playlist added
+  * now being launched over d-bus
+  * bugfixes & code cleanup
+  
+ -- Pavel Rojtberg <pavel@madman2k.net>  Wed, 02 Jul 2008 17:42:58 +0200
+
+youamp (0.3.0-2) unstable; urgency=low
+
+  * always depend on the latest version of the libs
+  
+ -- Pavel Rojtberg <pavel@madman2k.net>  Wed, 06 Feb 2008 20:45:54 +0100
+
+youamp (0.3.0-1) unstable; urgency=low
+
+  * New upstream release
+  * browsable media library
+  * bugfixes and code cleanup
+  * package icon
+  * replaygain with ogg improved
+  
+ -- Pavel Rojtberg <pavel@madman2k.net>  Mon, 28 Jan 2008 15:12:56 +0100
+
+youamp (0.2.2-1) unstable; urgency=low
+
+  * New upstream release
+  * dont index /media/mmc2/map
+  
+ -- Pavel Rojtberg <pavel@madman2k.net>  Mon, 28 Jan 2008 15:12:56 +0100
+
+youamp (0.2.1-1) unstable; urgency=low
+
+  * New upstream release
+  
+ -- Pavel Rojtberg <pavel@madman2k.net>  Sat, 19 Jan 2008 16:01:46 +0100
+
+youamp (0.2.0-1) unstable; urgency=low
+
+  * New upstream release
+  * depends added
+  
+ -- Pavel Rojtberg <pavel@madman2k.net>  Wed, 26 Dec 2007 13:14:50 +0100
+
+youamp (0.1.0-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Pavel Rojtberg <pavel@madman2k.net>  Mon, 24 Dec 2007 16:09:51 +0100
+

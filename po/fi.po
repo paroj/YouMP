@@ -1,0 +1,208 @@
+# YouAmp Translation File.
+# Copyright (C) 2008 Markus Vuorio
+# Markus Vuorio <markus_vuorio@gmx.net>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.3.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-05-18 10:20+0200\n"
+"Last-Translator: Markus Vuorio <markus_vuorio@gmx.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Generated-By: pygettext.py 1.5\n"
+
+#: ../youamp/__init__.py:88
+msgid "None"
+msgstr ""
+
+#: ../youamp/ui/browser.py:41
+msgid "Albums"
+msgstr "Albumit"
+
+#: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:149
+#: ../youamp/ui/searchview.py:217
+msgid "All Albums"
+msgstr "Kaikki albumit"
+
+#: ../youamp/ui/browser.py:50 ../youamp/ui/detailswindow.py:47
+#: ../youamp/ui/playlist.py:71
+msgid "Artist"
+msgstr "Artisti"
+
+#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:145
+#: ../youamp/ui/searchview.py:206
+msgid "All Artists"
+msgstr "Kaikki artistit"
+
+#: ../youamp/ui/detailswindow.py:46 ../youamp/ui/playlist.py:70
+msgid "Title"
+msgstr "Kappale"
+
+#: ../youamp/ui/detailswindow.py:48 ../youamp/ui/playlist.py:72
+#: ../data/interface.xml.h:8
+msgid "Album"
+msgstr "Albumi"
+
+#: ../youamp/ui/detailswindow.py:49 ../data/interface.xml.h:20
+msgid "Playcount"
+msgstr "Soittokerrat"
+
+#: ../youamp/ui/detailswindow.py:72
+msgid "Location"
+msgstr ""
+
+#: ../youamp/ui/detailswindow.py:96
+msgid "Details for {0}"
+msgstr ""
+
+#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:145
+#: ../youamp/ui/window.py:60
+msgid "by"
+msgstr "esittäjältä"
+
+#: ../youamp/ui/interface.py:147 ../youamp/ui/window.py:62
+msgid "from"
+msgstr "albumilta"
+
+#: ../youamp/ui/preferences.py:48 ../youamp/ui/preferences.py:67
+msgid "Connected"
+msgstr ""
+
+#: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
+msgid "Wrong login data"
+msgstr ""
+
+#: ../youamp/ui/preferences.py:52 ../youamp/ui/preferences.py:61
+msgid "Disconnected"
+msgstr ""
+
+#. Search Label
+#: ../youamp/ui/searchview.py:45 ../data/interface.xml.h:24
+msgid "Search"
+msgstr "Hae"
+
+#. Browse Button
+#: ../youamp/ui/searchview.py:50 ../data/interface.xml.h:9
+msgid "Browse"
+msgstr "Selaa"
+
+#. Shuffle Button
+#: ../youamp/ui/searchview.py:81
+msgid "shuffle"
+msgstr "Sekoita"
+
+#: ../youamp/ui/window.py:25 ../data/interface.xml.h:15
+msgid "No Track"
+msgstr "Ei raitaa"
+
+#: ../data/interface.xml.h:1
+msgid "<b><big>No Track</big></b>"
+msgstr ""
+
+#: ../data/interface.xml.h:2
+msgid "<b>Fallback Gain (db)</b>"
+msgstr ""
+
+#: ../data/interface.xml.h:3
+msgid "<b>Login</b>"
+msgstr ""
+
+#: ../data/interface.xml.h:4
+msgid "<b>Music Folder</b>"
+msgstr ""
+
+#: ../data/interface.xml.h:5
+msgid "<b>Replaygain Preamp (db)</b>"
+msgstr ""
+
+#: ../data/interface.xml.h:6
+msgid "<b>Status</b>"
+msgstr ""
+
+#: ../data/interface.xml.h:7
+msgid "A lightweight Music Player for the Internet Tablet"
+msgstr ""
+
+#: ../data/interface.xml.h:10
+msgid "Date added"
+msgstr "Lisäyspäivä"
+
+#: ../data/interface.xml.h:11
+msgid "Details"
+msgstr ""
+
+#: ../data/interface.xml.h:12
+msgid "Fullscreen"
+msgstr ""
+
+#: ../data/interface.xml.h:13
+msgid "General"
+msgstr ""
+
+#: ../data/interface.xml.h:14
+msgid "New Playlist"
+msgstr ""
+
+#: ../data/interface.xml.h:16
+msgid "Order"
+msgstr "Järjestä"
+
+#: ../data/interface.xml.h:17
+msgid "Password"
+msgstr ""
+
+#: ../data/interface.xml.h:18
+msgid "Play this next"
+msgstr ""
+
+#: ../data/interface.xml.h:19
+msgid "Playback"
+msgstr ""
+
+#: ../data/interface.xml.h:21
+msgid "Player"
+msgstr ""
+
+#: ../data/interface.xml.h:22
+msgid "Preferences"
+msgstr "Asetukset"
+
+#: ../data/interface.xml.h:23
+msgid "Rename"
+msgstr ""
+
+#: ../data/interface.xml.h:25
+msgid "Select current Song"
+msgstr ""
+
+#: ../data/interface.xml.h:26
+msgid "Username"
+msgstr ""
+
+#: ../data/interface.xml.h:27
+msgid "View"
+msgstr "Näytä"
+
+#: ../data/interface.xml.h:28
+msgid "View this Album"
+msgstr ""
+
+#: ../data/interface.xml.h:29
+msgid "View this Artist"
+msgstr ""
+
+#: ../data/interface.xml.h:30
+msgid "YouAmp Website"
+msgstr ""
+
+#: ../data/interface.xml.h:31
+msgid "last.fm"
+msgstr ""
+
+#: ../data/interface.xml.h:32
+msgid "translator-credits"
+msgstr "Markus Vuorio"
+
+#~ msgid "Updating database"
+#~ msgstr "Päivitetään tietokantaa"

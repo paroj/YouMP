@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=YouAmp
+GenericName=Music Player
+Exec=youamp-player
+Icon=youamp
+StartupNotify=true
+Categories=GNOME;GTK;AudioVideo;Audio;Player;

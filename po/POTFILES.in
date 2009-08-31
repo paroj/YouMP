@@ -1,0 +1,17 @@
+youamp/config.py
+youamp/controller.py
+youamp/__init__.py
+youamp/library.py
+youamp/player.py
+youamp/scrobbler.py
+youamp/ui/browser.py
+youamp/ui/detailswindow.py
+youamp/ui/elements.py
+youamp/ui/__init__.py
+youamp/ui/interface.py
+youamp/ui/playlist.py
+youamp/ui/popupmenu.py
+youamp/ui/preferences.py
+youamp/ui/searchview.py
+youamp/ui/window.py
+[type: gettext/glade]data/interface.ui
