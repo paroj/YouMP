@@ -1,1 +1,6 @@
 .svn
+.project
+.pydevproject
+nbproject
+build
+.buildpath
