@@ -1,3 +1,4 @@
+import os
 import os.path
 import fnmatch
 import gtk
@@ -8,8 +9,6 @@ import gobject
 from gobject import GObject
 
 from xdg.BaseDirectory import xdg_cache_home
-import totem.plparser
-import os
 
 VERSION = "0.6.0"
 
@@ -88,7 +87,7 @@ class Playlist(gtk.ListStore):
 
         self.pos = 0
         self.title = title
-        self.path = "file://"+playlist_dir+"{0}.m3u"
+        self.path = playlist_dir+"{0}.m3u"
 
         # shuffled positions
         self._permutation = None
@@ -155,24 +154,23 @@ class Playlist(gtk.ListStore):
 
     def load(self, library):
         path = self.path.format(self.title)
+        
+        for loc in file(path).read().splitlines():
+            # FIXME only for transition
+            if loc == "#EXTM3U":
+                continue
 
-        p = totem.plparser.Parser()
-
-        def f(p, loc, meta):
             m = library.get_metadata(loc)
-            self.append((Song([loc]+m),))
-
-        p.connect("entry-parsed", f)
-        p.parse(path, False)
-    
+            self.append((Song([loc]+m),))  
+            
     def save(self):
         path = self.path.format(self.title)
-
-        p = totem.plparser.Parser()
-
-        f = lambda m, i: str(m.get(i, 0)[0].uri)
-
-        p.write(self, f, path, totem.plparser.PARSER_M3U)
+        f = file(path, "w")
+    
+        for e in self:
+            f.write(e[0].uri+"\n")
+        
+        f.close()
 
     def get_new_pos(self, i):
         return self._permutation.index(i)

@@ -14,10 +14,6 @@ from youamp.ui import xml_escape
 
 from youamp import VERSION, data_path
 
-def url_hook(caller, link):
-    # FIXME: should call the following, but currently opens url twice
-    pass#gtk.show_uri(gtk.gdk.screen_get_default(), link, int(gobject.get_current_time()))
-
 class UserInterface:
     NOTIFY_STR = "{0} <i>{1}</i>\n{2} <i>{3}</i>"
 
@@ -28,7 +24,6 @@ class UserInterface:
         scrobbler = controller.scrobbler
         
         # Build Interface
-        gtk.about_dialog_set_url_hook(url_hook)
         xml = gtk.Builder()
         xml.set_translation_domain("youamp")
         xml.add_from_file(data_path + "interface.ui")

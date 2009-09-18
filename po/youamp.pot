@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-31 20:48+0200\n"
+"POT-Creation-Date: 2009-09-09 01:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Library"
 msgstr ""
 
-#: ../youamp/__init__.py:199
+#: ../youamp/__init__.py:197
 msgid "None"
 msgstr ""
 
@@ -62,12 +62,12 @@ msgstr ""
 msgid "Details for {0}"
 msgstr ""
 
-#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:134
+#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:129
 #: ../youamp/ui/window.py:60
 msgid "by"
 msgstr ""
 
-#: ../youamp/ui/interface.py:136 ../youamp/ui/window.py:62
+#: ../youamp/ui/interface.py:131 ../youamp/ui/window.py:62
 msgid "from"
 msgstr ""
 
