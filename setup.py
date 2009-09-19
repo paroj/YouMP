@@ -2,8 +2,6 @@
 
 from distutils.core import setup
 from DistUtilsExtra.command import *
-import os
-import glob
 
 setup(
       cmdclass = {"build": build_extra.build_extra,
@@ -17,7 +15,7 @@ setup(
       license = "GNU GPL v3",
       long_description = """\
 YouAmp places the focus on playback features instead of fancy graphics. 
-It features itelligent replaygain selection, OGG playback and last.fm submission support.""",
+It features itelligent replaygain selection and last.fm submission support.""",
       scripts = ["youamp-player"],
       packages = ["youamp", "youamp.ui"],
       data_files = [("share/icons/hicolor/scalable/apps/", ["data/youamp.svg"]),
