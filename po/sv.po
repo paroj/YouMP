@@ -6,45 +6,48 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-23 13:12+0200\n"
-"Last-Translator: Markus Vuorio <markus_vuorio@gmx.net>\n"
+"POT-Creation-Date: 2009-09-09 01:48+0200\n"
+"PO-Revision-Date: 2009-09-08 09:22+0000\n"
+"Last-Translator: Pavel Rojtberg <pavel@rojtberg.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-09-19 11:19+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 "Generated-By: pygettext.py 1.5\n"
 
-#: ../youamp/controller.py:26
+#: ../youamp/controller.py:27
 msgid "Library"
-msgstr ""
+msgstr "Bibliotek"
 
-#: ../youamp/__init__.py:118
+#: ../youamp/__init__.py:197
 msgid "None"
-msgstr ""
+msgstr "Ingen"
 
 #: ../youamp/ui/browser.py:41
 msgid "Albums"
 msgstr "Album"
 
-#: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:148
-#: ../youamp/ui/searchview.py:216
+#: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:151
+#: ../youamp/ui/searchview.py:219
 msgid "All Albums"
 msgstr "Alla album"
 
 #: ../youamp/ui/browser.py:50 ../youamp/ui/detailswindow.py:47
-#: ../youamp/ui/playlist.py:138
 msgid "Artist"
 msgstr "Artist"
 
-#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:144
-#: ../youamp/ui/searchview.py:205
+#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:147
+#: ../youamp/ui/searchview.py:208
 msgid "All Artists"
 msgstr "Alla artister"
 
-#: ../youamp/ui/detailswindow.py:46 ../youamp/ui/playlist.py:137
+#: ../youamp/ui/detailswindow.py:46
 msgid "Title"
 msgstr "Titel"
 
-#: ../youamp/ui/detailswindow.py:48 ../youamp/ui/playlist.py:139
-#: ../data/interface.ui.h:8
+#: ../youamp/ui/detailswindow.py:48 ../data/interface.ui.h:8
 msgid "Album"
 msgstr "Album"
 
@@ -54,28 +57,33 @@ msgstr "Antal spelningar"
 
 #: ../youamp/ui/detailswindow.py:73
 msgid "Location"
-msgstr ""
+msgstr "Plats"
 
 #: ../youamp/ui/detailswindow.py:97
 msgid "Details for {0}"
 msgstr ""
 
-#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:126
+#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:129
 #: ../youamp/ui/window.py:60
 msgid "by"
 msgstr "av"
 
-#: ../youamp/ui/interface.py:128 ../youamp/ui/window.py:62
+#: ../youamp/ui/interface.py:131 ../youamp/ui/window.py:62
 msgid "from"
 msgstr "från"
 
-#: ../youamp/ui/playlist.py:34 ../data/interface.ui.h:14
+#: ../youamp/ui/playlist.py:33 ../data/interface.ui.h:14
 msgid "New Playlist"
-msgstr ""
+msgstr "Ny spellista"
+
+#. Shuffle Button
+#: ../youamp/ui/playlist.py:90 ../youamp/ui/searchview.py:87
+msgid "shuffle"
+msgstr "Blanda"
 
 #: ../youamp/ui/preferences.py:48 ../youamp/ui/preferences.py:67
 msgid "Connected"
-msgstr ""
+msgstr "Ansluten"
 
 #: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
 msgid "Wrong login data"
@@ -83,22 +91,17 @@ msgstr ""
 
 #: ../youamp/ui/preferences.py:52 ../youamp/ui/preferences.py:61
 msgid "Disconnected"
-msgstr ""
+msgstr "Frånkopplad"
 
 #. Search Label
-#: ../youamp/ui/searchview.py:46 ../data/interface.ui.h:24
+#: ../youamp/ui/searchview.py:49 ../data/interface.ui.h:24
 msgid "Search"
 msgstr "Sök"
 
 #. Browse Button
-#: ../youamp/ui/searchview.py:51 ../data/interface.ui.h:9
+#: ../youamp/ui/searchview.py:54 ../data/interface.ui.h:9
 msgid "Browse"
 msgstr "Bläddra"
-
-#. Shuffle Button
-#: ../youamp/ui/searchview.py:83
-msgid "shuffle"
-msgstr "Blanda"
 
 #: ../youamp/ui/window.py:25 ../data/interface.ui.h:15
 msgid "No Track"
@@ -118,7 +121,7 @@ msgstr ""
 
 #: ../data/interface.ui.h:4
 msgid "<b>Music Folder</b>"
-msgstr ""
+msgstr "<b>Musikmapp</b>"
 
 #: ../data/interface.ui.h:5
 msgid "<b>Replaygain Preamp (db)</b>"
@@ -146,7 +149,7 @@ msgstr ""
 
 #: ../data/interface.ui.h:13
 msgid "General"
-msgstr ""
+msgstr "Allmäns"
 
 #: ../data/interface.ui.h:16
 msgid "Order"
@@ -154,7 +157,7 @@ msgstr "Sortera"
 
 #: ../data/interface.ui.h:17
 msgid "Password"
-msgstr ""
+msgstr "Lösenord"
 
 #: ../data/interface.ui.h:18
 msgid "Play this next"
@@ -162,11 +165,11 @@ msgstr ""
 
 #: ../data/interface.ui.h:19
 msgid "Playback"
-msgstr ""
+msgstr "Uppspelning"
 
 #: ../data/interface.ui.h:21
 msgid "Player"
-msgstr ""
+msgstr "Spelare"
 
 #: ../data/interface.ui.h:22
 msgid "Preferences"
@@ -174,7 +177,7 @@ msgstr "Inställningar"
 
 #: ../data/interface.ui.h:23
 msgid "Rename"
-msgstr ""
+msgstr "Byt namn"
 
 #: ../data/interface.ui.h:25
 msgid "Select current Song"
@@ -182,7 +185,7 @@ msgstr ""
 
 #: ../data/interface.ui.h:26
 msgid "Username"
-msgstr ""
+msgstr "Användarnamn"
 
 #: ../data/interface.ui.h:27
 msgid "View"
@@ -202,11 +205,16 @@ msgstr ""
 
 #: ../data/interface.ui.h:31
 msgid "last.fm"
-msgstr ""
+msgstr "last.fm"
 
 #: ../data/interface.ui.h:32
 msgid "translator-credits"
-msgstr "Markus Vuorio"
+msgstr ""
+"Markus Vuorio\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Markus Vuorio https://launchpad.net/~markus-vuorio-gmx\n"
+"  Pavel Rojtberg https://launchpad.net/~rojtberg"
 
 #~ msgid "Updating database"
 #~ msgstr "Uppdaterar databas"
