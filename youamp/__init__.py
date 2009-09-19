@@ -15,7 +15,7 @@ VERSION = "0.6.0"
 IS_MAEMO = False
 
 # device specific settings
-MAX_VOL = 2.0
+MAX_VOL = 1.0
 
 data_path = "data/"
 if not os.path.exists(data_path):
