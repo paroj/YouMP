@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-09 01:48+0200\n"
-"PO-Revision-Date: 2009-09-08 09:22+0000\n"
-"Last-Translator: Pavel Rojtberg <pavel@rojtberg.net>\n"
+"POT-Creation-Date: 2009-09-18 14:49+0200\n"
+"PO-Revision-Date: 2009-09-20 06:22+0000\n"
+"Last-Translator: Christian Widell <Christian_widell@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-09-19 11:19+0000\n"
+"X-Launchpad-Export-Date: 2009-09-20 10:25+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "Generated-By: pygettext.py 1.5\n"
 
@@ -61,7 +61,7 @@ msgstr "Plats"
 
 #: ../youamp/ui/detailswindow.py:97
 msgid "Details for {0}"
-msgstr ""
+msgstr "Detaljer för {0}"
 
 #: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:129
 #: ../youamp/ui/window.py:60
@@ -87,7 +87,7 @@ msgstr "Ansluten"
 
 #: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
 msgid "Wrong login data"
-msgstr ""
+msgstr "Fel inloggningsdata"
 
 #: ../youamp/ui/preferences.py:52 ../youamp/ui/preferences.py:61
 msgid "Disconnected"
@@ -109,15 +109,15 @@ msgstr "Inget spår"
 
 #: ../data/interface.ui.h:1
 msgid "<b><big>No Track</big></b>"
-msgstr ""
+msgstr "<b><big>Inget spår</big></b>"
 
 #: ../data/interface.ui.h:2
 msgid "<b>Fallback Gain (db)</b>"
-msgstr ""
+msgstr "<b>Fallback Gain (db)</b>"
 
 #: ../data/interface.ui.h:3
 msgid "<b>Login</b>"
-msgstr ""
+msgstr "<b>Logga in</b>"
 
 #: ../data/interface.ui.h:4
 msgid "<b>Music Folder</b>"
@@ -125,15 +125,15 @@ msgstr "<b>Musikmapp</b>"
 
 #: ../data/interface.ui.h:5
 msgid "<b>Replaygain Preamp (db)</b>"
-msgstr ""
+msgstr "<b>Replaygain Preamp (db)</b>"
 
 #: ../data/interface.ui.h:6
 msgid "<b>Status</b>"
-msgstr ""
+msgstr "<b>Status</b>"
 
 #: ../data/interface.ui.h:7
 msgid "A lightweight Music Player for the Internet Tablet"
-msgstr ""
+msgstr "En resurssnål musikspelare för Internet Table"
 
 #: ../data/interface.ui.h:10
 msgid "Date added"
@@ -141,15 +141,15 @@ msgstr "Tillagd datum"
 
 #: ../data/interface.ui.h:11
 msgid "Details"
-msgstr ""
+msgstr "Detaljer"
 
 #: ../data/interface.ui.h:12
 msgid "Fullscreen"
-msgstr ""
+msgstr "Helskärm"
 
 #: ../data/interface.ui.h:13
 msgid "General"
-msgstr "Allmäns"
+msgstr "Allmänt"
 
 #: ../data/interface.ui.h:16
 msgid "Order"
@@ -161,7 +161,7 @@ msgstr "Lösenord"
 
 #: ../data/interface.ui.h:18
 msgid "Play this next"
-msgstr ""
+msgstr "Spela detta härnäst"
 
 #: ../data/interface.ui.h:19
 msgid "Playback"
@@ -181,7 +181,7 @@ msgstr "Byt namn"
 
 #: ../data/interface.ui.h:25
 msgid "Select current Song"
-msgstr ""
+msgstr "Välj nuvarande sång"
 
 #: ../data/interface.ui.h:26
 msgid "Username"
@@ -193,15 +193,15 @@ msgstr "Visa"
 
 #: ../data/interface.ui.h:28
 msgid "View this Album"
-msgstr ""
+msgstr "Visa detta album"
 
 #: ../data/interface.ui.h:29
 msgid "View this Artist"
-msgstr ""
+msgstr "Visa denna artist"
 
 #: ../data/interface.ui.h:30
 msgid "YouAmp Website"
-msgstr ""
+msgstr "YouAmps webbsida"
 
 #: ../data/interface.ui.h:31
 msgid "last.fm"
@@ -213,6 +213,11 @@ msgstr ""
 "Markus Vuorio\n"
 "\n"
 "Launchpad Contributions:\n"
+"  Markus Vuorio https://launchpad.net/~markus-vuorio-gmx\n"
+"  Pavel Rojtberg https://launchpad.net/~rojtberg\n"
+"\n"
+"Launchpad Contributions:\n"
+"  Christian Widell https://launchpad.net/~christian.w\n"
 "  Markus Vuorio https://launchpad.net/~markus-vuorio-gmx\n"
 "  Pavel Rojtberg https://launchpad.net/~rojtberg"
 
