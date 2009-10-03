@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: 0.3.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-18 14:49+0200\n"
-"PO-Revision-Date: 2009-09-30 08:18+0000\n"
-"Last-Translator: Pavel Rojtberg <pavel@rojtberg.net>\n"
+"PO-Revision-Date: 2009-10-02 18:37+0000\n"
+"Last-Translator: dpetrov83 <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-01 06:41+0000\n"
+"X-Launchpad-Export-Date: 2009-10-03 06:47+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "Generated-By: pygettext.py 1.5\n"
 
@@ -61,7 +61,7 @@ msgstr "Место"
 
 #: ../youamp/ui/detailswindow.py:97
 msgid "Details for {0}"
-msgstr ""
+msgstr "Детали для {0}"
 
 #: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:129
 #: ../youamp/ui/window.py:60
@@ -87,7 +87,7 @@ msgstr "Соединён"
 
 #: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
 msgid "Wrong login data"
-msgstr ""
+msgstr "Неправильный логин"
 
 #: ../youamp/ui/preferences.py:52 ../youamp/ui/preferences.py:61
 msgid "Disconnected"
@@ -109,7 +109,7 @@ msgstr "Нет дорожек"
 
 #: ../data/interface.ui.h:1
 msgid "<b><big>No Track</big></b>"
-msgstr ""
+msgstr "<b><big>Нет дорожки</big></b>"
 
 #: ../data/interface.ui.h:2
 msgid "<b>Fallback Gain (db)</b>"
@@ -117,7 +117,7 @@ msgstr ""
 
 #: ../data/interface.ui.h:3
 msgid "<b>Login</b>"
-msgstr ""
+msgstr "<b>Псевдоним</b>"
 
 #: ../data/interface.ui.h:4
 msgid "<b>Music Folder</b>"
@@ -133,7 +133,7 @@ msgstr "<b>Статус</b>"
 
 #: ../data/interface.ui.h:7
 msgid "A lightweight Music Player for the Internet Tablet"
-msgstr ""
+msgstr "Легкий музыкальный плейер для ОС Internet Tablet"
 
 #: ../data/interface.ui.h:10
 msgid "Date added"
@@ -169,7 +169,7 @@ msgstr "Воспроизведение"
 
 #: ../data/interface.ui.h:21
 msgid "Player"
-msgstr ""
+msgstr "Плейер"
 
 #: ../data/interface.ui.h:22
 msgid "Preferences"
@@ -181,7 +181,7 @@ msgstr "Переменовать"
 
 #: ../data/interface.ui.h:25
 msgid "Select current Song"
-msgstr ""
+msgstr "Выбор текущей песни"
 
 #: ../data/interface.ui.h:26
 msgid "Username"
@@ -193,15 +193,15 @@ msgstr "Вид"
 
 #: ../data/interface.ui.h:28
 msgid "View this Album"
-msgstr ""
+msgstr "Просмотр альбома"
 
 #: ../data/interface.ui.h:29
 msgid "View this Artist"
-msgstr ""
+msgstr "Просмотр исполнителя"
 
 #: ../data/interface.ui.h:30
 msgid "YouAmp Website"
-msgstr ""
+msgstr "Сайт YouAmp"
 
 #: ../data/interface.ui.h:31
 msgid "last.fm"
@@ -213,7 +213,8 @@ msgstr ""
 "Pavel Rojtberg\n"
 "\n"
 "Launchpad Contributions:\n"
-"  Pavel Rojtberg https://launchpad.net/~rojtberg"
+"  Pavel Rojtberg https://launchpad.net/~rojtberg\n"
+"  dpetrov83 https://launchpad.net/~dpetrov83"
 
 #~ msgid "Updating database"
 #~ msgstr "Обновляется база данных"
