@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: 0.3.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-18 14:49+0200\n"
-"PO-Revision-Date: 2009-10-03 08:26+0000\n"
-"Last-Translator: Pavel Rojtberg <pavel@rojtberg.net>\n"
+"PO-Revision-Date: 2009-10-04 12:46+0000\n"
+"Last-Translator: Georgiy Kulakov <egor.sxe@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-04 06:50+0000\n"
+"X-Launchpad-Export-Date: 2009-10-05 06:45+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "Generated-By: pygettext.py 1.5\n"
 
@@ -57,11 +57,11 @@ msgstr "Воспроизведений"
 
 #: ../youamp/ui/detailswindow.py:73
 msgid "Location"
-msgstr "Место"
+msgstr "Расположение"
 
 #: ../youamp/ui/detailswindow.py:97
 msgid "Details for {0}"
-msgstr "Детали для {0}"
+msgstr "Подробно для {0}"
 
 #: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:129
 #: ../youamp/ui/window.py:60
@@ -74,7 +74,7 @@ msgstr "из"
 
 #: ../youamp/ui/playlist.py:33 ../data/interface.ui.h:14
 msgid "New Playlist"
-msgstr "Новый плейлист"
+msgstr "Создать плейлист"
 
 #. Shuffle Button
 #: ../youamp/ui/playlist.py:90 ../youamp/ui/searchview.py:87
@@ -83,7 +83,7 @@ msgstr "Перемешать"
 
 #: ../youamp/ui/preferences.py:48 ../youamp/ui/preferences.py:67
 msgid "Connected"
-msgstr "Соединён"
+msgstr "Соединено"
 
 #: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
 msgid "Wrong login data"
@@ -101,7 +101,7 @@ msgstr "Поиск"
 #. Browse Button
 #: ../youamp/ui/searchview.py:54 ../data/interface.ui.h:9
 msgid "Browse"
-msgstr "Просмотр"
+msgstr "Обзор…"
 
 #: ../youamp/ui/window.py:25 ../data/interface.ui.h:15
 msgid "No Track"
@@ -117,7 +117,7 @@ msgstr ""
 
 #: ../data/interface.ui.h:3
 msgid "<b>Login</b>"
-msgstr "<b>Псевдоним</b>"
+msgstr "<b>Логин</b>"
 
 #: ../data/interface.ui.h:4
 msgid "<b>Music Folder</b>"
@@ -213,6 +213,7 @@ msgstr ""
 "Pavel Rojtberg\n"
 "\n"
 "Launchpad Contributions:\n"
+"  Georgiy Kulakov https://launchpad.net/~xegorx\n"
 "  Pavel Rojtberg https://launchpad.net/~rojtberg\n"
 "  dpetrov83 https://launchpad.net/~dpetrov83"
 
