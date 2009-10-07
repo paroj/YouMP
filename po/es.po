@@ -1,63 +1,63 @@
-# YouAmp Translation File Dutch translation
-# Copyright (C) 2008 Maarten Jongepier
-# Maarten Jongepier mjongepier@gmail.com, 2008
+# Spanish translation for youamp
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the youamp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.3.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: youamp\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-09-18 14:49+0200\n"
-"PO-Revision-Date: 2009-10-06 07:37+0000\n"
-"Last-Translator: Pavel Rojtberg <pavel@rojtberg.net>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2009-10-06 14:11+0000\n"
+"Last-Translator: José A. Fuentes Santiago <Unknown>\n"
+"Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2009-10-07 06:50+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
-"Generated-By: pygettext.py 1.5\n"
 
 #: ../youamp/controller.py:27
 msgid "Library"
-msgstr "Bibliotheek"
+msgstr ""
 
 #: ../youamp/__init__.py:197
 msgid "None"
-msgstr "Geen"
+msgstr ""
 
 #: ../youamp/ui/browser.py:41
 msgid "Albums"
-msgstr "Albums"
+msgstr "Álbumes"
 
 #: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:151
 #: ../youamp/ui/searchview.py:219
 msgid "All Albums"
-msgstr "Alle Albums"
+msgstr "Todos los Álbumes"
 
 #: ../youamp/ui/browser.py:50 ../youamp/ui/detailswindow.py:47
 msgid "Artist"
-msgstr "Artiest"
+msgstr "Artista"
 
 #: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:147
 #: ../youamp/ui/searchview.py:208
 msgid "All Artists"
-msgstr "Alle Artiesten"
+msgstr "Todos los Artistas"
 
 #: ../youamp/ui/detailswindow.py:46
 msgid "Title"
-msgstr "Titel"
+msgstr "Título"
 
 #: ../youamp/ui/detailswindow.py:48 ../data/interface.ui.h:8
 msgid "Album"
-msgstr "Album"
+msgstr "Álbum"
 
 #: ../youamp/ui/detailswindow.py:49 ../data/interface.ui.h:20
 msgid "Playcount"
-msgstr "Aantal keren gespeeld"
+msgstr ""
 
 #: ../youamp/ui/detailswindow.py:73
 msgid "Location"
-msgstr "Lokatie"
+msgstr ""
 
 #: ../youamp/ui/detailswindow.py:97
 msgid "Details for {0}"
@@ -66,24 +66,24 @@ msgstr ""
 #: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:129
 #: ../youamp/ui/window.py:60
 msgid "by"
-msgstr "door"
+msgstr "por"
 
 #: ../youamp/ui/interface.py:131 ../youamp/ui/window.py:62
 msgid "from"
-msgstr "van"
+msgstr ""
 
 #: ../youamp/ui/playlist.py:33 ../data/interface.ui.h:14
 msgid "New Playlist"
-msgstr "Nieuwe afspeellijst"
+msgstr "Nueva Lista de Reproducción"
 
 #. Shuffle Button
 #: ../youamp/ui/playlist.py:90 ../youamp/ui/searchview.py:87
 msgid "shuffle"
-msgstr "Willekeurig"
+msgstr "aleatorio"
 
 #: ../youamp/ui/preferences.py:48 ../youamp/ui/preferences.py:67
 msgid "Connected"
-msgstr "Verbonden"
+msgstr "Conectado"
 
 #: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
 msgid "Wrong login data"
@@ -91,21 +91,21 @@ msgstr ""
 
 #: ../youamp/ui/preferences.py:52 ../youamp/ui/preferences.py:61
 msgid "Disconnected"
-msgstr "Verbinding verbroken"
+msgstr "Desconectado"
 
 #. Search Label
 #: ../youamp/ui/searchview.py:49 ../data/interface.ui.h:24
 msgid "Search"
-msgstr "Zoeken"
+msgstr "Buscar"
 
 #. Browse Button
 #: ../youamp/ui/searchview.py:54 ../data/interface.ui.h:9
 msgid "Browse"
-msgstr "Bladeren"
+msgstr "Examinar"
 
 #: ../youamp/ui/window.py:25 ../data/interface.ui.h:15
 msgid "No Track"
-msgstr "Geen Titel"
+msgstr ""
 
 #: ../data/interface.ui.h:1
 msgid "<b><big>No Track</big></b>"
@@ -121,7 +121,7 @@ msgstr ""
 
 #: ../data/interface.ui.h:4
 msgid "<b>Music Folder</b>"
-msgstr "<b>Muziekmap</b>"
+msgstr ""
 
 #: ../data/interface.ui.h:5
 msgid "<b>Replaygain Preamp (db)</b>"
@@ -129,7 +129,7 @@ msgstr ""
 
 #: ../data/interface.ui.h:6
 msgid "<b>Status</b>"
-msgstr "<b>Status</b>"
+msgstr "<b>Estado</b>"
 
 #: ../data/interface.ui.h:7
 msgid "A lightweight Music Player for the Internet Tablet"
@@ -137,27 +137,27 @@ msgstr ""
 
 #: ../data/interface.ui.h:10
 msgid "Date added"
-msgstr "Datum toegevoegd"
+msgstr ""
 
 #: ../data/interface.ui.h:11
 msgid "Details"
-msgstr "Bijzonderheden"
+msgstr "Detalles"
 
 #: ../data/interface.ui.h:12
 msgid "Fullscreen"
-msgstr "Volledig scherm"
+msgstr ""
 
 #: ../data/interface.ui.h:13
 msgid "General"
-msgstr "Algemeen"
+msgstr ""
 
 #: ../data/interface.ui.h:16
 msgid "Order"
-msgstr "Sorteren"
+msgstr ""
 
 #: ../data/interface.ui.h:17
 msgid "Password"
-msgstr "Wachtwoord"
+msgstr ""
 
 #: ../data/interface.ui.h:18
 msgid "Play this next"
@@ -165,19 +165,19 @@ msgstr ""
 
 #: ../data/interface.ui.h:19
 msgid "Playback"
-msgstr "Afspelen"
+msgstr ""
 
 #: ../data/interface.ui.h:21
 msgid "Player"
-msgstr "Speler"
+msgstr ""
 
 #: ../data/interface.ui.h:22
 msgid "Preferences"
-msgstr "Voorkeuren"
+msgstr ""
 
 #: ../data/interface.ui.h:23
 msgid "Rename"
-msgstr "Hernoemen"
+msgstr ""
 
 #: ../data/interface.ui.h:25
 msgid "Select current Song"
@@ -185,11 +185,11 @@ msgstr ""
 
 #: ../data/interface.ui.h:26
 msgid "Username"
-msgstr "Gebruikersnaam"
+msgstr ""
 
 #: ../data/interface.ui.h:27
 msgid "View"
-msgstr "Beeld"
+msgstr ""
 
 #: ../data/interface.ui.h:28
 msgid "View this Album"
@@ -205,20 +205,10 @@ msgstr ""
 
 #: ../data/interface.ui.h:31
 msgid "last.fm"
-msgstr "last.fm"
+msgstr ""
 
 #: ../data/interface.ui.h:32
 msgid "translator-credits"
 msgstr ""
-"Maarten Jongepier\n"
-"\n"
 "Launchpad Contributions:\n"
-"  Fly-Man- https://launchpad.net/~flyman\n"
-"  Maarten Jongepier https://launchpad.net/~maxisgek\n"
-"  Pavel Rojtberg https://launchpad.net/~rojtberg"
-
-#~ msgid "Updating database"
-#~ msgstr "Updaten database"
-
-#~ msgid "No Replaygain Amp (db)"
-#~ msgstr "Geen Replaygain Versterking (db)"
+"  José A. Fuentes Santiago https://launchpad.net/~joanfusan"
