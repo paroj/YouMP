@@ -1,0 +1,214 @@
+# Limburgian translation for youamp
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the youamp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: youamp\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-09-18 14:49+0200\n"
+"PO-Revision-Date: 2009-10-26 08:54+0000\n"
+"Last-Translator: Ruud Jacobs <ruudjejacobs@live.nl>\n"
+"Language-Team: Limburgian <li@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-10-27 08:26+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../youamp/controller.py:27
+msgid "Library"
+msgstr "Bieb"
+
+#: ../youamp/__init__.py:197
+msgid "None"
+msgstr "Gên"
+
+#: ../youamp/ui/browser.py:41
+msgid "Albums"
+msgstr "Albums"
+
+#: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:151
+#: ../youamp/ui/searchview.py:219
+msgid "All Albums"
+msgstr "Alle Albums"
+
+#: ../youamp/ui/browser.py:50 ../youamp/ui/detailswindow.py:47
+msgid "Artist"
+msgstr "Arties"
+
+#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:147
+#: ../youamp/ui/searchview.py:208
+msgid "All Artists"
+msgstr "Alle Artiesten"
+
+#: ../youamp/ui/detailswindow.py:46
+msgid "Title"
+msgstr "Titel"
+
+#: ../youamp/ui/detailswindow.py:48 ../data/interface.ui.h:8
+msgid "Album"
+msgstr "Album"
+
+#: ../youamp/ui/detailswindow.py:49 ../data/interface.ui.h:20
+msgid "Playcount"
+msgstr "Aantal kiere gespeuld"
+
+#: ../youamp/ui/detailswindow.py:73
+msgid "Location"
+msgstr "Plaats"
+
+#: ../youamp/ui/detailswindow.py:97
+msgid "Details for {0}"
+msgstr "Details veur"
+
+#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:129
+#: ../youamp/ui/window.py:60
+msgid "by"
+msgstr "door"
+
+#: ../youamp/ui/interface.py:131 ../youamp/ui/window.py:62
+msgid "from"
+msgstr "van"
+
+#: ../youamp/ui/playlist.py:33 ../data/interface.ui.h:14
+msgid "New Playlist"
+msgstr "Nieuwe Aafspeulliest"
+
+#. Shuffle Button
+#: ../youamp/ui/playlist.py:90 ../youamp/ui/searchview.py:87
+msgid "shuffle"
+msgstr "Willekeurig"
+
+#: ../youamp/ui/preferences.py:48 ../youamp/ui/preferences.py:67
+msgid "Connected"
+msgstr "Verbongen"
+
+#: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
+msgid "Wrong login data"
+msgstr "Verkierde login data"
+
+#: ../youamp/ui/preferences.py:52 ../youamp/ui/preferences.py:61
+msgid "Disconnected"
+msgstr "Verbinding Verbroake"
+
+#. Search Label
+#: ../youamp/ui/searchview.py:49 ../data/interface.ui.h:24
+msgid "Search"
+msgstr "Zeuke"
+
+#. Browse Button
+#: ../youamp/ui/searchview.py:54 ../data/interface.ui.h:9
+msgid "Browse"
+msgstr "Blaajere"
+
+#: ../youamp/ui/window.py:25 ../data/interface.ui.h:15
+msgid "No Track"
+msgstr "Gen titel"
+
+#: ../data/interface.ui.h:1
+msgid "<b><big>No Track</big></b>"
+msgstr "<b><big>Gen Nummer</big></b>"
+
+#: ../data/interface.ui.h:2
+msgid "<b>Fallback Gain (db)</b>"
+msgstr ""
+
+#: ../data/interface.ui.h:3
+msgid "<b>Login</b>"
+msgstr "<b>Inloggen</b>"
+
+#: ../data/interface.ui.h:4
+msgid "<b>Music Folder</b>"
+msgstr "<b>Muziekmap</b>"
+
+#: ../data/interface.ui.h:5
+msgid "<b>Replaygain Preamp (db)</b>"
+msgstr ""
+
+#: ../data/interface.ui.h:6
+msgid "<b>Status</b>"
+msgstr "<b>Status</b>"
+
+#: ../data/interface.ui.h:7
+msgid "A lightweight Music Player for the Internet Tablet"
+msgstr "Unne lichtgewig Muziek Speuler veur ut Internet Tablet"
+
+#: ../data/interface.ui.h:10
+msgid "Date added"
+msgstr "Toegevoeg op"
+
+#: ../data/interface.ui.h:11
+msgid "Details"
+msgstr "Details"
+
+#: ../data/interface.ui.h:12
+msgid "Fullscreen"
+msgstr "Groeter scherm"
+
+#: ../data/interface.ui.h:13
+msgid "General"
+msgstr "Algemein"
+
+#: ../data/interface.ui.h:16
+msgid "Order"
+msgstr "Sorteren"
+
+#: ../data/interface.ui.h:17
+msgid "Password"
+msgstr "Wachwaord"
+
+#: ../data/interface.ui.h:18
+msgid "Play this next"
+msgstr "Speul dit volgende kier"
+
+#: ../data/interface.ui.h:19
+msgid "Playback"
+msgstr "Aafspeulen"
+
+#: ../data/interface.ui.h:21
+msgid "Player"
+msgstr "Speuler"
+
+#: ../data/interface.ui.h:22
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: ../data/interface.ui.h:23
+msgid "Rename"
+msgstr "Herneume"
+
+#: ../data/interface.ui.h:25
+msgid "Select current Song"
+msgstr ""
+
+#: ../data/interface.ui.h:26
+msgid "Username"
+msgstr "Gebroekersnaam"
+
+#: ../data/interface.ui.h:27
+msgid "View"
+msgstr "Bekiek"
+
+#: ../data/interface.ui.h:28
+msgid "View this Album"
+msgstr "Bekiek dit album"
+
+#: ../data/interface.ui.h:29
+msgid "View this Artist"
+msgstr "Loat de artiest zeen"
+
+#: ../data/interface.ui.h:30
+msgid "YouAmp Website"
+msgstr "YouAmp Website"
+
+#: ../data/interface.ui.h:31
+msgid "last.fm"
+msgstr "last.fm"
+
+#: ../data/interface.ui.h:32
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Ruud Jacobs https://launchpad.net/~ruudjejacobs-live"
