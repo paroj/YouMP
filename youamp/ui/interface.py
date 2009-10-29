@@ -121,8 +121,8 @@ class UserInterface:
         self.nb.reorder_child(self._view[0].view, 0)
 
     def _change_playlist(self, nb, page, num, player):
-        self._cur_view = nb.get_nth_page(num)
-        player.playlist.set(self._cur_view.playlist)
+        self._cur_view = nb.get_nth_page(num).top
+        player.playlist.set(self._cur_view.view.playlist)
 
     def show_notification(self, song):
         body = self.NOTIFY_STR.format(

@@ -27,6 +27,7 @@ class SearchView(SongList):
         self.view = gtk.VBox()
         self.view.playlist = playlist
         self.view.restore = super(SearchView, self).restore
+        self.view.top = self
 
         SongList.__init__(self, playlist, player, library, song_menu)
 

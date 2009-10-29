@@ -34,12 +34,15 @@ class Player(GObject):
         self._player = gst.element_factory_make("playbin2")
         
         rg_bin = """audioconvert ! rgvolume name="rgvolume" ! rglimiter ! 
-                    audioconvert ! audioresample ! autoaudiosink"""
+                    audioconvert ! audioresample ! autoaudiosink"""#pulsesink name="sink" """
         
         rg_bin = gst.parse_bin_from_description(rg_bin, True)
         
         self._player.set_property("audio-sink", rg_bin)
         self._rgvolume = rg_bin.get_by_name("rgvolume")
+        
+        # self._sink = rg_bin.get_by_name("sink")
+        
         self._apply_rg_settings()
         
         bus = self._player.get_bus()

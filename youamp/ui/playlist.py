@@ -86,6 +86,7 @@ class PlaylistView(SongList):
 
         self.view = gtk.VBox()
         self.view.set_spacing(5)
+        self.view.top = self
         hbox = gtk.HBox()
         hbox.pack_end(gtk.ToggleButton(_("shuffle")), expand=False)
         self.view.pack_start(hbox, expand=False)
