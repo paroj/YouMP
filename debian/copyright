@@ -3,7 +3,7 @@ Mon, 24 Dec 2007 16:09:51 +0100.
 
 It was downloaded from http://www.rojtberg.net
 
-Upstream Author(s): 
+Upstream Author: 
 
     Pavel Rojtberg
 
@@ -28,7 +28,7 @@ License:
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 
 On Debian systems, the complete text of the GNU General
-Public License can be found in `/usr/share/common-licenses/GPL'.
+Public License can be found in `/usr/share/common-licenses/GPL-3'.
 
 The Debian packaging is (C) 2007, Pavel Rojtberg <pavel@rojtberg.net> and
 is licensed under the GPL, see above.

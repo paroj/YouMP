@@ -1,4 +1,4 @@
-youamp (0.6.0-1) jaunty; urgency=low
+youamp (0.6.0~beta1-1) karmic; urgency=low
 
   * allow reordering inside a playlist
   * allow column resizing
