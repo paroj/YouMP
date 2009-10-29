@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-18 14:49+0200\n"
+"POT-Creation-Date: 2009-10-29 15:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,8 +28,8 @@ msgstr ""
 msgid "Albums"
 msgstr ""
 
-#: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:151
-#: ../youamp/ui/searchview.py:219
+#: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:152
+#: ../youamp/ui/searchview.py:220
 msgid "All Albums"
 msgstr ""
 
@@ -37,8 +37,8 @@ msgstr ""
 msgid "Artist"
 msgstr ""
 
-#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:147
-#: ../youamp/ui/searchview.py:208
+#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:148
+#: ../youamp/ui/searchview.py:209
 msgid "All Artists"
 msgstr ""
 
@@ -76,7 +76,7 @@ msgid "New Playlist"
 msgstr ""
 
 #. Shuffle Button
-#: ../youamp/ui/playlist.py:90 ../youamp/ui/searchview.py:87
+#: ../youamp/ui/playlist.py:91 ../youamp/ui/searchview.py:88
 msgid "shuffle"
 msgstr ""
 
@@ -93,12 +93,12 @@ msgid "Disconnected"
 msgstr ""
 
 #. Search Label
-#: ../youamp/ui/searchview.py:49 ../data/interface.ui.h:24
+#: ../youamp/ui/searchview.py:50 ../data/interface.ui.h:24
 msgid "Search"
 msgstr ""
 
 #. Browse Button
-#: ../youamp/ui/searchview.py:54 ../data/interface.ui.h:9
+#: ../youamp/ui/searchview.py:55 ../data/interface.ui.h:9
 msgid "Browse"
 msgstr ""
 
