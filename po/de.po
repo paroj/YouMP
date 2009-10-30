@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-18 14:49+0200\n"
+"POT-Creation-Date: 2009-10-29 15:07+0100\n"
 "PO-Revision-Date: 2009-09-30 08:16+0000\n"
 "Last-Translator: Georg Haas <georg.c.haas@online.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-01 06:41+0000\n"
+"X-Launchpad-Export-Date: 2009-10-30 08:32+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "Generated-By: pygettext.py 1.5\n"
 
@@ -29,8 +29,8 @@ msgstr "Kein"
 msgid "Albums"
 msgstr "Alben"
 
-#: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:151
-#: ../youamp/ui/searchview.py:219
+#: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:152
+#: ../youamp/ui/searchview.py:220
 msgid "All Albums"
 msgstr "Alle Alben"
 
@@ -38,8 +38,8 @@ msgstr "Alle Alben"
 msgid "Artist"
 msgstr "Künstler"
 
-#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:147
-#: ../youamp/ui/searchview.py:208
+#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:148
+#: ../youamp/ui/searchview.py:209
 msgid "All Artists"
 msgstr "Alle Künstler"
 
@@ -77,7 +77,7 @@ msgid "New Playlist"
 msgstr "Neue Playlist"
 
 #. Shuffle Button
-#: ../youamp/ui/playlist.py:90 ../youamp/ui/searchview.py:87
+#: ../youamp/ui/playlist.py:91 ../youamp/ui/searchview.py:88
 msgid "shuffle"
 msgstr "mischen"
 
@@ -94,12 +94,12 @@ msgid "Disconnected"
 msgstr "Nicht Verbunden"
 
 #. Search Label
-#: ../youamp/ui/searchview.py:49 ../data/interface.ui.h:24
+#: ../youamp/ui/searchview.py:50 ../data/interface.ui.h:24
 msgid "Search"
 msgstr "Suche"
 
 #. Browse Button
-#: ../youamp/ui/searchview.py:54 ../data/interface.ui.h:9
+#: ../youamp/ui/searchview.py:55 ../data/interface.ui.h:9
 msgid "Browse"
 msgstr "Blättern"
 
