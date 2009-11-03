@@ -168,6 +168,7 @@ class SearchView(SongList):
         self._model.shuffle(new_shuffle_state)
         
         self._config["pos"] = self._model.get_new_pos(self._config["pos"])
+        self.set_cursor(self._config["pos"])
         
     def _browse_complete(self):        
         self._search_entry.set_text("")
