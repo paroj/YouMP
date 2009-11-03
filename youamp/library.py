@@ -12,7 +12,7 @@ order["date"] = "mtime.MetaDataValue DESC, "+order["album"]
 order["playcount"] = "playcount DESC, "+order["album"]
 
 def save_list(list, *args):
-    # save call from main loop so drop has settled
+    # call save from main loop so it happens after the drop
     gobject.idle_add(list.save)
 
 class Library:

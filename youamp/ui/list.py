@@ -81,7 +81,7 @@ class ListView(gtk.TreeView):
         try:
             path = self.get_path_at_pos(int(ev.x), int(ev.y))[0]
         except TypeError:
-            # path is None => no row below cursor
+            # path is None => no row at cursor position
             return
 
         if ev.button == 3:

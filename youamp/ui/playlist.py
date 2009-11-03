@@ -88,7 +88,12 @@ class PlaylistView(SongList):
         self.view.set_spacing(5)
         self.view.top = self
         hbox = gtk.HBox()
-        hbox.pack_end(gtk.ToggleButton(_("shuffle")), expand=False)
+        
+        shuffle = gtk.ToggleButton(_("shuffle"))
+        shuffle.connect("toggled", self._on_shuffle_toggled)
+        
+        hbox.pack_end(shuffle, expand=False)
+        
         self.view.pack_start(hbox, expand=False)
 
         sw = gtk.ScrolledWindow()
@@ -110,7 +115,13 @@ class PlaylistView(SongList):
         self.label.connect("button-press-event", self.__popup_menu)
         self.connect("key-press-event", self._on_key_press)
         self.view.show_all()
-
+    
+    def _on_shuffle_toggled(self, caller):
+        self._model.shuffle(caller.get_active())
+        
+        self._model.pos = self._model.get_new_pos(self._model.pos)
+        self.set_cursor(self._model.pos)
+    
     def _on_key_press(self, caller, ev):
         key = gtk.gdk.keyval_name(ev.keyval)
 
