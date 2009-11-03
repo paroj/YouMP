@@ -1,3 +1,10 @@
+youamp (0.6.0~beta2-1) karmic; urgency=low
+
+  * allow shuffling playlists
+  * small bugfixes
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Tue, 03 Nov 2009 21:51:05 +0100
+
 youamp (0.6.0~beta1-1) karmic; urgency=low
 
   * allow reordering inside a playlist

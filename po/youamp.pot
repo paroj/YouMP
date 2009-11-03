@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-29 15:07+0100\n"
+"POT-Creation-Date: 2009-11-03 21:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgid "Albums"
 msgstr ""
 
 #: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:152
-#: ../youamp/ui/searchview.py:220
+#: ../youamp/ui/searchview.py:221
 msgid "All Albums"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgid "Artist"
 msgstr ""
 
 #: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:148
-#: ../youamp/ui/searchview.py:209
+#: ../youamp/ui/searchview.py:210
 msgid "All Artists"
 msgstr ""
 
@@ -76,7 +76,7 @@ msgid "New Playlist"
 msgstr ""
 
 #. Shuffle Button
-#: ../youamp/ui/playlist.py:91 ../youamp/ui/searchview.py:88
+#: ../youamp/ui/playlist.py:92 ../youamp/ui/searchview.py:88
 msgid "shuffle"
 msgstr ""
 
