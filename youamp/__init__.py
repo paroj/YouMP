@@ -45,7 +45,10 @@ class PlaylistMux(GObject):
             self.emit("list-switched", self.current)
 
         return self.index(self.jump_to[1])
-
+    
+    def next_song(self, song):
+        return self.current.next_song(song)
+    
     def index(self, v):
         return self.current.index(v)
 
@@ -92,6 +95,14 @@ class Playlist(gtk.ListStore):
         # shuffled positions
         self._permutation = None
 
+    def next_song(self, song):
+        # nothing changed, just give next
+        if self[self.pos] is song:
+            return self.pos + 1
+        
+        # we were just switched to so play the selected song
+        return self.pos
+
     def order_by(self, order):
         l = range(0, len(self))
 
@@ -123,6 +134,9 @@ class Playlist(gtk.ListStore):
             self._permutation = inv_perm
             
         self.reorder(self._permutation)
+        
+        # update current position
+        self.pos = self._permutation.index(self.pos)
 
     def _sort_playcount(self, i1, i2):
         s1 = self[i1]
@@ -172,19 +186,21 @@ class Playlist(gtk.ListStore):
         
         f.close()
 
-    def get_new_pos(self, i):
-        return self._permutation.index(i)
-
     def __getitem__(self, k):
         return gtk.ListStore.__getitem__(self, k)[0]
     
     def __setitem__(self, k, v):
         gtk.ListStore.__getitem__(self, k)[0] = v
     
+    def next(self, v):
+        return self.index(v) + 1
+    
     def index(self, v):
         for i in xrange(len(self)):
             if self[i] is v:
                 return i
+        
+        return None
 
 class Song(dict):
     def __init__(self, data):

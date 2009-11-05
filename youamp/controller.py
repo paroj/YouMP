@@ -112,7 +112,7 @@ class Controller:
     def _on_song_played(self, player, song):
         played = player.get_time()
         
-        # workaround for bugged meamo
+        # workaround for bugged maemo
         if not "duration" in song:
             return
         

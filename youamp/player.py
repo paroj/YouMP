@@ -49,11 +49,10 @@ class Player(GObject):
         bus.add_signal_watch()
 
         # set up signal handlers
-        bus.connect("message::buffering", self._on_buffering)
-        bus.connect("message::tag", self._on_tag)
         bus.connect("message::eos", self.next)
         bus.connect("message::error", self._on_error)
         bus.connect("message::state-changed", self._on_state_changed)
+        bus.connect("message::tag", self._on_tag)
 
         if config["gapless"]:
             self._player.connect("about-to-finish", self._gapless)
@@ -71,17 +70,7 @@ class Player(GObject):
             self.goto_pos(self.playlist.jump_index(), play)
             self.playlist.jump_to = None
         else:
-            same_playlist = False
-            
-            try:
-                same_playlist = self._current is self.playlist[self.playlist.pos]
-            except IndexError:
-                pass
-            
-            if same_playlist:
-                self.goto_pos(self.playlist.pos + 1, play)
-            else:
-                self.goto_pos(self.playlist.pos, play)
+            self.goto_pos(self.playlist.next_song(self._current), play)
 
     def tracks(self):
         return len(self.playlist)
@@ -173,14 +162,7 @@ class Player(GObject):
         
     def __del__(self):
         self._player.set_state(gst.STATE_NULL)
-
-    def _on_tag(self, bus, message):
-        self._update_song(message.parse_tag())
-        self.emit("tags-updated", self._current)
         
-    def mute(self):
-        self._player.set_property("volume", 0.0)
-    
     def _set_volume(self, client, cxn_id, entry, data):
         vol = min(1.0, max(0.0, entry.get_value().get_float()))
 
@@ -198,18 +180,6 @@ class Player(GObject):
             self._emit_seek_id = gobject.timeout_add_seconds(1, self._emit_seek)
         
         self.emit("toggled", self.playing)
-
-    def _on_buffering(self, bus, message):
-        print message.structure["buffer-percent"]
-	
-    def _update_song(self, new_tags):        
-        for key in new_tags.keys():
-            v = new_tags[key]
-
-            if key in ("artist", "album", "title") and isinstance(v, list):
-                v = ", ".join(v) # flatten
-            
-            self._current[key] = v
 
     def has_rg_info(self):
         cur = self._current
@@ -237,3 +207,16 @@ class Player(GObject):
         self.emit("seek-changed", self.get_seek())
         
         return True # if True will be called repeatedly
+    
+    def _on_tag(self, bus, message):
+        self._update_song(message.parse_tag())
+        self.emit("tags-updated", self._current)
+        
+    def _update_song(self, new_tags):        
+        for key in new_tags.keys():
+            v = new_tags[key]
+
+            if key in ("artist", "album", "title"):
+                continue # we get these tags from db, use those for consistency
+            
+            self._current[key] = v

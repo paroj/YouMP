@@ -118,8 +118,6 @@ class PlaylistView(SongList):
     
     def _on_shuffle_toggled(self, caller):
         self._model.shuffle(caller.get_active())
-        
-        self._model.pos = self._model.get_new_pos(self._model.pos)
         self.set_cursor(self._model.pos)
     
     def _on_key_press(self, caller, ev):
