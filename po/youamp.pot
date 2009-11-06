@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-03 22:46+0100\n"
+"POT-Creation-Date: 2009-11-05 23:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Library"
 msgstr ""
 
-#: ../youamp/__init__.py:197
+#: ../youamp/__init__.py:213
 msgid "None"
 msgstr ""
 
@@ -29,7 +29,7 @@ msgid "Albums"
 msgstr ""
 
 #: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:152
-#: ../youamp/ui/searchview.py:221
+#: ../youamp/ui/searchview.py:220
 msgid "All Albums"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgid "Artist"
 msgstr ""
 
 #: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:148
-#: ../youamp/ui/searchview.py:210
+#: ../youamp/ui/searchview.py:209
 msgid "All Artists"
 msgstr ""
 
