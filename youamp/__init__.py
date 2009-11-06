@@ -136,7 +136,11 @@ class Playlist(gtk.ListStore):
         self.reorder(self._permutation)
         
         # update current position
-        self.pos = self._permutation.index(self.pos)
+        try:
+            self.pos = self._permutation.index(self.pos)
+        except ValueError:
+            # new playlist was set shuffled
+            self.pos = 0
 
     def _sort_playcount(self, i1, i2):
         s1 = self[i1]
