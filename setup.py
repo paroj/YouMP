@@ -2,12 +2,13 @@
 
 from distutils.core import setup
 from DistUtilsExtra.command import *
+from youamp import VERSION
 
 setup(
       cmdclass = {"build": build_extra.build_extra,
                   "build_i18n":  build_i18n.build_i18n},
       name = "youamp",
-      version = "0.6.0",
+      version = VERSION,
       description = "a lightweight music player",
       author = "Pavel Rojtberg",
       author_email = "pavel@rojtberg.net",
