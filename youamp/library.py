@@ -25,7 +25,19 @@ class Library:
 
         obj = session_bus.get_object("org.freedesktop.Tracker", "/org/freedesktop/Tracker/Metadata")
         self._meta = dbus.Interface(obj, dbus_interface="org.freedesktop.Tracker.Metadata")
-
+        
+        # get constants
+        query = """
+        SELECT 
+        (SELECT TypeId FROM ServiceTypes WHERE TypeName = "Music"), 
+        (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Title'),
+        (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Artist'),
+        (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Album'),
+        (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:PlayCount'),
+        (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:TrackNo'),
+        (SELECT ID FROM MetaDataTypes WHERE MetaName ='File:Modified') """
+        self.music_service, self.title_id, self.artist_id, self.album_id, self.pc_id, self.trackno_id, self.mtime_id = self._search.SqlQuery(query)[0]
+        
     def get_new_playlist(self):
         l = Playlist()
         l.connect("row-inserted", save_list)
@@ -49,8 +61,8 @@ class Library:
         artist.MetadataDisplay
         FROM Services S
         JOIN ServiceMetadata artist ON S.ID = artist.ServiceID
-        WHERE S.ServiceTypeID = (SELECT TypeId FROM ServiceTypes WHERE TypeName = "Music")
-        AND artist.MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Artist')
+        WHERE S.ServiceTypeID = """+self.music_service+"""
+        AND artist.MetaDataID = """+self.artist_id+"""
         AND S.Path LIKE "{0}%"
         ORDER BY artist.MetaDataValue ASC
         """.format(config["music-folder"])
@@ -70,9 +82,9 @@ class Library:
         FROM Services S
         JOIN ServiceMetadata album ON S.ID = album.ServiceID
         JOIN ServiceMetadata artist ON S.ID = artist.ServiceID
-        WHERE S.ServiceTypeID = (SELECT TypeId FROM ServiceTypes WHERE TypeName = "Music")
-        AND album.MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Album')
-        AND artist.MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Artist')
+        WHERE S.ServiceTypeID = """+self.music_service+"""
+        AND album.MetaDataID = """+self.album_id+"""
+        AND artist.MetaDataID = """+self.artist_id+"""
         AND S.Path LIKE "{0}%"
         {1}
         ORDER BY artist.MetaDataValue ASC, album.MetaDataValue ASC
@@ -90,19 +102,19 @@ class Library:
 
         query = """
         SELECT DISTINCT S.Path || "/" || S.Name,
-        (SELECT MetaDataDisplay FROM ServiceMetaData WHERE S.ID = ServiceID AND MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Title')) AS title,
-        (SELECT MetaDataDisplay FROM ServiceMetaData WHERE S.ID = ServiceID AND MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Artist')) AS artist,
-        (SELECT MetaDataDisplay FROM ServiceMetaData WHERE S.ID = ServiceID AND MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Album')) AS album,
-        (SELECT MetaDataValue FROM ServiceNumericMetaData WHERE S.ID = ServiceID AND MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:PlayCount')) AS playcount,
-        (SELECT MetaDataValue FROM ServiceNumericMetaData WHERE S.ID = ServiceID AND MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:TrackNo')) AS trackno
+        (SELECT MetaDataDisplay FROM ServiceMetaData WHERE S.ID = ServiceID AND MetaDataID = """+self.title_id+""") AS title,
+        (SELECT MetaDataDisplay FROM ServiceMetaData WHERE S.ID = ServiceID AND MetaDataID = """+self.artist_id+""") AS artist,
+        (SELECT MetaDataDisplay FROM ServiceMetaData WHERE S.ID = ServiceID AND MetaDataID = """+self.album_id+""") AS album,
+        (SELECT MetaDataValue FROM ServiceNumericMetaData WHERE S.ID = ServiceID AND MetaDataID = """+self.pc_id+""") AS playcount,
+        (SELECT MetaDataValue FROM ServiceNumericMetaData WHERE S.ID = ServiceID AND MetaDataID = """+self.trackno_id+""") AS trackno
         FROM Services S
         JOIN ServiceNumericMetaData mtime ON S.ID = mtime.ServiceID
         JOIN ServiceMetadata title ON S.ID = title.ServiceID
         JOIN ServiceMetadata artist ON S.ID = artist.ServiceID
-        WHERE S.ServiceTypeID = (SELECT TypeId FROM ServiceTypes WHERE TypeName = "Music")
-        AND mtime.MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='File:Modified')
-        AND title.MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Title')
-        AND artist.MetaDataID = (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Artist')
+        WHERE S.ServiceTypeID = """+self.music_service+"""
+        AND mtime.MetaDataID = """+self.mtime_id+"""
+        AND title.MetaDataID = """+self.title_id+"""
+        AND artist.MetaDataID = """+self.artist_id+"""
         AND S.Path LIKE "{0}%"
         {1}
         ORDER BY {2};
