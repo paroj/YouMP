@@ -232,14 +232,36 @@ class Song(dict):
         return os.path.join(dir, img)
 
     def cover_image(self, size):
+        path = self.cover_uri()
+
+        if path is None:
+            # no image in song directory
+            # try to load from ID3
+            try:
+                id3 = ID3(self.uri)
+                if len(id3.getall('APIC')) > 0:
+                    apic = id3.getall('APIC')[0]
+                    loader = gtk.gdk.PixbufLoader()
+                    loader.set_size(*size)
+                    loader.write(apic.data)
+                    loader.close()
+                    return loader.get_pixbuf()
+            except ID3NoHeaderError:
+                pass
+
+            return None
+        else:
+            # use the image in song directory
+            return gtk.gdk.pixbuf_new_from_file_at_size(path, *size)
+
+    def cover_image_tracker(self, size):
         # use the image in song directory
         path = self.cover_uri()
 
         if path is None:
             # no image in song directory
             # try to look in cache
-            # FIXME tracker fucked up this
-            artist = " "#self["artist"].strip().lower()
+            artist = self["artist"].strip().lower()
             album = self["album"].strip().lower()
             album = hashlib.md5(album).hexdigest()
             artist = hashlib.md5(artist).hexdigest()

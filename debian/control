@@ -8,7 +8,7 @@ Homepage: http://www.rojtberg.net/workspace/youamp/
 
 Package: youamp
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends}, python (>= 2.6), python-gst0.10, python-gtk2, tracker (>= 0.6.93), python-notify, python-dbus, gstreamer0.10-plugins-good, python-gconf, python-xdg
+Depends: ${python:Depends}, ${misc:Depends}, python (>= 2.6), python-gst0.10, python-gtk2, python-notify, python-dbus, gstreamer0.10-plugins-good, python-gconf, python-xdg
 Description: a lightweight music player
  YouAmp places the focus on playback features instead of fancy graphics. 
  It features itelligent replaygain selection, last.fm submission and gapless playback.
