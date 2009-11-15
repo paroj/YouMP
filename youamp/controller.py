@@ -10,7 +10,8 @@ from dbus.mainloop.glib import DBusGMainLoop
 from youamp import VERSION, Playlist, PlaylistMux
 from youamp.ui.interface import UserInterface
 
-from youamp.library import Library
+from youamp.library import Library, check_db
+from youamp.indexer import Indexer
 from youamp.player import Player
 from youamp.config import Config
 import youamp.scrobbler as scrobbler
@@ -19,11 +20,13 @@ NM_STATE_CONNECTED = 3
 
 class Controller:
     def __init__(self):
+        check_db()
         DBusGMainLoop(set_as_default=True)
         self.config = Config("/apps/youamp/")
         check_config(self.config)
         self.player = Player(self.config)
         self.library = Library()
+        indexer = Indexer()
         self.main_list = Playlist(title=_("Library"))
         self.main_list.pos = self.config["pos"]
         self.jump_to = None
@@ -57,10 +60,23 @@ class Controller:
         self.config.notify_add("is-browser", self._set_new_playlist)
         self.player.connect("song-changed", self._now_playing)
         self.player.connect("song-changed", self._update_pos)
+        
+        indexer.connect("update-complete", self._on_index_updated)
+        
+        index_dirs = [os.path.expanduser("~")]
+        
+        if not self.config["music-folder"].startswith(index_dirs[0]):
+            index_dirs += [self.config["music-folder"]]
+        
+        indexer.update(index_dirs)
 
     def _update_pos(self, player, *args):
         if player.playlist is self.main_list:
             self.config["pos"] = self.main_list.pos
+
+    def _on_index_updated(self, caller, was_updated):        
+        if was_updated:
+            gobject.idle_add(self._refresh_playlist)
 
     def _restore(self):
         self._refresh_playlist()

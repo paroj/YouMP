@@ -8,7 +8,7 @@ import gtk.gdk
 import gobject
 from gobject import GObject
 
-from xdg.BaseDirectory import xdg_cache_home
+from xdg.BaseDirectory import xdg_cache_home, xdg_data_home
 
 VERSION = "0.6.0"
 
@@ -23,6 +23,7 @@ if not os.path.exists(data_path):
 
 media_art = xdg_cache_home+"/media-art/"
 playlist_dir = xdg_cache_home+"/youamp/"
+db_file = xdg_data_home+"/youamp/musicdb"
 
 try:
     os.makedirs(playlist_dir)

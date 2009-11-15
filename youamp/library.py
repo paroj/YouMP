@@ -1,14 +1,13 @@
-import fnmatch
 import os
-
-import dbus
+import sqlite3
+import fnmatch
 import gobject
 
-from youamp import Song, Playlist, playlist_dir
+from youamp import Song, Playlist, db_file, playlist_dir
 
 order = dict()
-order["album"] = "album ASC, trackno ASC"
-order["date"] = "mtime.MetaDataValue DESC, "+order["album"]
+order["album"] = "album ASC, tracknumber ASC"
+order["date"] = "date DESC, "+order["album"]
 order["playcount"] = "playcount DESC, "+order["album"]
 
 def save_list(list, *args):
@@ -16,28 +15,15 @@ def save_list(list, *args):
     gobject.idle_add(list.save)
 
 class Library:
-    def __init__(self):
+    def __init__(self):        
         # set up connection
-        session_bus = dbus.SessionBus()
+        self._conn = sqlite3.connect(db_file)
+        self._cursor = self._conn.cursor()
 
-        obj = session_bus.get_object("org.freedesktop.Tracker", "/org/freedesktop/Tracker/Search")
-        self._search = dbus.Interface(obj, dbus_interface="org.freedesktop.Tracker.Search")
+    def __del__(self):
+        self.join()
+        self._conn.close()
 
-        obj = session_bus.get_object("org.freedesktop.Tracker", "/org/freedesktop/Tracker/Metadata")
-        self._meta = dbus.Interface(obj, dbus_interface="org.freedesktop.Tracker.Metadata")
-        
-        # get constants
-        query = """
-        SELECT 
-        (SELECT TypeId FROM ServiceTypes WHERE TypeName = "Music"), 
-        (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Title'),
-        (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Artist'),
-        (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:Album'),
-        (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:PlayCount'),
-        (SELECT ID FROM MetaDataTypes WHERE MetaName ='Audio:TrackNo'),
-        (SELECT ID FROM MetaDataTypes WHERE MetaName ='File:Modified') """
-        self.music_service, self.title_id, self.artist_id, self.album_id, self.pc_id, self.trackno_id, self.mtime_id = self._search.SqlQuery(query)[0]
-        
     def get_new_playlist(self):
         l = Playlist()
         l.connect("row-inserted", save_list)
@@ -56,112 +42,125 @@ class Library:
         return lists
 
     def get_artists(self, config):
-        query = """
-        SELECT DISTINCT
-        artist.MetadataDisplay
-        FROM Services S
-        JOIN ServiceMetadata artist ON S.ID = artist.ServiceID
-        WHERE S.ServiceTypeID = """+self.music_service+"""
-        AND artist.MetaDataID = """+self.artist_id+"""
-        AND S.Path LIKE "{0}%"
-        ORDER BY artist.MetaDataValue ASC
-        """.format(config["music-folder"])
+        artists = self._cursor.execute("""
+        SELECT DISTINCT artist 
+        FROM songs
+        WHERE uri LIKE ?
+        ORDER BY artist ASC""", (unicode(config["music-folder"]+"%"),))
+        
+        return artists
+    
+    def get_metadata(self, path):
+        ret = self._cursor.execute("""
+        SELECT title, artist, album, playcount, tracknumber
+        FROM songs 
+        WHERE uri = ?""", (unicode(path),))
 
-        return self._search.SqlQuery(query)
-
+        return list(ret.next())
+    
     def get_albums(self, config):
         artist = unicode(config["search-artist"])
+        where_clause = ""
+        variables = (unicode(config["music-folder"]+"%"),)
+        
         if artist != "":
-            where_clause = """AND artist.MetadataDisplay = "{0}" """.format(artist)
-        else:
-            where_clause = ""
+            where_clause += "WHERE artist = ?"
+            variables += (artist,)
 
-        query = """
-        SELECT DISTINCT
-        album.MetadataDisplay
-        FROM Services S
-        JOIN ServiceMetadata album ON S.ID = album.ServiceID
-        JOIN ServiceMetadata artist ON S.ID = artist.ServiceID
-        WHERE S.ServiceTypeID = """+self.music_service+"""
-        AND album.MetaDataID = """+self.album_id+"""
-        AND artist.MetaDataID = """+self.artist_id+"""
-        AND S.Path LIKE "{0}%"
-        {1}
-        ORDER BY artist.MetaDataValue ASC, album.MetaDataValue ASC
-        """.format(config["music-folder"], where_clause)
-
-        return self._search.SqlQuery(query)
-
-    def get_metadata(self, path):
-        ret = self._meta.Get("Music", path, ["Audio:Title", "Audio:Artist", "Audio:Album", "Audio:PlayCount", "Audio:TrackNo"])
-
-        return ret
-
+        albums = self._cursor.execute("""
+        SELECT DISTINCT album
+        FROM songs
+        WHERE uri LIKE ?
+        %s
+        ORDER BY artist ASC, album ASC""" % where_clause, variables)
+        
+        return albums
+    
     def get_tracks(self, config):        
-        where_clause= self._build_where_clause(config)
+        where_clause, variables = self._build_where_clause(config)
 
-        query = """
-        SELECT DISTINCT S.Path || "/" || S.Name,
-        (SELECT MetaDataDisplay FROM ServiceMetaData WHERE S.ID = ServiceID AND MetaDataID = """+self.title_id+""") AS title,
-        (SELECT MetaDataDisplay FROM ServiceMetaData WHERE S.ID = ServiceID AND MetaDataID = """+self.artist_id+""") AS artist,
-        (SELECT MetaDataDisplay FROM ServiceMetaData WHERE S.ID = ServiceID AND MetaDataID = """+self.album_id+""") AS album,
-        (SELECT MetaDataValue FROM ServiceNumericMetaData WHERE S.ID = ServiceID AND MetaDataID = """+self.pc_id+""") AS playcount,
-        (SELECT MetaDataValue FROM ServiceNumericMetaData WHERE S.ID = ServiceID AND MetaDataID = """+self.trackno_id+""") AS trackno
-        FROM Services S
-        JOIN ServiceNumericMetaData mtime ON S.ID = mtime.ServiceID
-        JOIN ServiceMetadata title ON S.ID = title.ServiceID
-        JOIN ServiceMetadata artist ON S.ID = artist.ServiceID
-        WHERE S.ServiceTypeID = """+self.music_service+"""
-        AND mtime.MetaDataID = """+self.mtime_id+"""
-        AND title.MetaDataID = """+self.title_id+"""
-        AND artist.MetaDataID = """+self.artist_id+"""
-        AND S.Path LIKE "{0}%"
-        {1}
-        ORDER BY {2};
-        """.format(config["music-folder"], where_clause, order[config["order-by"]])
+        variables = [unicode(v) for v in variables]
 
-        try:
-            return [Song(s) for s in self._search.SqlQuery(query)]
-        except Exception as e:
-            print e
-            return []
+        playlist = self._cursor.execute("""
+        SELECT uri, title, artist, album, playcount, tracknumber
+        FROM songs
+        WHERE
+        uri LIKE ?
+        %s
+        ORDER BY %s""" % (where_clause, order[config["order-by"]]), variables)
+        
+        for s in playlist:
+            yield Song(s)
     
     def _build_where_clause(self, config):
         where_clause = ""
+        variables = (config["music-folder"]+"%",)
         
         if config["is-browser"]:
-            artist = unicode(config["search-artist"])
-            album = unicode(config["search-album"])
+            artist = config["search-artist"]
+            album = config["search-album"]
             
             if (artist != "" or album != ""):
-                where_clause = "AND "
+                where_clause = " AND "
             
             # build query
             if artist != "":
-                where_clause += "artist.MetadataDisplay = '{0}'".format(artist)
+                where_clause += "artist = ?"
+                variables += (artist,)
             
             if artist != "" and album != "":
                 where_clause += " AND "
             
             if album != "":
-                where_clause += "album = '{0}'".format(album)
+                where_clause += "album = ?"
+                variables += (album,) 
         else:
-            name = unicode(config["search-str"])
+            name = config["search-str"]
             
             if name != "":
+                where_clause += "WHERE artist || album || title LIKE ?"
                 name = "%"+"%".join(name.split())+"%"  # insert wildcard on spaces
-
-                where_clause = """
-                AND artist.MetadataDisplay || album || title.MetadataDisplay
-                LIKE "{0}"
-                """.format(name)
+                variables = (name,)
         
-        return where_clause
+        return (where_clause, variables)
 
     def increment_played(self, song_uri):
-        cnt = self._meta.Get("Music", song_uri, ["Audio:PlayCount"])[0]
+        self._cursor.execute("""UPDATE songs SET playcount = playcount + 1 WHERE uri = ?""", (song_uri,))
+        self._conn.commit()
 
-        cnt = int(cnt) if cnt != "" else 0
-            
-        self._meta.Set("Music", song_uri, ["Audio:PlayCount"], [str(cnt+1)])
+def check_db():
+    if not os.path.exists(db_file):
+        setup_db()
+    
+    con = sqlite3.connect(db_file)
+  
+    # the playcount column was introduced in v0.3.5
+    try:
+        con.execute("SELECT playcount FROM songs LIMIT 1")
+    except sqlite3.OperationalError:
+        con.execute("ALTER TABLE songs ADD COLUMN playcount INT")
+    
+    if False:
+        # playlists were introdiceds in v0.6.0
+        try:
+            con.execute("SELECT name FROM playlist LIMIT 1")
+        except sqlite3.OperationalError:
+            con.execute("CREATE TABLE playlist (name TEXT)")
+            con.execute("CREATE TABLE playlist_song (pl_id INT, song_id INT)")
 
+    con.close()
+
+def setup_db():
+    try:
+        os.makedirs(os.path.dirname(db_file))
+    except OSError:
+        # dir already exists
+        pass
+        
+    con = sqlite3.connect(db_file)
+
+    con.execute("CREATE TABLE songs (uri TEXT, title TEXT, artist TEXT, album TEXT, genre TEXT, tracknumber INT, playcount INT, date TEXT)")
+    #con.execute("CREATE TABLE playlist (name TEXT)")
+    #con.execute("CREATE TABLE playlist_song (pl_id INT, song_id INT)")
+
+    con.close()
