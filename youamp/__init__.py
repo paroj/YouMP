@@ -8,6 +8,8 @@ import gtk.gdk
 import gobject
 from gobject import GObject
 
+from mutagen.id3 import ID3, ID3NoHeaderError
+
 from xdg.BaseDirectory import xdg_cache_home, xdg_data_home
 
 VERSION = "0.6.0"
