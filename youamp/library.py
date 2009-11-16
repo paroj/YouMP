@@ -55,8 +55,11 @@ class Library:
         SELECT title, artist, album, playcount, tracknumber
         FROM songs 
         WHERE uri = ?""", (unicode(path),))
-
-        return list(ret.next())
+        
+        try:
+            return list(ret.next())
+        except StopIteration:
+            raise KeyError
     
     def get_albums(self, config):
         artist = unicode(config["search-artist"])

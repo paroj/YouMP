@@ -180,9 +180,12 @@ class Playlist(gtk.ListStore):
             # FIXME only for transition
             if loc == "#EXTM3U":
                 continue
-
-            m = library.get_metadata(loc)
-            self.append((Song([loc]+m),))  
+            
+            try:
+                m = library.get_metadata(loc)
+                self.append((Song([loc]+m),))  
+            except KeyError:
+                pass
             
     def save(self):
         path = self.path.format(self.title)
