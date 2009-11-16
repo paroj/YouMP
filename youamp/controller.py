@@ -27,7 +27,8 @@ class Controller:
         self.player = Player(self.config)
         self.library = Library()
         indexer = Indexer()
-        self.main_list = Playlist(title=_("Library"))
+        self.main_list = Playlist(None)
+        self.main_list.title = _("Library")
         self.main_list.pos = self.config["pos"]
         self.jump_to = None
         self.player.playlist = PlaylistMux(self.main_list)

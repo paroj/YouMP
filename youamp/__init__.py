@@ -24,7 +24,6 @@ if not os.path.exists(data_path):
     data_path = "/usr/share/youamp/"
 
 media_art = xdg_cache_home+"/media-art/"
-playlist_dir = xdg_cache_home+"/youamp/"
 db_file = xdg_data_home+"/youamp/musicdb"
 
 try:
@@ -88,16 +87,31 @@ class PlaylistMux(GObject):
         self.current.update(new_list)
 
 class Playlist(gtk.ListStore):    
-    def __init__(self, title=None):
+    def __init__(self, backend):
         gtk.ListStore.__init__(self, object)
 
         self.pos = 0
-        self.title = title
-        self.path = playlist_dir+"{0}.m3u"
-
+        self.backend = backend
+        self.title = None
+        
+        if backend is not None:
+            self.title = backend.name
+            
+            for s in self.backend.get_songs():
+                self.append((s,))
+            
+            # use idle add to make sure song was added
+            sf = lambda *args: gobject.idle_add(self._sync)
+            
+            self.connect("row-inserted", sf)
+            self.connect("row-deleted", sf)
+        
         # shuffled positions
         self._permutation = None
-
+    
+    def _sync(self):
+        self.backend.update([e[0] for e in self])
+    
     def next_song(self, song):
         # nothing changed, just give next
         if self[self.pos] is song:
@@ -164,37 +178,11 @@ class Playlist(gtk.ListStore):
         return score
 
     def rename(self, new_title):
-        path = (playlist_dir+"{0}.m3u").format(self.title)
-        new_path = (playlist_dir+"{0}.m3u").format(new_title)
-        os.rename(path, new_path)
+        self.backend.rename(new_title)
         self.title = new_title
 
     def delete(self):
-        path = (playlist_dir+"{0}.m3u").format(self.title)
-        os.remove(path)
-
-    def load(self, library):
-        path = self.path.format(self.title)
-        
-        for loc in file(path).read().splitlines():
-            # FIXME only for transition
-            if loc == "#EXTM3U":
-                continue
-            
-            try:
-                m = library.get_metadata(loc)
-                self.append((Song([loc]+m),))  
-            except KeyError:
-                pass
-            
-    def save(self):
-        path = self.path.format(self.title)
-        f = file(path, "w")
-    
-        for e in self:
-            f.write(e[0].uri+"\n")
-        
-        f.close()
+        self.backend.delete()
 
     def __getitem__(self, k):
         return gtk.ListStore.__getitem__(self, k)[0]

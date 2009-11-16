@@ -54,11 +54,9 @@ class PlaylistLabel(gtk.EventBox):
         self.label.set_text(new_title)
 
         if self.just_created:
-            self.playlist.title = new_title
-            self.playlist.save()
             self.just_created = False
-        else:
-            self.playlist.rename(new_title)
+
+        self.playlist.rename(new_title)
 
         self.label.show()
 

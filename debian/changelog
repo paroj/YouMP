@@ -1,3 +1,9 @@
+youamp (0.6.0~beta5-1) karmic; urgency=low
+
+  * fix a crasher
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Tue, 03 Nov 2009 21:51:05 +0100
+
 youamp (0.6.0~beta4-1) karmic; urgency=low
 
   * remove tracker as backend for now, not ready yet

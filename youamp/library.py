@@ -3,16 +3,64 @@ import sqlite3
 import fnmatch
 import gobject
 
-from youamp import Song, Playlist, db_file, playlist_dir
+from youamp import Song, Playlist, db_file
 
 order = dict()
 order["album"] = "album ASC, tracknumber ASC"
 order["date"] = "date DESC, "+order["album"]
 order["playcount"] = "playcount DESC, "+order["album"]
 
-def save_list(list, *args):
-    # call save from main loop so it happens after the drop
-    gobject.idle_add(list.save)
+class PlaylistBackend:
+    def __init__(self, conn, name):
+        self._conn = conn
+        self.name = name
+        
+        if name is None:
+            conn.execute("INSERT INTO playlists VALUES ('')")
+            self._id = conn.execute("SELECT last_insert_rowid()").fetchone()[0]
+        else:
+            self._id = conn.execute("SELECT rowid FROM playlists WHERE name = ?", (name,)).fetchone()[0]
+    
+    def rename(self, new_name):
+        self._conn.execute("""
+        UPDATE playlists 
+        SET name = ? 
+        WHERE rowid = ?""", (new_name, self._id))
+        
+        self._conn.commit()
+      
+    def get_songs(self):
+        res = self._conn.execute("""
+        SELECT uri, title, artist, album, playcount, tracknumber
+        FROM playlist_song
+        JOIN songs ON song_id = songs.rowid
+        WHERE pl_id = ?""", (self._id,))
+        
+        return [Song(e) for e in res]
+    
+    def update(self, songs):
+        self._conn.execute("""
+        DELETE FROM playlist_song
+        WHERE pl_id = ?""", (self._id,))
+        
+        for s in songs:
+            self._conn.execute("""
+            INSERT INTO playlist_song 
+            VALUES 
+            (?, (SELECT rowid FROM songs WHERE uri = ?))""", (self._id, unicode(s.uri)))
+        
+        self._conn.commit()
+    
+    def delete(self):
+        self._conn.execute("""
+        DELETE FROM playlist_song
+        WHERE pl_id = ?""", (self._id,))
+
+        self._conn.execute("""
+        DELETE FROM playlists
+        WHERE rowid = ?""", (self._id,))
+        
+        self._conn.commit()
 
 class Library:
     def __init__(self):        
@@ -21,23 +69,15 @@ class Library:
         self._cursor = self._conn.cursor()
 
     def __del__(self):
-        self.join()
         self._conn.close()
 
     def get_new_playlist(self):
-        l = Playlist()
-        l.connect("row-inserted", save_list)
-        l.connect("row-deleted", save_list)
-        return l
+        return Playlist(PlaylistBackend(self._conn, None))
 
     def get_playlists(self):
-        lists = fnmatch.filter(os.listdir(playlist_dir), "*.m3u")
-        lists = [fn[:fn.rindex(".")] for fn in lists]
-        lists = [Playlist(title=t) for t in lists]
-        [l.load(self) for l in lists]
-
-        [l.connect("row-inserted", save_list) for l in lists]
-        [l.connect("row-deleted", save_list) for l in lists]
+        playlists = self._cursor.execute("SELECT name FROM playlists")
+        
+        lists = [Playlist(PlaylistBackend(self._conn, e[0])) for e in playlists]
 
         return lists
 
@@ -143,13 +183,12 @@ def check_db():
     except sqlite3.OperationalError:
         con.execute("ALTER TABLE songs ADD COLUMN playcount INT")
     
-    if False:
-        # playlists were introdiceds in v0.6.0
-        try:
-            con.execute("SELECT name FROM playlist LIMIT 1")
-        except sqlite3.OperationalError:
-            con.execute("CREATE TABLE playlist (name TEXT)")
-            con.execute("CREATE TABLE playlist_song (pl_id INT, song_id INT)")
+    # playlists were introdiceds in v0.6.0
+    try:
+        con.execute("SELECT name FROM playlists LIMIT 1")
+    except sqlite3.OperationalError:
+        con.execute("CREATE TABLE playlists (name TEXT)")
+        con.execute("CREATE TABLE playlist_song (pl_id INT, song_id INT)")
 
     con.close()
 
@@ -163,7 +202,7 @@ def setup_db():
     con = sqlite3.connect(db_file)
 
     con.execute("CREATE TABLE songs (uri TEXT, title TEXT, artist TEXT, album TEXT, genre TEXT, tracknumber INT, playcount INT, date TEXT)")
-    #con.execute("CREATE TABLE playlist (name TEXT)")
-    #con.execute("CREATE TABLE playlist_song (pl_id INT, song_id INT)")
+    con.execute("CREATE TABLE playlists (name TEXT)")
+    con.execute("CREATE TABLE playlist_song (pl_id INT, song_id INT)")
 
     con.close()
