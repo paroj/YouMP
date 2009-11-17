@@ -69,23 +69,28 @@ class Playlist(gtk.ListStore):
         self.pos = 0
         self.backend = backend
         self.title = None
+        self.nosync = False
         
         if backend is not None:
             self.title = backend.name
             
-            for s in self.backend.get_songs():
-                self.append((s,))
-            
-            # use idle add to make sure song was added
-            sf = lambda *args: gobject.idle_add(self._sync)
-            
-            self.connect("row-inserted", sf)
-            self.connect("row-deleted", sf)
+            for elt in self.backend.get_songs():
+                gtk.ListStore.append(self, (elt,))
+
+            self.connect("row-inserted", self._sync)
+            self.connect("row-deleted", self._sync)
         
         # shuffled positions
         self._permutation = None
     
-    def _sync(self):
+    def _sync(self, model, *args):
+        if model.nosync or self.backend is None:
+            return
+        
+        # use idle add to make sure song was added
+        gobject.idle_add(self._perform_sync)
+        
+    def _perform_sync(self):
         self.backend.update([e[0] for e in self])
     
     def next_song(self, song):
@@ -108,10 +113,8 @@ class Playlist(gtk.ListStore):
 
     def update(self, playlist):
         self.clear()
+        self.append([s for s in playlist])
 
-        for s in playlist:
-            self.append((s,))
-    
     def shuffle(self, shuffle):
         """shuffle/ unshuffle the playlist"""
         if shuffle:
@@ -140,7 +143,7 @@ class Playlist(gtk.ListStore):
         s2 = self[i2]
 
         return -cmp(s1["playcount"], s2["playcount"])
-
+    
     def _sort_album(self, i1, i2):
         s1 = self[i1]
         s2 = self[i2]
@@ -168,6 +171,54 @@ class Playlist(gtk.ListStore):
     
     def next(self, v):
         return self.index(v) + 1
+    
+    def insert_before(self, itr, data):
+        if isinstance(data, list):
+            self.nosync = True
+            
+            for d in data:
+                gtk.ListStore.insert_before(self, itr, (d,))
+                
+            self.nosync = False
+            self._sync(self)
+        else:
+            gtk.ListStore.insert_before(self, itr, data)
+    
+    def insert_after(self, itr, data):
+        if isinstance(data, list):
+            self.nosync = True
+            
+            for d in data:
+                gtk.ListStore.insert_after(self, itr, (d,))
+                
+            self.nosync = False
+            self._sync(self)
+        else:
+            gtk.ListStore.insert_after(self, itr, data)
+    
+    def append(self, elts):
+        if isinstance(elts, list):
+            self.nosync = True
+                        
+            for elt in elts:
+                gtk.ListStore.append(self, (elt,))
+            
+            self.nosync = False
+            self._sync(self)
+        else:
+            gtk.ListStore.append(self, (elts,))
+    
+    def remove(self, paths):
+        if isinstance(paths, list):
+            self.nosync = True
+            
+            for path in paths:
+                gtk.ListStore.remove(self, path)
+                
+            self.nosync = False
+            self._sync(self)
+        else:
+            gtk.ListStore.remove(self, paths)
     
     def index(self, v):
         for i in xrange(len(self)):

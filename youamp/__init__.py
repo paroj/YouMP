@@ -9,6 +9,7 @@ IS_MAEMO = False
 
 # device specific settings
 MAX_VOL = 2.0
+KNOWN_EXTS = ("mp3", "ogg", "oga", "mp4", "m4a", "wma", "wav", "flac")
 
 data_path = "data/"
 if not os.path.exists(data_path):

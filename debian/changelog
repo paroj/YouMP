@@ -1,4 +1,11 @@
-youamp (0.6.0~beta6-1) karmic; urgency=low
+youamp (0.6.0~beta7-2) karmic; urgency=low
+
+  * allow dropping folders to playlist
+  * fix playlist saving
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Tue, 03 Nov 2009 21:51:05 +0100
+
+youamp (0.6.0~beta6-2) karmic; urgency=low
 
   * extract covers in indexer
   * save playlists in database

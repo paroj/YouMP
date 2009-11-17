@@ -125,8 +125,7 @@ class PlaylistView(SongList):
             model, paths = self.get_selection().get_selected_rows()
             paths = [model.get_iter(p) for p in paths]
 
-            for p in paths:
-                model.remove(p)
+            model.remove(paths)
 
     def remove(self):
         self._model.delete()

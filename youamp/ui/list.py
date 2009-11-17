@@ -1,7 +1,9 @@
 import gtk
 import gst
 import pango
+import os.path
 
+from youamp import KNOWN_EXTS
 from youamp.playlist import Song
 
 class ListView(gtk.TreeView):
@@ -59,14 +61,11 @@ class ListView(gtk.TreeView):
             path, pos = drop_info
             itr = model.get_iter(path)
             if pos in (gtk.TREE_VIEW_DROP_BEFORE, gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
-                for uri in uris:
-                    model.insert_before(itr, self.data_from_uri(uri))
+                self._handle_uri_drop(uris, before=itr)
             else:
-                for uri in uris:
-                    itr = model.insert_after(itr, self.data_from_uri(uri))
+                self._handle_uri_drop(uris, after=itr)
         else:
-            for uri in uris:
-                model.append(self.data_from_uri(uri))
+            self._handle_uri_drop(uris)
 
         ctxt.finish(True, info == 0, time)
 
@@ -74,8 +73,7 @@ class ListView(gtk.TreeView):
         model, paths = self.get_selection().get_selected_rows()
         paths = [model.get_iter(p) for p in paths]
 
-        for p in paths:
-            model.remove(p)
+        model.remove(paths)
 
     def _button_press(self, caller, ev):
         try:
@@ -144,11 +142,36 @@ class SongList(ListView):
         self._menu.playlist = self
         self._menu.pos = pos
         self._menu.popup(None, None, None, ev.button, ev.time)
-
-    def data_from_uri(self, uri):
-        loc = gst.uri_get_location(uri)
-        m = self._library.get_metadata(loc)
-        return [Song([loc]+m)]
+    
+    def _handle_uri_drop(self, uris, before=None, after=None):
+        
+        paths = []
+        
+        # FIXME Controller functionality
+        for uri in uris:
+            path = gst.uri_get_location(uri)
+            
+            if os.path.isdir(path):
+                for root, dirs, files in os.walk(path):
+                    for f in files:
+                        if f.lower().endswith(KNOWN_EXTS):
+                            path = os.path.join(root, f)
+                            paths.append(path)
+            else:
+                paths.append(path)
+        
+        songs = [self.song_from_path(p) for p in paths]
+        
+        if before is not None:
+            self._model.insert_before(before, songs)
+        elif after is not None:
+            self._model.insert_after(after, songs)
+        else:
+            self._model.append(songs)
+    
+    def song_from_path(self, path):
+        m = self._library.get_metadata(path)
+        return Song([path]+m)
 
     def uri_from_path(self, path):
         return "file://"+self._model[path].uri

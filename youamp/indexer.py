@@ -11,7 +11,7 @@ import mutagen
 import mutagen.easyid3
 
 from gobject import GObject
-from youamp import db_file, media_art
+from youamp import db_file, media_art, KNOWN_EXTS
 from mutagen.id3 import ID3, ID3NoHeaderError, ID3BadUnsynchData
 
 def sanitize_metadata(path, meta):
@@ -70,9 +70,7 @@ def extract_cover(path, meta):
 
 class Indexer(GObject):
     __gsignals__ = {"update-complete": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (bool,))}
-    
-    KNOWN_EXTS = ("mp3", "ogg", "oga", "mp4", "m4a", "wma", "wav", "flac")
-    
+        
     def __init__(self):
         GObject.__init__(self)
 
@@ -86,7 +84,7 @@ class Indexer(GObject):
         for folder in folders:
             for root, dirs, files in os.walk(folder):
                 for f in files:
-                    if f.lower().endswith(self.KNOWN_EXTS):
+                    if f.lower().endswith(KNOWN_EXTS):
                         path = os.path.join(root, f)
                         filelist.append(path)
 
