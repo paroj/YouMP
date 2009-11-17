@@ -187,4 +187,6 @@ class SongList(ListView):
         self._player.goto_pos(path[0])
 
     def _data_func(self, col, cell, model, itr, key):
-        cell.set_property("text", model[itr][key])
+        v = model[itr][key]
+        v = v if v != "" else _("None")
+        cell.set_property("text", v)

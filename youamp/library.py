@@ -168,7 +168,7 @@ class Library:
         return (where_clause, variables)
 
     def increment_played(self, song_uri):
-        self._cursor.execute("""UPDATE songs SET playcount = playcount + 1 WHERE uri = ?""", (song_uri,))
+        self._cursor.execute("""UPDATE songs SET playcount = playcount + 1 WHERE uri = ?""", (unicode(song_uri),))
         self._conn.commit()
 
 def check_db():
