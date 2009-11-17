@@ -115,6 +115,7 @@ class Playlist(gtk.ListStore):
             l.sort(self._sort_playcount)
 
         self.reorder(l)
+        self._sync(self)
 
     def update(self, playlist):
         self.clear()

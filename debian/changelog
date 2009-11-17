@@ -1,7 +1,10 @@
-youamp (0.6.0~beta7-2) karmic; urgency=low
+youamp (0.6.0~beta7-1) karmic; urgency=low
 
   * allow dropping folders to playlist
   * fix playlist saving
+  * local reordering for playlists
+  * highlight select all options
+  * fix order by tracknumber
 
  -- Pavel Rojtberg <pavel@rojtberg.net>  Tue, 03 Nov 2009 21:51:05 +0100
 
