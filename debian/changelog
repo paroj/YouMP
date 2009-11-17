@@ -1,3 +1,10 @@
+youamp (0.6.0~beta6-1) karmic; urgency=low
+
+  * extract covers in indexer
+  * save playlists in database
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Tue, 03 Nov 2009 21:51:05 +0100
+
 youamp (0.6.0~beta5-1) karmic; urgency=low
 
   * fix a crasher

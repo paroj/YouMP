@@ -1,3 +1,4 @@
+import os
 import os.path
 
 from xdg.BaseDirectory import xdg_cache_home, xdg_data_home
@@ -17,7 +18,7 @@ media_art = xdg_cache_home+"/media-art/"
 db_file = xdg_data_home+"/youamp/musicdb"
 
 try:
-    pass#os.makedirs(playlist_dir)
+    os.makedirs(media_art)
 except OSError:
     # dir already exists
     pass

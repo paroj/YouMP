@@ -5,6 +5,7 @@ import os
 import sys
 import thread
 import gtk.gdk
+import hashlib
 
 import mutagen
 import mutagen.easyid3
@@ -12,7 +13,6 @@ import mutagen.easyid3
 from gobject import GObject
 from youamp import db_file, media_art
 from mutagen.id3 import ID3, ID3NoHeaderError, ID3BadUnsynchData
-import hashlib
 
 def sanitize_metadata(path, meta):
     # no visible tags -> set title = filename
