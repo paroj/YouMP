@@ -124,12 +124,11 @@ class Library:
         where_clause, variables = self._build_where_clause(config)
 
         variables = [unicode(v) for v in variables]
-
+                        
         playlist = self._cursor.execute("""
         SELECT uri, title, artist, album, playcount, tracknumber
         FROM songs
-        WHERE
-        uri LIKE ?
+        WHERE uri LIKE ?
         %s
         ORDER BY %s""" % (where_clause, order[config["order-by"]]), variables)
         
@@ -162,9 +161,9 @@ class Library:
             name = config["search-str"]
             
             if name != "":
-                where_clause += "WHERE artist || album || title LIKE ?"
+                where_clause += "AND artist || album || title LIKE ?"
                 name = "%"+"%".join(name.split())+"%"  # insert wildcard on spaces
-                variables = (name,)
+                variables += (name,)
         
         return (where_clause, variables)
 
