@@ -33,14 +33,14 @@ class PlaylistMux(gobject.GObject):
     def order_by(self, k):
         self.current.order_by(k)
     
-    @property
-    def pos(self):
+    def getpos(self):
         return self.current.pos
 
-    @pos.setter
-    def pos(self, val):
+    def setpos(self, val):
         self.current.pos = val
-
+    
+    pos = property(getpos, setpos)
+    
     def __eq__(self, other):
         return self.current is other
 
