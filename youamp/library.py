@@ -11,6 +11,8 @@ order["album"] = "album ASC, tracknumber ASC"
 order["date"] = "date DESC, "+order["album"]
 order["playcount"] = "playcount DESC, "+order["album"]
 
+SONG_FIELDS = "uri, title, artist, album, playcount, tracknumber, date"
+
 class PlaylistBackend:
     def __init__(self, conn, name):
         self._conn = conn
@@ -32,7 +34,7 @@ class PlaylistBackend:
       
     def get_songs(self):
         res = self._conn.execute("""
-        SELECT uri, title, artist, album, playcount, tracknumber
+        SELECT """+SONG_FIELDS+"""
         FROM playlist_song
         JOIN songs ON song_id = songs.rowid
         WHERE pl_id = ?""", (self._id,))
@@ -93,7 +95,7 @@ class Library:
     
     def get_metadata(self, path):
         ret = self._cursor.execute("""
-        SELECT title, artist, album, playcount, tracknumber
+        SELECT """+SONG_FIELDS+"""
         FROM songs 
         WHERE uri = ?""", (unicode(path),))
         
@@ -126,7 +128,7 @@ class Library:
         variables = [unicode(v) for v in variables]
                         
         playlist = self._cursor.execute("""
-        SELECT uri, title, artist, album, playcount, tracknumber
+        SELECT """+SONG_FIELDS+"""
         FROM songs
         WHERE uri LIKE ?
         %s

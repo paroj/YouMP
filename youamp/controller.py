@@ -104,15 +104,10 @@ class Controller:
         action[key]()
     
     def set_list_order(self, order):
-        if order in ("album", "playcount"):
-            self.main_list.order_by(order)
-            return
-
+        self.main_list.order_by(order)
         self.config["order-by"] = order
         self.config["shuffle"] = False
         self.config["pos"] = 0
-        
-        self._refresh_playlist()
     
     def _set_new_playlist(self, *args):        
         self._refresh_playlist()

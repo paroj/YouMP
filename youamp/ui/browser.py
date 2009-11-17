@@ -21,7 +21,8 @@ class Browser(gtk.TreeView):
         self.selected = NOTHING_SELECTED
         self._pos = {NOTHING_SELECTED: None, ARTIST_SELECTED: None}
         
-        self._col = gtk.TreeViewColumn(None, renderer, text=0)
+        self._col = gtk.TreeViewColumn(None, renderer)
+        self._col.set_cell_data_func(renderer, self._data_func)
         self._col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         self.append_column(self._col)
         self.connect("row-activated", self._on_row_activated)
@@ -29,6 +30,16 @@ class Browser(gtk.TreeView):
         self._library = library
 
         self.show_all()
+
+    def _data_func(self, col, renderer, model, itr):
+        v = model[itr][0]
+        v = v if v != "" else _("None")
+        
+        i = model.get_path(itr)[0]
+        
+        renderer.set_property("weight", pango.WEIGHT_BOLD if i == 0 else pango.WEIGHT_NORMAL)
+        
+        renderer.set_property("text", v)
 
     def _restore_pos(self):
         if self._pos[self.selected] is not None:

@@ -29,7 +29,10 @@ class PlaylistMux(gobject.GObject):
     
     def index(self, v):
         return self.current.index(v)
-
+    
+    def order_by(self, k):
+        self.current.order_by(k)
+    
     @property
     def pos(self):
         return self.current.pos
@@ -106,6 +109,8 @@ class Playlist(gtk.ListStore):
 
         if order == "album":
             l.sort(self._sort_album)
+        elif order == "date":
+            l.sort(self._sort_date)
         else:
             l.sort(self._sort_playcount)
 
@@ -142,8 +147,13 @@ class Playlist(gtk.ListStore):
         s1 = self[i1]
         s2 = self[i2]
 
-        return -cmp(s1["playcount"], s2["playcount"])
-    
+        score = -cmp(s1["playcount"], s2["playcount"])
+
+        if score == 0:
+            score = self._sort_album(i1, i2)
+        
+        return score
+  
     def _sort_album(self, i1, i2):
         s1 = self[i1]
         s2 = self[i2]
@@ -155,7 +165,18 @@ class Playlist(gtk.ListStore):
             score = cmp(s1["trackno"], s2["trackno"])
 
         return score
-
+    
+    def _sort_date(self, i1, i2):
+        s1 = self[i1]
+        s2 = self[i2]
+        
+        score = -cmp(s1["mtime"], s2["mtime"])
+        
+        if score == 0:
+            score = self._sort_album(i1, i2)
+        
+        return score
+    
     def rename(self, new_title):
         self.backend.rename(new_title)
         self.title = new_title
@@ -238,6 +259,7 @@ class Song(dict):
             self["album"] = data[3]
             self["playcount"] = int(data[4]) if data[4] != "" else 0
             self["trackno"] = int(data[5]) if data[5] != "" else 0
+            self["mtime"] = data[6]
         else:
             self.uri = data
     

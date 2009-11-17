@@ -149,8 +149,8 @@ class Indexer(GObject):
             for k, v in song.iteritems():
                 song[k] = unicode(v)
 
-            # store metadata in database (uri, title, artist, album, genre, tracknumber, date)
-            con.execute("INSERT INTO songs VALUES (?, ?, ?, ?, ?, '', 0, datetime(?, 'unixepoch'))", \
+            # store metadata in database (uri, title, artist, album, genre, tracknumber, playcount, date)
+            con.execute("INSERT INTO songs VALUES (?, ?, ?, ?, '', ?, 0, datetime(?, 'unixepoch'))", \
                 (unicode(path), song["title"], song["artist"], song["album"], song["tracknumber"], mtime))
 
             print "Added: %s" % path

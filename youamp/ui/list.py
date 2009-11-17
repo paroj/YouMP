@@ -143,8 +143,7 @@ class SongList(ListView):
         self._menu.pos = pos
         self._menu.popup(None, None, None, ev.button, ev.time)
     
-    def _handle_uri_drop(self, uris, before=None, after=None):
-        
+    def _handle_uri_drop(self, uris, before=None, after=None):     
         paths = []
         
         # FIXME Controller functionality
@@ -170,8 +169,7 @@ class SongList(ListView):
             self._model.append(songs)
     
     def song_from_path(self, path):
-        m = self._library.get_metadata(path)
-        return Song([path]+m)
+        return Song(self._library.get_metadata(path))
 
     def uri_from_path(self, path):
         return "file://"+self._model[path].uri

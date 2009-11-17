@@ -43,9 +43,9 @@ class DetailsWindow(gtk.Window):
         self.set_default_size(600, -1)
     
         self._data = None
-        self._transl = (("title", _("Title")), 
-                        ("artist", _("Artist")), 
-                        ("album", _("Album")), 
+        self._transl = (("title", _("Title")),
+                        ("artist", _("Artist")),
+                        ("album", _("Album")),
                         ("playcount", _("Playcount")))
         
         ebox = gtk.EventBox()
