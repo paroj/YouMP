@@ -2,7 +2,7 @@ import gtk
 import gst
 import pango
 
-from youamp import Song
+from youamp.playlist import Song
 
 class ListView(gtk.TreeView):
     SOURCE = [("text/x-youamp-reorder", gtk.TARGET_SAME_WIDGET, 0),

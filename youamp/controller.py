@@ -7,9 +7,10 @@ import dbus
 import os.path
 from dbus.mainloop.glib import DBusGMainLoop
 
-from youamp import VERSION, Playlist, PlaylistMux
+from youamp import VERSION
 from youamp.ui.interface import UserInterface
 
+from youamp.playlist import Playlist, PlaylistMux
 from youamp.library import Library, check_db
 from youamp.indexer import Indexer
 from youamp.player import Player

@@ -4,13 +4,15 @@ import gobject
 import os
 import sys
 import thread
+import gtk.gdk
 
 import mutagen
 import mutagen.easyid3
 
 from gobject import GObject
-from youamp import db_file
-from mutagen.id3 import ID3NoHeaderError, ID3BadUnsynchData
+from youamp import db_file, media_art
+from mutagen.id3 import ID3, ID3NoHeaderError, ID3BadUnsynchData
+import hashlib
 
 def sanitize_metadata(path, meta):
     # no visible tags -> set title = filename
@@ -44,6 +46,27 @@ def sanitize_metadata(path, meta):
         meta[k] = meta[k].strip() if k in meta else ""
     
     return meta
+
+def media_art_identifier(meta):
+    artist = meta["artist"].lower()
+    album = meta["album"].lower()
+    album = hashlib.md5(album).hexdigest()
+    artist = hashlib.md5(artist).hexdigest()
+    
+    return media_art+"album-%s-%s.jpeg" % (artist, album)
+        
+def extract_cover(path, meta):
+    try:
+        id3 = ID3(path)
+        if len(id3.getall('APIC')) > 0:
+            apic = id3.getall('APIC')[0]
+            loader = gtk.gdk.PixbufLoader()
+            loader.write(apic.data)
+            loader.close()
+            pb = loader.get_pixbuf()
+            pb.save(media_art_identifier(meta), "jpeg")
+    except:
+        pass
 
 class Indexer(GObject):
     __gsignals__ = {"update-complete": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (bool,))}
@@ -118,10 +141,10 @@ class Indexer(GObject):
                     continue
                 
                 song[k] = v
-
             
             song = sanitize_metadata(path, song)
-            
+            extract_cover(path, song)
+
             mtime = os.path.getmtime(path)
 
             # sqlite wants only unicode strings

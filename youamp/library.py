@@ -3,7 +3,8 @@ import sqlite3
 import fnmatch
 import gobject
 
-from youamp import Song, Playlist, db_file
+from youamp import db_file
+from youamp.playlist import Song, Playlist
 
 order = dict()
 order["album"] = "album ASC, tracknumber ASC"
