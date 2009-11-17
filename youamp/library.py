@@ -108,7 +108,7 @@ class Library:
         variables = (unicode(config["music-folder"]+"%"),)
         
         if artist != "":
-            where_clause += "WHERE artist = ?"
+            where_clause += " AND artist = ?"
             variables += (artist,)
 
         albums = self._cursor.execute("""
