@@ -408,7 +408,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
             </child>
             <child>
               <object class="GtkMenuItem" id="menuitem3">
-                <property name="visible">True</property>
                 <property name="label" translatable="yes">Order</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">

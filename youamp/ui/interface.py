@@ -27,6 +27,7 @@ class UserInterface:
         xml = gtk.Builder()
         xml.set_translation_domain("youamp")
         xml.add_from_file(data_path + "interface.ui")
+        print data_path
 
         # Create Views
         smenu = SongMenu(config, player, xml)

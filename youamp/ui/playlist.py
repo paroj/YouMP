@@ -79,6 +79,8 @@ class PlaylistMenu:
         self._w.popup(*args)
 
 class PlaylistView(SongList):
+    ORDER_MAPPING = ("album", "playcount", "date")
+    
     def __init__(self, playlist, player, library, song_menu, pl_menu):
         SongList.__init__(self, playlist, player, library, song_menu)
 
@@ -86,11 +88,20 @@ class PlaylistView(SongList):
         self.view.set_spacing(5)
         self.view.top = self
         hbox = gtk.HBox()
+        hbox.set_spacing(5)
         
-        shuffle = gtk.ToggleButton(_("shuffle"))
-        shuffle.connect("toggled", self._on_shuffle_toggled)
+        order = gtk.combo_box_new_text()
+        order.append_text(_("album"))
+        order.append_text(_("playcount"))
+        order.append_text(_("date added"))
+        order.append_text(_("shuffle"))
+        # disable change by scrolling -> too expensive
+        order.connect("scroll-event", lambda *args: True)
+        order.set_active(0)
+        order.connect("changed", self._on_order_changed)
         
-        hbox.pack_end(shuffle, expand=False)
+        hbox.pack_end(order, expand=False)
+        hbox.pack_end(gtk.Label(_("Order:")), expand=False)
         
         self.view.pack_start(hbox, expand=False)
 
@@ -103,7 +114,6 @@ class PlaylistView(SongList):
         self.view.playlist = playlist
         self.view.restore = self.restore
 
-
         self.label = PlaylistLabel(playlist)
         self.label.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.SINK[2:3], gtk.gdk.ACTION_COPY)
         self.label.connect("drag-data-received", self._recieve_drag_data)
@@ -114,9 +124,12 @@ class PlaylistView(SongList):
         self.connect("key-press-event", self._on_key_press)
         self.view.show_all()
     
-    def _on_shuffle_toggled(self, caller):
-        self._model.shuffle(caller.get_active())
-        self.set_cursor(self._model.pos)
+    def _on_order_changed(self, caller):        
+        o = caller.get_active()
+        if o < 3:
+            self._model.order_by(self.ORDER_MAPPING[o])
+        else:
+            self._model.shuffle(True)
     
     def _on_key_press(self, caller, ev):
         key = gtk.gdk.keyval_name(ev.keyval)

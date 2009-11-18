@@ -1,3 +1,9 @@
+youamp (0.6.0~beta8-1) karmic; urgency=low
+
+  * rework UI
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Tue, 03 Nov 2009 21:51:05 +0100
+
 youamp (0.6.0~beta7-1) karmic; urgency=low
 
   * allow dropping folders to playlist

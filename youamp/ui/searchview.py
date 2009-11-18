@@ -22,6 +22,7 @@ class BrowseButton(gtk.Button):
 
 class SearchView(SongList):
     SINK = SongList.SINK[0:1] # dont allow adding to library
+    ORDER_MAPPING = ("album", "playcount", "date")
 
     def __init__(self, playlist, player, library, config, song_menu, xml):
         self.view = gtk.VBox()
@@ -84,13 +85,22 @@ class SearchView(SongList):
         self._search_entry.set_text(self._config["search-str"])
         navi.pack_start(self._search_entry, expand=True)
         
-        # Shuffle Button
-        shuffle = gtk.ToggleButton(_("shuffle"))
-        shuffle.set_active(self._config["shuffle"])
-        self._shndl = shuffle.connect("toggled", self._on_shuffle_toggled)
-        self._shuffle = shuffle
+        # Order Combo
+        order = gtk.combo_box_new_text()
+        order.append_text(_("album"))
+        order.append_text(_("playcount"))
+        order.append_text(_("date added"))
+        order.append_text(_("shuffle"))
+        # disable change by scrolling -> too expensive
+        order.connect("scroll-event", lambda *args: True)
+        order.set_active(0)
+        order.connect("changed", self._on_order_changed)
         
-        navi.pack_end(shuffle, expand=False)
+        navi.pack_end(order, expand=False)
+        navi.pack_end(gtk.Label(_("Order:")), expand=False)
+        
+        #self._shndl = shuffle.connect("toggled", self._on_shuffle_toggled)
+        #self._shuffle = shuffle
         
         # Scrolled View
         self._scroll = gtk.ScrolledWindow()
@@ -110,6 +120,13 @@ class SearchView(SongList):
         
         self._config.notify_add("is-browser", self._on_view_changed)
         self._config.notify_add("shuffle", self._update_shuffle_btn)
+
+    def _on_order_changed(self, caller):        
+        o = caller.get_active()
+        if o < 3:
+            self._model.order_by(self.ORDER_MAPPING[o])
+        else:
+            self._model.shuffle(True)
 
     def _view_menu_pop(self, button, m):
         a = button.get_allocation()
