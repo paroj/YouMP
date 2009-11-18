@@ -12,7 +12,7 @@ class PlaylistLabel(gtk.EventBox):
         hbox = gtk.HBox()
         self.add(hbox)
         hbox.set_spacing(2)
-        hbox.pack_start(gtk.image_new_from_icon_name(icon, gtk.ICON_SIZE_MENU))
+        #hbox.pack_start(gtk.image_new_from_icon_name(icon, gtk.ICON_SIZE_MENU))
 
         self.entry = gtk.Entry()
         self.entry.set_has_frame(False)
@@ -89,6 +89,7 @@ class PlaylistView(SongList):
         self.view.top = self
         hbox = gtk.HBox()
         hbox.set_spacing(5)
+        hbox.set_border_width(5)
         
         order = gtk.combo_box_new_text()
         order.append_text(_("album"))

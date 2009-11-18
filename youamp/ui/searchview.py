@@ -42,6 +42,7 @@ class SearchView(SongList):
 
         navi = gtk.HBox()
         navi.set_spacing(5)
+        navi.set_border_width(5)
         self.view.pack_start(navi, expand=False)
 
         hbox = gtk.HBox()
