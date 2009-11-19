@@ -35,7 +35,7 @@ class UserInterface:
         self._view = [SearchView(controller.main_list, player, library, config, smenu, xml)]
         self._cur_view = self._view[0]
 
-        lists = [PlaylistView(l, player, library, smenu, plmenu) for l in library.get_playlists()]
+        lists = [PlaylistView(l, player, controller, smenu, plmenu) for l in library.get_playlists()]
         self._view += lists
         
         # Windows

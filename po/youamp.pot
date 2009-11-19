@@ -1,0 +1,226 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-11-18 13:28+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../youamp/controller.py:32
+msgid "Library"
+msgstr ""
+
+#: ../youamp/ui/browser.py:36
+msgid "None"
+msgstr ""
+
+#: ../youamp/ui/browser.py:52
+msgid "Albums"
+msgstr ""
+
+#: ../youamp/ui/browser.py:56 ../youamp/ui/searchview.py:170
+#: ../youamp/ui/searchview.py:238
+msgid "All Albums"
+msgstr ""
+
+#: ../youamp/ui/browser.py:61 ../youamp/ui/detailswindow.py:47
+msgid "Artist"
+msgstr ""
+
+#: ../youamp/ui/browser.py:65 ../youamp/ui/searchview.py:166
+#: ../youamp/ui/searchview.py:227
+msgid "All Artists"
+msgstr ""
+
+#: ../youamp/ui/detailswindow.py:46
+msgid "Title"
+msgstr ""
+
+#: ../youamp/ui/detailswindow.py:48 ../data/interface.ui.h:8
+msgid "Album"
+msgstr ""
+
+#: ../youamp/ui/detailswindow.py:49 ../data/interface.ui.h:20
+msgid "Playcount"
+msgstr ""
+
+#: ../youamp/ui/detailswindow.py:73
+msgid "Location"
+msgstr ""
+
+#: ../youamp/ui/detailswindow.py:97
+msgid "Details for {0}"
+msgstr ""
+
+#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:129
+#: ../youamp/ui/window.py:60
+msgid "by"
+msgstr ""
+
+#: ../youamp/ui/interface.py:131 ../youamp/ui/window.py:62
+msgid "from"
+msgstr ""
+
+#: ../youamp/ui/playlist.py:33 ../data/interface.ui.h:14
+msgid "New Playlist"
+msgstr ""
+
+#: ../youamp/ui/playlist.py:95 ../youamp/ui/searchview.py:91
+msgid "album"
+msgstr ""
+
+#: ../youamp/ui/playlist.py:96 ../youamp/ui/searchview.py:92
+msgid "playcount"
+msgstr ""
+
+#: ../youamp/ui/playlist.py:97 ../youamp/ui/searchview.py:93
+msgid "date added"
+msgstr ""
+
+#: ../youamp/ui/playlist.py:98 ../youamp/ui/searchview.py:94
+msgid "shuffle"
+msgstr ""
+
+#: ../youamp/ui/playlist.py:105 ../youamp/ui/searchview.py:101
+msgid "Order:"
+msgstr ""
+
+#: ../youamp/ui/preferences.py:48 ../youamp/ui/preferences.py:67
+msgid "Connected"
+msgstr ""
+
+#: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
+msgid "Wrong login data"
+msgstr ""
+
+#: ../youamp/ui/preferences.py:52 ../youamp/ui/preferences.py:61
+msgid "Disconnected"
+msgstr ""
+
+#. Search Label
+#: ../youamp/ui/searchview.py:52 ../data/interface.ui.h:24
+msgid "Search"
+msgstr ""
+
+#. Browse Button
+#: ../youamp/ui/searchview.py:57 ../data/interface.ui.h:9
+msgid "Browse"
+msgstr ""
+
+#: ../youamp/ui/window.py:25 ../data/interface.ui.h:15
+msgid "No Track"
+msgstr ""
+
+#: ../data/interface.ui.h:1
+msgid "<b><big>No Track</big></b>"
+msgstr ""
+
+#: ../data/interface.ui.h:2
+msgid "<b>Fallback Gain (db)</b>"
+msgstr ""
+
+#: ../data/interface.ui.h:3
+msgid "<b>Login</b>"
+msgstr ""
+
+#: ../data/interface.ui.h:4
+msgid "<b>Music Folder</b>"
+msgstr ""
+
+#: ../data/interface.ui.h:5
+msgid "<b>Replaygain Preamp (db)</b>"
+msgstr ""
+
+#: ../data/interface.ui.h:6
+msgid "<b>Status</b>"
+msgstr ""
+
+#: ../data/interface.ui.h:7
+msgid "A lightweight Music Player for the Internet Tablet"
+msgstr ""
+
+#: ../data/interface.ui.h:10
+msgid "Date added"
+msgstr ""
+
+#: ../data/interface.ui.h:11
+msgid "Details"
+msgstr ""
+
+#: ../data/interface.ui.h:12
+msgid "Fullscreen"
+msgstr ""
+
+#: ../data/interface.ui.h:13
+msgid "General"
+msgstr ""
+
+#: ../data/interface.ui.h:16
+msgid "Order"
+msgstr ""
+
+#: ../data/interface.ui.h:17
+msgid "Password"
+msgstr ""
+
+#: ../data/interface.ui.h:18
+msgid "Play this next"
+msgstr ""
+
+#: ../data/interface.ui.h:19
+msgid "Playback"
+msgstr ""
+
+#: ../data/interface.ui.h:21
+msgid "Player"
+msgstr ""
+
+#: ../data/interface.ui.h:22
+msgid "Preferences"
+msgstr ""
+
+#: ../data/interface.ui.h:23
+msgid "Rename"
+msgstr ""
+
+#: ../data/interface.ui.h:25
+msgid "Select current Song"
+msgstr ""
+
+#: ../data/interface.ui.h:26
+msgid "Username"
+msgstr ""
+
+#: ../data/interface.ui.h:27
+msgid "View"
+msgstr ""
+
+#: ../data/interface.ui.h:28
+msgid "View this Album"
+msgstr ""
+
+#: ../data/interface.ui.h:29
+msgid "View this Artist"
+msgstr ""
+
+#: ../data/interface.ui.h:30
+msgid "YouAmp Website"
+msgstr ""
+
+#: ../data/interface.ui.h:31
+msgid "last.fm"
+msgstr ""
+
+#: ../data/interface.ui.h:32
+msgid "translator-credits"
+msgstr ""

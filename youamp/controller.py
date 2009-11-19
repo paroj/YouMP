@@ -5,12 +5,13 @@ import urllib2
 import sys
 import dbus
 import os.path
+import gst
 from dbus.mainloop.glib import DBusGMainLoop
 
 from youamp import VERSION
 from youamp.ui.interface import UserInterface
 
-from youamp.playlist import Playlist, PlaylistMux
+from youamp.playlist import Playlist, PlaylistMux, Song
 from youamp.library import Library, check_db
 from youamp.indexer import Indexer
 from youamp.player import Player
@@ -71,6 +72,33 @@ class Controller:
             index_dirs += [self.config["music-folder"]]
         
         indexer.update(index_dirs)
+    
+    def on_uri_drop(self, model, uris, before=None, after=None):     
+        paths = []
+        
+        for uri in uris:
+            path = gst.uri_get_location(uri)
+            
+            if os.path.isdir(path):
+                for root, dirs, files in os.walk(path):
+                    for f in files:
+                        if f.lower().endswith(KNOWN_EXTS):
+                            path = os.path.join(root, f)
+                            paths.append(path)
+            else:
+                paths.append(path)
+        
+        songs = [self.song_from_path(p) for p in paths]
+        
+        if before is not None:
+            model.insert_before(before, songs)
+        elif after is not None:
+            model.insert_after(after, songs)
+        else:
+            model.append(songs)
+
+    def song_from_path(self, path):
+        return Song(self.library.get_metadata(path))
 
     def _update_pos(self, player, *args):
         if player.playlist is self.main_list:

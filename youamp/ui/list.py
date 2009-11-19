@@ -1,10 +1,8 @@
 import gtk
-import gst
 import pango
 import os.path
 
 from youamp import KNOWN_EXTS
-from youamp.playlist import Song
 
 class ListView(gtk.TreeView):
     SOURCE = [("text/x-youamp-reorder", gtk.TARGET_SAME_WIDGET, 0),
@@ -39,10 +37,7 @@ class ListView(gtk.TreeView):
     def _get_drag_data(self, tv, ctxt, selection, info, time):
         model, paths = self.get_selection().get_selected_rows()
 
-        uris = []
-
-        for p in paths:
-            uris.append(self.uri_from_path(p))
+        uris = self.get_uris(paths)
 
         selection.set("text/uri-list", 8, "\n".join(uris))
 
@@ -96,14 +91,11 @@ class ListView(gtk.TreeView):
             sel.set_select_function(lambda *args: allow_sel)
 
 class SongList(ListView):
-    # FIXME: reordering same playlist results in DBus call for tracker
-
-    def __init__(self, playlist, player, library, menu):
-        ListView.__init__(self, playlist)
+    def __init__(self, model, player, controller, menu):
+        ListView.__init__(self, model)
 
         self._player = player
-        self._library = library
-        self._model = playlist
+        self._model = model
 
         self.set_headers_visible(True)
 
@@ -130,7 +122,10 @@ class SongList(ListView):
         # Signals
         player.connect("song-changed", self._on_pos_changed)
         self.connect("row-activated", self._on_row_activated)
-
+        
+        # redirect to controller
+        self._handle_uri_drop = lambda *args, **kwargs: controller.on_uri_drop(model, *args, **kwargs)
+    
     def restore(self):
         if len(self._model) > 0:
             self._on_pos_changed()
@@ -142,37 +137,9 @@ class SongList(ListView):
         self._menu.playlist = self
         self._menu.pos = pos
         self._menu.popup(None, None, None, ev.button, ev.time)
-    
-    def _handle_uri_drop(self, uris, before=None, after=None):     
-        paths = []
-        
-        # FIXME Controller functionality
-        for uri in uris:
-            path = gst.uri_get_location(uri)
-            
-            if os.path.isdir(path):
-                for root, dirs, files in os.walk(path):
-                    for f in files:
-                        if f.lower().endswith(KNOWN_EXTS):
-                            path = os.path.join(root, f)
-                            paths.append(path)
-            else:
-                paths.append(path)
-        
-        songs = [self.song_from_path(p) for p in paths]
-        
-        if before is not None:
-            self._model.insert_before(before, songs)
-        elif after is not None:
-            self._model.insert_after(after, songs)
-        else:
-            self._model.append(songs)
-    
-    def song_from_path(self, path):
-        return Song(self._library.get_metadata(path))
 
-    def uri_from_path(self, path):
-        return "file://"+self._model[path].uri
+    def get_uris(self, paths):
+        return ["file://"+self._model[p].uri for p in paths]
 
     def _on_pos_changed(self, player=None, *args):
         # if player is None we are called by user
