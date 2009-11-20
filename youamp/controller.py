@@ -95,6 +95,7 @@ class Controller:
         except KeyError:
             # FIXME
             # at least one of the songs is not in the library
+            sys.stderr.write("song not found")
             return
         
         if before is not None:
