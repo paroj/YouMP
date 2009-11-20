@@ -124,7 +124,12 @@ class Library:
     
     def get_tracks(self, config):        
         where_clause, variables = self._build_where_clause(config)
-
+        
+        if config["order-by"] == "shuffle":
+            order_clause = ""
+        else:
+            order_clause = "ORDER BY %s" % order[config["order-by"]]
+        
         variables = [unicode(v) for v in variables]
                         
         playlist = self._cursor.execute("""
@@ -132,7 +137,7 @@ class Library:
         FROM songs
         WHERE uri LIKE ?
         %s
-        ORDER BY %s""" % (where_clause, order[config["order-by"]]), variables)
+        %s""" % (where_clause, order_clause), variables)
         
         for s in playlist:
             yield Song(s)

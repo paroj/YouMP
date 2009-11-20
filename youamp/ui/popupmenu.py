@@ -1,6 +1,24 @@
 from youamp.ui.playlist import PlaylistView
 from youamp.ui.detailswindow import DetailsWindow
 
+class PlaylistMenu:
+    def __init__(self, xml):
+        self._w = xml.get_object("playlist_menu")
+
+        self.view = None
+
+        xml.get_object("playlist_rename").connect("activate", self._rename)
+        xml.get_object("playlist_delete").connect("activate", self._remove)
+
+    def _rename(self, caller):
+        self.view.label.edit_name()
+
+    def _remove(self, caller):
+        self.view.remove()
+
+    def popup(self, *args):
+        self._w.popup(*args)
+
 class SongMenu:
     def __init__(self, config, player, xml):
         self._w = xml.get_object("context_menu")

@@ -80,3 +80,60 @@ class Icon:
             self._window.deiconify()
 
         self._iconified = not self._iconified
+
+class PlaylistLabel(gtk.EventBox):
+    def __init__(self, playlist=None, icon="audio-x-generic"):
+        gtk.EventBox.__init__(self)
+
+        self.set_visible_window(False)
+
+        hbox = gtk.HBox()
+        self.add(hbox)
+        hbox.set_spacing(2)
+        #hbox.pack_start(gtk.image_new_from_icon_name(icon, gtk.ICON_SIZE_MENU))
+
+        self.entry = gtk.Entry()
+        self.entry.set_has_frame(False)
+        self.label = gtk.Label()
+        self.playlist = playlist
+        self.editing = False
+        self.just_created = False
+
+        hbox.pack_start(self.label)
+        hbox.pack_start(self.entry)
+
+        hbox.show_all()
+
+        h = self.label.size_request()[1]
+        self.entry.set_size_request(-1, h)
+
+        if playlist.title is None:
+            playlist.title = _("New Playlist")
+            self.just_created = True
+            self.edit_name()
+        else:
+            self.entry.hide()
+            self.label.set_text(playlist.title)
+
+        self.entry.connect("activate", self._set_name)
+        self.entry.connect("focus-out-event", self._set_name)
+        self.entry.connect_after("map-event", lambda caller, *a: caller.grab_focus())
+    
+    def edit_name(self):
+        self.label.hide()
+        self.editing = True
+        self.entry.set_text(self.playlist.title)
+        self.entry.show()
+    
+    def _set_name(self, caller, *args):
+        self.entry.hide()
+        self.editing = False
+        new_title = caller.get_text()
+        self.label.set_text(new_title)
+
+        if self.just_created:
+            self.just_created = False
+
+        self.playlist.rename(new_title)
+
+        self.label.show()

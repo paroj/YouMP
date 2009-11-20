@@ -6,4 +6,4 @@ import gobject
 
 def xml_escape(text):
     "escape the xml escape char"
-    return gobject.markup_escape_text(text)
+    return text.replace("&", "&amp;")

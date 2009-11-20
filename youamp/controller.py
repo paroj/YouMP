@@ -8,7 +8,7 @@ import os.path
 import gst
 from dbus.mainloop.glib import DBusGMainLoop
 
-from youamp import VERSION
+from youamp import VERSION, KNOWN_EXTS
 from youamp.ui.interface import UserInterface
 
 from youamp.playlist import Playlist, PlaylistMux, Song
@@ -21,6 +21,8 @@ import youamp.scrobbler as scrobbler
 NM_STATE_CONNECTED = 3
 
 class Controller:
+    ORDER_MAPPING = ("album", "playcount", "date", "shuffle")
+    
     def __init__(self):
         check_db()
         DBusGMainLoop(set_as_default=True)
@@ -96,12 +98,16 @@ class Controller:
             model.insert_after(after, songs)
         else:
             model.append(songs)
+    
+    def song_selected(self, view, path, column):
+        self.player.playlist.set(view._model)
+        self.player.goto_pos(path[0])
 
     def song_from_path(self, path):
         return Song(self.library.get_metadata(path))
 
-    def _update_pos(self, player, *args):
-        if player.playlist is self.main_list:
+    def _update_pos(self, player, *args):                
+        if player.playlist.current is self.main_list:
             self.config["pos"] = self.main_list.pos
 
     def _on_index_updated(self, caller, was_updated):        
@@ -111,8 +117,8 @@ class Controller:
     def _restore(self):
         self._refresh_playlist()
  
-        if self.config["shuffle"]:
-            self.player.playlist.shuffle(True)
+        if self.config["order-by"] == "shuffle":
+            self.main_list.order_by("shuffle")
 
         # restore playlist pos
         try:
@@ -131,18 +137,13 @@ class Controller:
         
         action[key]()
     
-    def set_list_order(self, order):
-        self.main_list.order_by(order)
-        self.config["order-by"] = order
-        self.config["shuffle"] = False
-        self.config["pos"] = 0
-    
     def _set_new_playlist(self, *args):        
         self._refresh_playlist()
         
-        if self.config["shuffle"]:
-            self.main_list.shuffle(True)
+        if self.config["order-by"] == "shuffle":
+            self.main_list.order_by("shuffle")
         
+        self.main_list.pos = 0
         self.config["pos"] = 0
     
     def _refresh_playlist(self):
@@ -181,7 +182,16 @@ class Controller:
             self.scrobbler.now_playing(song["artist"], song["title"], song["album"])
         else:
             sys.stderr.write("now playing: song {0} discarded\n nm_connected: {1}\n".format(song["title"], nm_connected))
-
+    
+    def order_changed(self, combo, model):        
+        order = self.ORDER_MAPPING[combo.get_active()]      
+        model.order_by(order)
+        
+        if model.backend is None:
+            # save changes for library
+            self.config["order-by"] = order
+            self.config["pos"] = model.pos
+    
     def start(self):
         gtk.main()
         
@@ -203,7 +213,6 @@ def check_config(config):
         config["search-artist"] = ""
         config["search-album"] = ""
         config["pos"] = 0
-        config["shuffle"] = False
         config["is-browser"] = False
         config["rg-preamp"] = 0     # preamp to adjust the default of 89db (value: db)
         config["no-rg-preamp"] = -10  # amp value to be used if no rg info is available (value: db)
@@ -228,3 +237,5 @@ def check_config(config):
     # added in v0.6.0
     if not "gapless" in config:
         config["gapless"] = True
+    
+    # config["shuffle"] removed in 0.6.0

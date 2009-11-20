@@ -406,46 +406,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                 </child>
               </object>
             </child>
-            <child>
-              <object class="GtkMenuItem" id="menuitem3">
-                <property name="label" translatable="yes">Order</property>
-                <property name="use_underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu" id="menu3">
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkRadioMenuItem" id="order_album">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Album</property>
-                        <property name="use_underline">True</property>
-                        <property name="draw_as_radio">True</property>
-                        <signal name="activate" handler="order-album"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkRadioMenuItem" id="order_date">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Date added</property>
-                        <property name="use_underline">True</property>
-                        <property name="draw_as_radio">True</property>
-                        <property name="group">order_album</property>
-                        <signal name="activate" handler="order-date"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkRadioMenuItem" id="order_playcount">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Playcount</property>
-                        <property name="use_underline">True</property>
-                        <property name="draw_as_radio">True</property>
-                        <property name="group">order_album</property>
-                        <signal name="activate" handler="order-playcount"/>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>

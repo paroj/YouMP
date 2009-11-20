@@ -82,9 +82,6 @@ class Playlist(gtk.ListStore):
 
             self.connect("row-inserted", self._sync)
             self.connect("row-deleted", self._sync)
-        
-        # shuffled positions
-        self._permutation = None
     
     def _sync(self, model, *args):
         if model.nosync or self.backend is None:
@@ -105,44 +102,30 @@ class Playlist(gtk.ListStore):
         return self.pos
 
     def order_by(self, order):
-        l = range(0, len(self))
+        l = range(0, len(self)) # new order
 
         if order == "album":
             l.sort(self._sort_album)
         elif order == "date":
             l.sort(self._sort_date)
+        elif order == "shuffle":
+            random.shuffle(l)
         else:
             l.sort(self._sort_playcount)
 
         self.reorder(l)
         self._sync(self)
 
-    def update(self, playlist):
-        self.clear()
-        self.append([s for s in playlist])
-
-    def shuffle(self, shuffle):
-        """shuffle/ unshuffle the playlist"""
-        if shuffle:
-            # build permutation
-            self._permutation = range(0, len(self))
-            random.shuffle(self._permutation)
-        else:
-            # build permutation inverse
-            inv_perm = range(0, len(self))
-            for i in xrange(0, len(self)):
-                inv_perm[self._permutation[i]] = i
-            
-            self._permutation = inv_perm
-            
-        self.reorder(self._permutation)
-        
         # update current position
         try:
-            self.pos = self._permutation.index(self.pos)
+            self.pos = l.index(self.pos)
         except ValueError:
             # new playlist was set shuffled
             self.pos = 0
+
+    def update(self, playlist):
+        self.clear()
+        self.append([s for s in playlist])
 
     def _sort_playcount(self, i1, i2):
         s1 = self[i1]

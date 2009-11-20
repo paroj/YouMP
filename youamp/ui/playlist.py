@@ -1,149 +1,138 @@
 import gtk
 import gtk.gdk
+import pango
 
-from youamp.ui.list import SongList
+from youamp.ui.list import ListView
+from youamp.ui.elements import PlaylistLabel
 
-class PlaylistLabel(gtk.EventBox):
-    def __init__(self, playlist=None, icon="audio-x-generic"):
-        gtk.EventBox.__init__(self)
-
-        self.set_visible_window(False)
-
-        hbox = gtk.HBox()
-        self.add(hbox)
-        hbox.set_spacing(2)
-        #hbox.pack_start(gtk.image_new_from_icon_name(icon, gtk.ICON_SIZE_MENU))
-
-        self.entry = gtk.Entry()
-        self.entry.set_has_frame(False)
-        self.label = gtk.Label()
-        self.playlist = playlist
-        self.editing = False
-        self.just_created = False
-
-        hbox.pack_start(self.label)
-        hbox.pack_start(self.entry)
-
-        hbox.show_all()
-
-        h = self.label.size_request()[1]
-        self.entry.set_size_request(-1, h)
-
-        if playlist.title is None:
-            playlist.title = _("New Playlist")
-            self.just_created = True
-            self.edit_name()
-        else:
-            self.entry.hide()
-            self.label.set_text(playlist.title)
-
-        self.entry.connect("activate", self._set_name)
-        self.entry.connect("focus-out-event", self._set_name)
-        self.entry.connect_after("map-event", lambda caller, *a: caller.grab_focus())
-    
-    def edit_name(self):
-        self.label.hide()
-        self.editing = True
-        self.entry.set_text(self.playlist.title)
-        self.entry.show()
-    
-    def _set_name(self, caller, *args):
-        self.entry.hide()
-        self.editing = False
-        new_title = caller.get_text()
-        self.label.set_text(new_title)
-
-        if self.just_created:
-            self.just_created = False
-
-        self.playlist.rename(new_title)
-
-        self.label.show()
-
-class PlaylistMenu:
-    def __init__(self, xml):
-        self._w = xml.get_object("playlist_menu")
-
-        self.view = None
-
-        xml.get_object("playlist_rename").connect("activate", self._rename)
-        xml.get_object("playlist_delete").connect("activate", self._remove)
-
-    def _rename(self, caller):
-        self.view.label.edit_name()
-
-    def _remove(self, caller):
-        self.view.remove()
-
-    def popup(self, *args):
-        self._w.popup(*args)
-
-class PlaylistView(SongList):
-    ORDER_MAPPING = ("album", "playcount", "date")
-    
-    def __init__(self, playlist, player, library, song_menu, pl_menu):
-        SongList.__init__(self, playlist, player, library, song_menu)
-
-        self.view = gtk.VBox()
-        self.view.set_spacing(5)
-        self.view.top = self
-        hbox = gtk.HBox()
-        hbox.set_spacing(5)
-        hbox.set_border_width(5)
-        
-        order = gtk.combo_box_new_text()
-        order.append_text(_("album"))
-        order.append_text(_("playcount"))
-        order.append_text(_("date added"))
-        order.append_text(_("shuffle"))
-        # disable change by scrolling -> too expensive
-        order.connect("scroll-event", lambda *args: True)
-        order.set_active(0)
-        order.connect("changed", self._on_order_changed)
-        
-        hbox.pack_end(order, expand=False)
-        hbox.pack_end(gtk.Label(_("Order:")), expand=False)
-        
-        self.view.pack_start(hbox, expand=False)
-
-        sw = gtk.ScrolledWindow()
-        self.view.pack_start(sw)
-        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
-        sw.set_shadow_type(gtk.SHADOW_IN)
-        sw.add(self)
-
-        self.view.playlist = playlist
-        self.view.restore = self.restore
+class SongsTab(gtk.VBox):
+    def __init__(self, playlist, controller, menu):
+        gtk.VBox.__init__(self)
+        self.set_spacing(5)
 
         self.label = PlaylistLabel(playlist)
-        self.label.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.SINK[2:3], gtk.gdk.ACTION_COPY)
-        self.label.connect("drag-data-received", self._recieve_drag_data)
+        
+        self._navi = gtk.HBox()
+        self._navi.set_spacing(5)
+        self._navi.set_border_width(5)
+        self.pack_start(self._navi, expand=False)
+
+        # Order Combo
+        self.order = gtk.combo_box_new_text()
+        self.order.append_text(_("album"))
+        self.order.append_text(_("playcount"))
+        self.order.append_text(_("date added"))
+        self.order.append_text(_("shuffle"))
+        # disable change by scrolling -> too expensive
+        self.order.connect("scroll-event", lambda *args: True)
+
+        self._navi.pack_end(self.order, expand=False)
+        self._navi.pack_end(gtk.Label(_("Order:")), expand=False)
+
+        # Scrolled View
+        self._scroll = gtk.ScrolledWindow()
+        self._scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
+        self._scroll.set_shadow_type(gtk.SHADOW_IN)
+        
+        self.playlist = SonglistView(playlist, controller, menu)
+        self._scroll.add(self.playlist)
+
+        self.pack_start(self._scroll)
+
+class SonglistView(ListView):
+    def __init__(self, playlist, controller, menu):
+        ListView.__init__(self, playlist)
+
+        self._model = playlist
+
+        self.set_headers_visible(True)
+
+        transl = (("title", _("Title")),
+                  ("artist", _("Artist")),
+                  ("album", _("Album")))
+
+        cell = gtk.CellRendererText()
+        cell.set_property("ellipsize", pango.ELLIPSIZE_END)
+
+        for key, title in transl:
+            col = gtk.TreeViewColumn(title, cell)
+            col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+            col.set_resizable(True)
+            col.set_fixed_width(266)
+            col.set_min_width(100)
+            col.set_cell_data_func(cell, self._data_func, key)
+            self.append_column(col)
+        
+        # menu
+        self._menu = menu
+        self.connect("button-press-event", self._button_press)
+
+        # Signals
+        self.connect("row-activated", controller.song_selected)
+        
+        # redirect to controller
+        self._handle_uri_drop = lambda *args, **kwargs: controller.on_uri_drop(playlist, *args, **kwargs)
+    
+    def restore(self):
+        if len(self._model) > 0:
+            self.select_current()
+
+    def _popup_menu(self, ev):
+        pos = self.get_path_at_pos(int(ev.x), int(ev.y))[0]
+
+        self._menu.song = self._model[pos]
+        self._menu.playlist = self
+        self._menu.pos = pos
+        self._menu.popup(None, None, None, ev.button, ev.time)
+
+    def get_uris(self, paths):
+        return ["file://"+self._model[p].uri for p in paths]
+    
+    def select_current(self):
+        self.set_cursor(self._model.pos)
+
+    def _data_func(self, col, cell, model, itr, key):
+        v = model[itr][key]
+        v = v if v != "" else _("None")
+        cell.set_property("text", v)
+
+class PlaylistView(SongsTab):    
+    def __init__(self, playlist, controller, song_menu, pl_menu):
+        SongsTab.__init__(self, playlist, controller, song_menu)
+        
+        self._controller = controller
+        self.order.set_active(0)
+        self.order.connect("changed", self._on_order_changed)
+        
+        self.label.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.playlist.SINK[2:3], gtk.gdk.ACTION_COPY)
+        self.label.connect("drag-data-received", self.playlist._recieve_drag_data)
 
         self.menu = pl_menu
 
         self.label.connect("button-press-event", self.__popup_menu)
         self.connect("key-press-event", self._on_key_press)
-        self.view.show_all()
+        
+        self.show_all()
     
-    def _on_order_changed(self, caller):        
-        o = caller.get_active()
-        if o < 3:
-            self._model.order_by(self.ORDER_MAPPING[o])
-        else:
-            self._model.shuffle(True)
+    def restore(self):
+        self.playlist.restore()
     
     def _on_key_press(self, caller, ev):
         key = gtk.gdk.keyval_name(ev.keyval)
 
         if key == "Delete":
-            model, paths = self.get_selection().get_selected_rows()
+            model, paths = self.playlist.get_selection().get_selected_rows()
             paths = [model.get_iter(p) for p in paths]
 
             model.remove(paths)
 
+    def _on_order_changed(self, caller):   
+        self._controller.order_changed(caller, self.playlist.get_model())   
+        self.playlist.select_current()
+
     def remove(self):
-        self._model.delete()
-        self.view.destroy()
+        self.playlist._model.delete()
+        self.destroy()
 
     def __popup_menu(self, caller, ev):
         if ev.button == 3 and not self.label.editing:

@@ -2,7 +2,8 @@ import gtk
 import pango
 
 from youamp.ui.browser import Browser
-from youamp.ui.playlist import PlaylistLabel, SongList
+from youamp.ui.playlist import SongsTab
+from youamp.ui.elements import PlaylistLabel
 from youamp.ui import ARTIST_SELECTED, ALBUM_SELECTED
 
 class BrowseButton(gtk.Button):
@@ -20,31 +21,18 @@ class BrowseButton(gtk.Button):
     def set_text(self, txt):
         self.label.set_text(txt)
 
-class SearchView(SongList):
-    SINK = SongList.SINK[0:1] # dont allow adding to library
-    ORDER_MAPPING = ("album", "playcount", "date")
-
-    def __init__(self, playlist, player, library, config, song_menu, xml):
-        self.view = gtk.VBox()
-        self.view.playlist = playlist
-        self.view.restore = super(SearchView, self).restore
-        self.view.top = self
-
-        SongList.__init__(self, playlist, player, library, song_menu)
-
+class SearchView(SongsTab):
+    def __init__(self, playlist, controller, config, song_menu, xml):
+        SongsTab.__init__(self, playlist, controller, song_menu)
+        
+        self.playlist.SINK = self.playlist.SINK[0:1] # dont allow adding to library
+        
         self._config = config
         self._is_browser = config["is-browser"]
+           
+        # Navi Controls        
+        navi = self._navi
         
-        self.label = PlaylistLabel(playlist, icon="system-file-manager")
-
-        # Navi Controls
-        self.view.set_spacing(5)
-
-        navi = gtk.HBox()
-        navi.set_spacing(5)
-        navi.set_border_width(5)
-        self.view.pack_start(navi, expand=False)
-
         hbox = gtk.HBox()
         navi.pack_start(hbox, expand=False)
         
@@ -86,60 +74,22 @@ class SearchView(SongList):
         self._search_entry.set_text(self._config["search-str"])
         navi.pack_start(self._search_entry, expand=True)
         
-        # Order Combo
-        order = gtk.combo_box_new_text()
-        order.append_text(_("album"))
-        order.append_text(_("playcount"))
-        order.append_text(_("date added"))
-        order.append_text(_("shuffle"))
-        # disable change by scrolling -> too expensive
-        order.connect("scroll-event", lambda *args: True)
-        order.set_active(0)
-        order.connect("changed", self._on_order_changed)
-        
-        navi.pack_end(order, expand=False)
-        navi.pack_end(gtk.Label(_("Order:")), expand=False)
-        
-        #self._shndl = shuffle.connect("toggled", self._on_shuffle_toggled)
-        #self._shuffle = shuffle
-        
-        # Scrolled View
-        self._scroll = gtk.ScrolledWindow()
-        self._scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
-        self._scroll.set_shadow_type(gtk.SHADOW_IN)
-        self.view.pack_start(self._scroll)
-        
-        self._browser = Browser(config, library)
-        
-        self._scroll.add(self)
+        self._browser = Browser(config, controller.library)
 
-        self.view.show_all()
+        self.show_all()
 
         # browser callbacks
         self._config.notify_add("search-artist", self._on_artist_changed)
         self._config.notify_add("search-album", self._on_album_changed)
-        
         self._config.notify_add("is-browser", self._on_view_changed)
-        self._config.notify_add("shuffle", self._update_shuffle_btn)
-
-    def _on_order_changed(self, caller):        
-        o = caller.get_active()
-        if o < 3:
-            self._model.order_by(self.ORDER_MAPPING[o])
-        else:
-            self._model.shuffle(True)
+        self._config.notify_add("pos", lambda *a: self.playlist.set_cursor(self.playlist._model.pos))
 
     def _view_menu_pop(self, button, m):
         a = button.get_allocation()
         ap = button.get_parent_window().get_position()
 
         m.popup(None, None, lambda *arg: (a.x + ap[0], a.y + a.height + ap[1], False), 0, 0)
-     
-    def _update_shuffle_btn(self, client, cxn_id, entry, data):
-        self._shuffle.handler_block(self._shndl)
-        self._shuffle.set_active(entry.get_value().get_bool())
-        self._shuffle.handler_unblock(self._shndl)
-    
+         
     def _on_view_changed(self, client, cxn_id, entry, data):
         is_browser = entry.get_value().get_bool()
         
@@ -178,14 +128,7 @@ class SearchView(SongList):
             self._artist.hide()
             self._album.hide()
 
-        SongList.restore(self)
-            
-    def _on_shuffle_toggled(self, caller):
-        new_shuffle_state = not self._config["shuffle"]
-        self._config["shuffle"] = new_shuffle_state
-        
-        self._model.shuffle(new_shuffle_state)
-        self.set_cursor(self._model.pos)
+        self.playlist.restore()
         
     def _browse_complete(self):        
         self._search_entry.set_text("")
@@ -212,13 +155,13 @@ class SearchView(SongList):
             self._show_playlist()
     
     def _show_playlist(self):
-        if self.get_parent() is None:
+        if self.playlist.get_parent() is None:
             self._scroll.remove(self._browser)
-            self._scroll.add(self)
+            self._scroll.add(self.playlist)
 
     def _show_browser(self):
         if self._browser.get_parent() is None:
-            self._scroll.remove(self)
+            self._scroll.remove(self.playlist)
             self._scroll.add(self._browser)
 
     def _on_artist_changed(self, client, cxn_id, entry, data):

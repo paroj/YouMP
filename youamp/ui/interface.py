@@ -6,10 +6,10 @@ from youamp.ui.window import Window
 from youamp.ui.preferences import Preferences
 from youamp.ui.searchview import SearchView
 
-from youamp.ui.playlist import PlaylistView, PlaylistMenu
-from youamp.ui.popupmenu import SongMenu
+from youamp.ui.playlist import PlaylistView
+from youamp.ui.popupmenu import SongMenu, PlaylistMenu
 
-from youamp.ui.elements import *
+from youamp.ui.elements import Controls, Icon
 from youamp.ui import xml_escape
 
 from youamp import VERSION, data_path
@@ -23,19 +23,27 @@ class UserInterface:
         library = controller.library
         scrobbler = controller.scrobbler
         
+        self._controller = controller
+        
         # Build Interface
         xml = gtk.Builder()
         xml.set_translation_domain("youamp")
         xml.add_from_file(data_path + "interface.ui")
 
         # Create Views
-        smenu = SongMenu(config, player, xml)
-        plmenu = PlaylistMenu(xml)
+        self.smenu = SongMenu(config, player, xml)
+        self.plmenu = PlaylistMenu(xml)
+        
+        sw = SearchView(controller.main_list, controller, config, self.smenu, xml)
+        # restore
+        sw.order.set_active(controller.ORDER_MAPPING.index(config["order-by"]))
+        # signal
+        sw.order.connect("changed", controller.order_changed, sw.playlist.get_model())
 
-        self._view = [SearchView(controller.main_list, player, library, config, smenu, xml)]
-        self._cur_view = self._view[0]
-
-        lists = [PlaylistView(l, player, controller, smenu, plmenu) for l in library.get_playlists()]
+        self._view = [sw]
+        self._cur_view = sw
+         
+        lists = [PlaylistView(l, controller, self.smenu, self.plmenu) for l in library.get_playlists()]
         self._view += lists
         
         # Windows
@@ -54,9 +62,6 @@ class UserInterface:
         else:
             xml.get_object("view_search").set_active(True)
 
-        if not config["shuffle"]:
-            xml.get_object("order_"+config["order-by"]).set_active(True)
-
         # Tray Icon
         Icon(player, xml)
                
@@ -70,10 +75,10 @@ class UserInterface:
         self.nb = xml.get_object("notebook1")
         
         for v in self._view:
-            self.nb.append_page(v.view, v.label)
+            self.nb.append_page(v, v.label)
         
         for lv in lists:
-            self.nb.set_tab_reorderable(lv.view, True)
+            self.nb.set_tab_reorderable(lv, True)
 
         # disable implicit playlist change
         self.nb.connect("switch-page", self._change_playlist, player)
@@ -82,9 +87,6 @@ class UserInterface:
         # Signals
         xml.connect_signals({"show-preferences": lambda *args: prefs.cshow(),
                              "show-about": lambda *args: about.show(),
-                             "order-album": lambda caller: controller.set_list_order("album"),
-                             "order-date": lambda caller: controller.set_list_order("date"),
-                             "order-playcount": lambda caller: controller.set_list_order("playcount"),
                              "quit": controller.quit,
                              "key-press": self._handle_keypress,
                              "hide-on-delete": gtk.Widget.hide_on_delete,
@@ -94,35 +96,40 @@ class UserInterface:
                              "seek-change": lambda caller, *a: player.seek_to(caller.get_value()),
                              "view-search": lambda caller: self._cur_view.search_mode(),
                              "view-browse": lambda caller: self._cur_view.browse_mode(),
-                             "select-current": lambda caller: self._cur_view.restore(),
-                             "new-playlist": lambda caller: self.new_playlist(config, player, library, smenu, plmenu)})
+                             "select-current": lambda caller: self._cur_view.playlist.select_current(),
+                             "new-playlist": lambda caller: self.add_playlist(library.get_new_playlist())})
 
         self._toggle = xml.get_object("playback_item")
         self._thndl = self._toggle.connect("toggled", lambda caller: player.toggle())
+        
         player.connect("toggled", self._watch_toggled)
+        player.connect("song-changed", self._update_pos)
         player.playlist.connect("list-switched", self._switch_to)
         
         # change to library on browsing
         config.notify_add("is-browser", lambda *args: self.nb.set_current_page(0))
 
+    def _update_pos(self, player, *args):        
+        self._cur_view.playlist.set_cursor(player.playlist.pos)
+
     def _switch_to(self, caller, model):
-        i = [e.get_model() for e in self._view].index(model)
-        n = self.nb.page_num(self._view[i].view)
+        i = [v.playlist.get_model() for v in self._view].index(model)
+        n = self.nb.page_num(self._view[i])
         self.nb.set_current_page(n)
 
-    def new_playlist(self, config, player, library, smenu, plmenu):
-        pl = PlaylistView(library.get_new_playlist(), player, library, smenu, plmenu)
+    def add_playlist(self, playlist):
+        pl = PlaylistView(playlist, self._controller, self.smenu, self.plmenu)
         self._view.append(pl)
-        self.nb.append_page(pl.view, pl.label)
-        self.nb.set_tab_reorderable(pl.view, True)
+        self.nb.append_page(pl, pl.label)
+        self.nb.set_tab_reorderable(pl, True)
         self.nb.set_current_page(-1)
 
     def _move_lib_first(self, *args):
-        self.nb.reorder_child(self._view[0].view, 0)
+        self.nb.reorder_child(self._view[0], 0)
 
     def _change_playlist(self, nb, page, num, player):
-        self._cur_view = nb.get_nth_page(num).top
-        player.playlist.set(self._cur_view.view.playlist)
+        self._cur_view = nb.get_nth_page(num)
+        player.playlist.set(self._cur_view.playlist.get_model())
 
     def show_notification(self, song):
         body = self.NOTIFY_STR.format(
