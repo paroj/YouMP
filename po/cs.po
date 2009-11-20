@@ -7,39 +7,39 @@ msgid ""
 msgstr ""
 "Project-Id-Version: youamp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-11-16 00:39+0100\n"
+"POT-Creation-Date: 2009-11-18 13:28+0100\n"
 "PO-Revision-Date: 2009-10-29 09:38+0000\n"
 "Last-Translator: Václav Čermák <vaclav.cermak@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-11-18 04:44+0000\n"
+"X-Launchpad-Export-Date: 2009-11-20 04:43+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../youamp/controller.py:30
+#: ../youamp/controller.py:32
 msgid "Library"
 msgstr "Knihovna"
 
-#: ../youamp/__init__.py:220
+#: ../youamp/ui/browser.py:36
 msgid "None"
 msgstr "Nic"
 
-#: ../youamp/ui/browser.py:41
+#: ../youamp/ui/browser.py:52
 msgid "Albums"
 msgstr "Alba"
 
-#: ../youamp/ui/browser.py:45 ../youamp/ui/searchview.py:152
-#: ../youamp/ui/searchview.py:220
+#: ../youamp/ui/browser.py:56 ../youamp/ui/searchview.py:170
+#: ../youamp/ui/searchview.py:238
 msgid "All Albums"
 msgstr ""
 
-#: ../youamp/ui/browser.py:50 ../youamp/ui/detailswindow.py:47
+#: ../youamp/ui/browser.py:61 ../youamp/ui/detailswindow.py:47
 msgid "Artist"
 msgstr "Interpret"
 
-#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:148
-#: ../youamp/ui/searchview.py:209
+#: ../youamp/ui/browser.py:65 ../youamp/ui/searchview.py:166
+#: ../youamp/ui/searchview.py:227
 msgid "All Artists"
 msgstr ""
 
@@ -76,9 +76,24 @@ msgstr "z"
 msgid "New Playlist"
 msgstr "Nový seznam skladeb"
 
-#. Shuffle Button
-#: ../youamp/ui/playlist.py:92 ../youamp/ui/searchview.py:88
+#: ../youamp/ui/playlist.py:95 ../youamp/ui/searchview.py:91
+msgid "album"
+msgstr ""
+
+#: ../youamp/ui/playlist.py:96 ../youamp/ui/searchview.py:92
+msgid "playcount"
+msgstr ""
+
+#: ../youamp/ui/playlist.py:97 ../youamp/ui/searchview.py:93
+msgid "date added"
+msgstr ""
+
+#: ../youamp/ui/playlist.py:98 ../youamp/ui/searchview.py:94
 msgid "shuffle"
+msgstr ""
+
+#: ../youamp/ui/playlist.py:105 ../youamp/ui/searchview.py:101
+msgid "Order:"
 msgstr ""
 
 #: ../youamp/ui/preferences.py:48 ../youamp/ui/preferences.py:67
@@ -94,12 +109,12 @@ msgid "Disconnected"
 msgstr ""
 
 #. Search Label
-#: ../youamp/ui/searchview.py:50 ../data/interface.ui.h:24
+#: ../youamp/ui/searchview.py:52 ../data/interface.ui.h:24
 msgid "Search"
 msgstr "Hledat"
 
 #. Browse Button
-#: ../youamp/ui/searchview.py:55 ../data/interface.ui.h:9
+#: ../youamp/ui/searchview.py:57 ../data/interface.ui.h:9
 msgid "Browse"
 msgstr ""
 
