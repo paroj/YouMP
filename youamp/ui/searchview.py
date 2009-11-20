@@ -74,7 +74,21 @@ class SearchView(SongsTab):
         self._search_entry.set_text(self._config["search-str"])
         navi.pack_start(self._search_entry, expand=True)
         
+        self._nb = gtk.Notebook()
+        self._nb.set_show_tabs(False)
+        self._nb.set_show_border(False)
+        self.pack_start(self._nb)
+        
+        # move playlist to notebook
+        self._scroll.reparent(self._nb)
+        
+        browser_scroll = gtk.ScrolledWindow()
+        browser_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
+        browser_scroll.set_shadow_type(gtk.SHADOW_IN)
+        self._nb.append_page(browser_scroll)
+        
         self._browser = Browser(config, controller.library)
+        browser_scroll.add(self._browser)
 
         self.show_all()
 
@@ -150,19 +164,14 @@ class SearchView(SongsTab):
         self._album.hide()
         self._search_label.show()
         self._search_entry.show()
-        
-        if self._browser.get_parent() is not None:
-            self._show_playlist()
+
+        self._show_playlist()
     
     def _show_playlist(self):
-        if self.playlist.get_parent() is None:
-            self._scroll.remove(self._browser)
-            self._scroll.add(self.playlist)
+        self._nb.set_current_page(0)
 
     def _show_browser(self):
-        if self._browser.get_parent() is None:
-            self._scroll.remove(self.playlist)
-            self._scroll.add(self._browser)
+        self._nb.set_current_page(1)
 
     def _on_artist_changed(self, client, cxn_id, entry, data):
         val = entry.get_value().get_string()

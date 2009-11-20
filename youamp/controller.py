@@ -90,7 +90,12 @@ class Controller:
             else:
                 paths.append(path)
         
-        songs = [self.song_from_path(p) for p in paths]
+        try:
+            songs = [self.song_from_path(p) for p in paths]
+        except KeyError:
+            # FIXME
+            # at least one of the songs is not in the library
+            return
         
         if before is not None:
             model.insert_before(before, songs)
