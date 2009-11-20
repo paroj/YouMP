@@ -78,6 +78,8 @@ class SonglistView(ListView):
             self.select_current()
 
     def _popup_menu(self, ev):
+        self._menu.rem.set_sensitive(self._model.backend is not None)
+        
         pos = self.get_path_at_pos(int(ev.x), int(ev.y))[0]
 
         self._menu.song = self._model[pos]
@@ -93,7 +95,6 @@ class SonglistView(ListView):
 
     def _data_func(self, col, cell, model, itr, key):
         v = model[itr][key]
-        v = v if v != "" else _("None")
         cell.set_property("text", v)
 
 class PlaylistView(SongsTab):    

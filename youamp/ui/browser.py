@@ -32,9 +32,7 @@ class Browser(gtk.TreeView):
         self.show_all()
 
     def _data_func(self, col, renderer, model, itr):
-        v = model[itr][0]
-        v = v if v != "" else _("None")
-        
+        v = model[itr][0]        
         i = model.get_path(itr)[0]
         
         renderer.set_property("weight", pango.WEIGHT_BOLD if i == 0 else pango.WEIGHT_NORMAL)

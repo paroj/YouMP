@@ -238,9 +238,9 @@ class Song(dict):
                 
         if not isinstance(data, str):
             self.uri = data[0]
-            self["title"] = data[1]
-            self["artist"] = data[2]
-            self["album"] = data[3]
+            self["title"] = data[1] if data[1] != "" else _("None")
+            self["artist"] = data[2] if data[2] != "" else _("None")
+            self["album"] = data[3] if data[3] != "" else _("None")
             self["playcount"] = int(data[4]) if data[4] != "" else 0
             self["trackno"] = int(data[5]) if data[5] != "" else 0
             self["mtime"] = data[6]

@@ -46,7 +46,6 @@ class SongMenu:
         details.connect("activate", self._display_details)
 
     def popup(self, *args):
-        self.rem.set_sensitive(isinstance(self.playlist, PlaylistView))
         self._w.popup(*args)
 
     def _remove(self, *args):
