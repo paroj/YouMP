@@ -1,3 +1,10 @@
+youamp (0.6.0~beta10-1) karmic; urgency=low
+
+  * refactor code
+  * small fixes
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Tue, 03 Nov 2009 21:51:05 +0100
+
 youamp (0.6.0~beta9-1) karmic; urgency=low
 
   * refactor code

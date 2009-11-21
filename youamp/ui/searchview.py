@@ -47,10 +47,7 @@ class SearchView(SongsTab):
         self._browse_button.set_size_request(100, -1)
         hbox.pack_start(self._browse_button, expand=False)
 
-        arrow = gtk.Button()
-        arrow.set_relief(gtk.RELIEF_NONE)
-        arrow.add(gtk.Arrow(gtk.ARROW_DOWN, gtk.SHADOW_IN))
-        arrow.unset_flags(gtk.CAN_FOCUS)
+        arrow = xml.get_object("sw_arrow")
         hbox.pack_start(arrow, expand=False)
 
         m = xml.get_object("view_menu")
