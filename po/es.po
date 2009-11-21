@@ -7,51 +7,48 @@ msgid ""
 msgstr ""
 "Project-Id-Version: youamp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-11-18 13:28+0100\n"
+"POT-Creation-Date: 2009-11-21 00:58+0100\n"
 "PO-Revision-Date: 2009-10-24 08:32+0000\n"
 "Last-Translator: Paco Molinero <paco@byasl.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-11-20 04:43+0000\n"
+"X-Launchpad-Export-Date: 2009-11-21 04:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../youamp/controller.py:32
+#: ../youamp/controller.py:35
 msgid "Library"
 msgstr "Biblioteca"
 
-#: ../youamp/ui/browser.py:36
-msgid "None"
-msgstr "Ninguno"
-
-#: ../youamp/ui/browser.py:52
+#: ../youamp/ui/browser.py:50
 msgid "Albums"
 msgstr "Álbumes"
 
-#: ../youamp/ui/browser.py:56 ../youamp/ui/searchview.py:170
-#: ../youamp/ui/searchview.py:238
+#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:134
+#: ../youamp/ui/searchview.py:190
 msgid "All Albums"
 msgstr "Todos los Álbumes"
 
-#: ../youamp/ui/browser.py:61 ../youamp/ui/detailswindow.py:47
+#: ../youamp/ui/browser.py:59 ../youamp/ui/detailswindow.py:47
+#: ../youamp/ui/playlist.py:51
 msgid "Artist"
 msgstr "Artista"
 
-#: ../youamp/ui/browser.py:65 ../youamp/ui/searchview.py:166
-#: ../youamp/ui/searchview.py:227
+#: ../youamp/ui/browser.py:63 ../youamp/ui/searchview.py:130
+#: ../youamp/ui/searchview.py:179
 msgid "All Artists"
 msgstr "Todos los Artistas"
 
-#: ../youamp/ui/detailswindow.py:46
+#: ../youamp/ui/detailswindow.py:46 ../youamp/ui/playlist.py:50
 msgid "Title"
 msgstr "Título"
 
-#: ../youamp/ui/detailswindow.py:48 ../data/interface.ui.h:8
+#: ../youamp/ui/detailswindow.py:48 ../youamp/ui/playlist.py:52
 msgid "Album"
 msgstr "Álbum"
 
-#: ../youamp/ui/detailswindow.py:49 ../data/interface.ui.h:20
+#: ../youamp/ui/detailswindow.py:49
 msgid "Playcount"
 msgstr "Contador de reproducciones"
 
@@ -63,36 +60,36 @@ msgstr "Localización"
 msgid "Details for {0}"
 msgstr "Detaller para {0}"
 
-#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:129
+#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:136
 #: ../youamp/ui/window.py:60
 msgid "by"
 msgstr "por"
 
-#: ../youamp/ui/interface.py:131 ../youamp/ui/window.py:62
-msgid "from"
-msgstr "de"
-
-#: ../youamp/ui/playlist.py:33 ../data/interface.ui.h:14
+#: ../youamp/ui/elements.py:111 ../data/interface.ui.h:12
 msgid "New Playlist"
 msgstr "Nueva Lista de Reproducción"
 
-#: ../youamp/ui/playlist.py:95 ../youamp/ui/searchview.py:91
+#: ../youamp/ui/interface.py:138 ../youamp/ui/window.py:62
+msgid "from"
+msgstr "de"
+
+#: ../youamp/ui/playlist.py:22
 msgid "album"
 msgstr ""
 
-#: ../youamp/ui/playlist.py:96 ../youamp/ui/searchview.py:92
+#: ../youamp/ui/playlist.py:23
 msgid "playcount"
 msgstr ""
 
-#: ../youamp/ui/playlist.py:97 ../youamp/ui/searchview.py:93
+#: ../youamp/ui/playlist.py:24
 msgid "date added"
 msgstr ""
 
-#: ../youamp/ui/playlist.py:98 ../youamp/ui/searchview.py:94
+#: ../youamp/ui/playlist.py:25
 msgid "shuffle"
 msgstr "aleatorio"
 
-#: ../youamp/ui/playlist.py:105 ../youamp/ui/searchview.py:101
+#: ../youamp/ui/playlist.py:30
 msgid "Order:"
 msgstr ""
 
@@ -109,16 +106,16 @@ msgid "Disconnected"
 msgstr "Desconectado"
 
 #. Search Label
-#: ../youamp/ui/searchview.py:52 ../data/interface.ui.h:24
+#: ../youamp/ui/searchview.py:40 ../data/interface.ui.h:20
 msgid "Search"
 msgstr "Buscar"
 
 #. Browse Button
-#: ../youamp/ui/searchview.py:57 ../data/interface.ui.h:9
+#: ../youamp/ui/searchview.py:45 ../data/interface.ui.h:8
 msgid "Browse"
 msgstr "Examinar"
 
-#: ../youamp/ui/window.py:25 ../data/interface.ui.h:15
+#: ../youamp/ui/window.py:25 ../data/interface.ui.h:13
 msgid "No Track"
 msgstr "Sin pista"
 
@@ -150,82 +147,83 @@ msgstr "<b>Estado</b>"
 msgid "A lightweight Music Player for the Internet Tablet"
 msgstr "Un reproductor ligero para una tableta de internet"
 
-#: ../data/interface.ui.h:10
-msgid "Date added"
-msgstr "Fecha añadida"
-
-#: ../data/interface.ui.h:11
+#: ../data/interface.ui.h:9
 msgid "Details"
 msgstr "Detalles"
 
-#: ../data/interface.ui.h:12
+#: ../data/interface.ui.h:10
 msgid "Fullscreen"
 msgstr "Pantalla completa"
 
-#: ../data/interface.ui.h:13
+#: ../data/interface.ui.h:11
 msgid "General"
 msgstr "General"
 
-#: ../data/interface.ui.h:16
-msgid "Order"
-msgstr "Orden"
-
-#: ../data/interface.ui.h:17
+#: ../data/interface.ui.h:14
 msgid "Password"
 msgstr "Contraseña"
 
-#: ../data/interface.ui.h:18
+#: ../data/interface.ui.h:15
 msgid "Play this next"
 msgstr "Reproducir esta después"
 
-#: ../data/interface.ui.h:19
+#: ../data/interface.ui.h:16
 msgid "Playback"
 msgstr "Reproducir"
 
-#: ../data/interface.ui.h:21
+#: ../data/interface.ui.h:17
 msgid "Player"
 msgstr "Reproductor"
 
-#: ../data/interface.ui.h:22
+#: ../data/interface.ui.h:18
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../data/interface.ui.h:23
+#: ../data/interface.ui.h:19
 msgid "Rename"
 msgstr "Renombrar"
 
-#: ../data/interface.ui.h:25
+#: ../data/interface.ui.h:21
 msgid "Select current Song"
 msgstr "Seleccionar canción actual"
 
-#: ../data/interface.ui.h:26
+#: ../data/interface.ui.h:22
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: ../data/interface.ui.h:27
+#: ../data/interface.ui.h:23
 msgid "View"
 msgstr "Ver"
 
-#: ../data/interface.ui.h:28
+#: ../data/interface.ui.h:24
 msgid "View this Album"
 msgstr "Ver este álbum"
 
-#: ../data/interface.ui.h:29
+#: ../data/interface.ui.h:25
 msgid "View this Artist"
 msgstr "Ver este artista"
 
-#: ../data/interface.ui.h:30
+#: ../data/interface.ui.h:26
 msgid "YouAmp Website"
 msgstr "Sitio web de YouAmp"
 
-#: ../data/interface.ui.h:31
+#: ../data/interface.ui.h:27
 msgid "last.fm"
 msgstr "last.fm"
 
-#: ../data/interface.ui.h:32
+#: ../data/interface.ui.h:28
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  DiegoJ https://launchpad.net/~diegojromerolopez\n"
 "  José A. Fuentes Santiago https://launchpad.net/~joanfusan\n"
 "  Pavel Rojtberg https://launchpad.net/~rojtberg"
+
+#~ msgid "None"
+#~ msgstr "Ninguno"
+
+#~ msgid "Date added"
+#~ msgstr "Fecha añadida"
+
+#~ msgid "Order"
+#~ msgstr "Orden"
