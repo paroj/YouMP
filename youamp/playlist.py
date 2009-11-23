@@ -236,18 +236,20 @@ class Song(dict):
     def __init__(self, data):
         dict.__init__(self)
                 
-        if not isinstance(data, str):
-            self.uri = data[0]
-            self["title"] = data[1] if data[1] != "" else _("None")
-            self["artist"] = data[2] if data[2] != "" else _("None")
-            self["album"] = data[3] if data[3] != "" else _("None")
-            self["playcount"] = int(data[4]) if data[4] != "" else 0
-            self["trackno"] = int(data[5]) if data[5] != "" else 0
-            self["mtime"] = data[6]
-        else:
-            self.uri = data
+        self.uri = data[0]
+        self["title"] = data[1] if data[1] != "" else _("None")
+        self["artist"] = data[2] if data[2] != "" else _("None")
+        self["album"] = data[3] if data[3] != "" else _("None")
+        self["playcount"] = int(data[4]) if data[4] != "" else 0
+        self["trackno"] = int(data[5]) if data[5] != "" else 0
+        self["mtime"] = data[6]
+        
+        self._display_cover = data[2] != "" or data[3] != ""
     
-    def _cover_in_dir(self):        
+    def _image_in_dir(self):
+        """
+        search for an image in the same directory as the music file
+        """    
         dir = os.path.dirname(self.uri)
         
         try:
@@ -257,9 +259,13 @@ class Song(dict):
         
         return os.path.join(dir, img)
 
-    def cover_image(self, size):
+    def get_cover_path(self):
+        # there should be enough information or we do nonsense
+        if not self._display_cover:
+            return None
+        
         # use the image in song directory
-        path = self._cover_in_dir()
+        path = self._image_in_dir()
 
         if path is None:
             # no image in song directory
@@ -269,4 +275,4 @@ class Song(dict):
             if not os.path.exists(path):
                 return None
 
-        return gtk.gdk.pixbuf_new_from_file_at_size(path, *size)
+        return path

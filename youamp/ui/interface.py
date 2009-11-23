@@ -35,11 +35,6 @@ class UserInterface:
         self.plmenu = PlaylistMenu(xml)
         
         sw = SearchView(controller.main_list, controller, config, self.smenu, xml)
-        # restore
-        sw.order.set_active(controller.ORDER_MAPPING.index(config["order-by"]))
-        # signal
-        sw.order.connect("changed", controller.order_changed, sw.playlist.get_model())
-
         self._view = [sw]
         self._cur_view = sw
          
@@ -103,13 +98,14 @@ class UserInterface:
         self._thndl = self._toggle.connect("toggled", lambda caller: player.toggle())
         
         player.connect("toggled", self._watch_toggled)
-        player.connect("song-changed", self._update_pos)
+        player.connect("song-changed", self._on_song_changed)
         player.playlist.connect("list-switched", self._switch_to)
         
         # change to library on browsing
         config.notify_add("is-browser", lambda *args: self.nb.set_current_page(0))
 
-    def _update_pos(self, player, *args):        
+    def _on_song_changed(self, player, newsong):
+        # move cursor to new position       
         self._cur_view.playlist.set_cursor(player.playlist.pos)
 
     def _switch_to(self, caller, model):
@@ -139,10 +135,12 @@ class UserInterface:
                                     xml_escape(song["album"]))
         self._notify.update(xml_escape(song["title"]), body)
 
-        cover = song.cover_image((128, 128))
+        path = song.get_cover_path()
         
-        if cover is None:
+        if path is None:
             cover = gtk.icon_theme_get_default().load_icon("audio-x-generic", 128, 0)
+        else:
+            cover = gtk.gdk.pixbuf_new_from_file_at_size(path, 128, 128)
             
         self._notify.set_icon_from_pixbuf(cover)
         self._notify.show()

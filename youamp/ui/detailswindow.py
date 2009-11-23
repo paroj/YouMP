@@ -11,14 +11,16 @@ class CoverImage(gtk.Image):
         self.set_from_pixbuf(pb)
         self.album = None
 
-    def set_from_song(self, song, generic_fallback=True):
-        pb = song.cover_image(self.size_request())
+    def set_from_song(self, song):
+        path = song.get_cover_path()
 
-        if pb is None and generic_fallback:
+        if path is None:
             self.set_generic()
             return
-
+        
+        pb = gtk.gdk.pixbuf_new_from_file_at_size(path, *self.size_request())       
         self.set_from_pixbuf(pb)
+        
         self.album = song["album"]
 
 class DetailsWindow(gtk.Window):

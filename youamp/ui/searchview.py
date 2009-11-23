@@ -71,6 +71,10 @@ class SearchView(SongsTab):
         self._search_entry.set_text(self._config["search-str"])
         navi.pack_start(self._search_entry, expand=True)
         
+        # Order ComboBox
+        self.order.set_active(controller.ORDER_MAPPING.index(config["order-by"]))       
+        self.order.connect("changed", controller.order_changed, playlist)
+      
         self._nb = gtk.Notebook()
         self._nb.set_show_tabs(False)
         self._nb.set_show_border(False)
