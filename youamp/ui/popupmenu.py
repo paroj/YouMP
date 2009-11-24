@@ -1,6 +1,3 @@
-from youamp.ui.playlist import PlaylistView
-from youamp.ui.detailswindow import DetailsWindow
-
 class PlaylistMenu:
     def __init__(self, xml):
         self._w = xml.get_object("playlist_menu")
@@ -20,13 +17,13 @@ class PlaylistMenu:
         self._w.popup(*args)
 
 class SongMenu:
-    def __init__(self, config, player, xml):
+    def __init__(self, config, player, dw, xml):
         self._w = xml.get_object("context_menu")
         
         self.song = None
         self.playlist = None
         self.pos = None
-        self._details = DetailsWindow.get_instance()
+        self._details = dw
             
         self._config = config
         

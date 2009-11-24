@@ -319,6 +319,7 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
     <property name="title" translatable="yes">No Track</property>
     <property name="default_width">800</property>
     <property name="default_height">600</property>
+    <property name="icon_name">audio-x-generic</property>
     <signal name="destroy" handler="quit"/>
     <signal name="key_press_event" handler="key-press"/>
     <child>
@@ -628,6 +629,7 @@ audio-volume-medium</property>
         <property name="visible">True</property>
         <property name="use_underline">True</property>
         <property name="use_stock">True</property>
+        <signal name="activate" handler="previous"/>
       </object>
     </child>
     <child>

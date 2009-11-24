@@ -1,8 +1,11 @@
 import gtk
 
+from youamp.songmeta import SongMetaLastFM
+
 class CoverImage(gtk.Image):
     def __init__(self):
         gtk.Image.__init__(self)
+        self._cl = SongMetaLastFM()
         self.album = ""
 
     def set_generic(self):
@@ -11,36 +14,20 @@ class CoverImage(gtk.Image):
         self.set_from_pixbuf(pb)
         self.album = None
 
-    def set_from_song(self, song):
-        path = song.get_cover_path()
-
-        if path is None:
+    def set_from_path(self, path):
+        if path is None:                
             self.set_generic()
             return
         
         pb = gtk.gdk.pixbuf_new_from_file_at_size(path, *self.size_request())       
         self.set_from_pixbuf(pb)
-        
-        self.album = song["album"]
 
-class DetailsWindow(gtk.Window):
-    __instance = None
-    
-    def __init__(self):
-        if DetailsWindow.__instance is not None:
-            raise Exception("This is a Singleton object")
-        
+class DetailsWindow(gtk.Window):    
+    def __init__(self, song_meta):        
         gtk.Window.__init__(self)
-        self._create()
-    
-    @staticmethod
-    def get_instance():
-        if DetailsWindow.__instance is None:
-            DetailsWindow.__instance = DetailsWindow()
         
-        return DetailsWindow.__instance
-    
-    def _create(self):    
+        self._sm = song_meta
+        
         self.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
         self.set_default_size(600, -1)
     
@@ -98,7 +85,7 @@ class DetailsWindow(gtk.Window):
     def set_data(self, song):
         self.set_title(_("Details for {0}").format(song["title"]))
         
-        self._cover.set_from_song(song)
+        self._cover.set_from_path(self._sm.get_cover_path(song))
         self.set_icon_list(self._cover.get_pixbuf())
         
         for k, l in self._data.iteritems():

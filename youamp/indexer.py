@@ -14,15 +14,16 @@ from gobject import GObject
 from youamp import db_file, media_art, KNOWN_EXTS
 from mutagen.id3 import ID3, ID3NoHeaderError, ID3BadUnsynchData
 
-def sanitize_metadata(path, meta):
-    # no visible tags -> set title = filename
-    if "title" not in meta and \
-       "artist" not in meta and \
-       "album" not in meta:
-            fname = path.rindex("/")
-            fnend = path.rindex(".")
-            return {"title": path[fname+1:fnend], "artist": "", "album": "", "tracknumber": 0}
+class MetadataError(Exception): pass
+
+def get_metadata_sane(path):
+    meta = get_metadata_raw(path)
     
+    if meta is None:
+        return None
+
+    meta["mtime"] = os.path.getmtime(path)
+
     if "tracknumber" in meta:
         v = meta["tracknumber"]
         
@@ -40,10 +41,55 @@ def sanitize_metadata(path, meta):
         v = 0
     
     meta["tracknumber"] = v
+   
+    # no visible tags -> set title = filename
+    if "title" not in meta and \
+       "artist" not in meta and \
+       "album" not in meta:
+            fname = path.rindex("/")
+            fnend = path.rindex(".")
+            meta["title"] = path[fname+1:fnend]
+            meta["artist"] = ""
+            meta["album"] = ""
+    else:   
+        # sanitise tags
+        for k in ("title", "artist", "album"):        
+            meta[k] = meta[k].strip() if k in meta else ""
+
+    # sqlite wants only unicode strings
+    for k, v in meta.iteritems():
+        meta[k] = unicode(v)
+
+    return meta
+
+def get_metadata_raw(path):
+    if path.lower().endswith("mp3"):
+        try:
+            f = mutagen.easyid3.EasyID3(path)
+        except (ID3NoHeaderError, ID3BadUnsynchData):
+            sys.stderr.write("Bad ID3 Header: %s\n" % path)
+            f = {}
+        except IOError, e:
+            raise MetadataError(str(e))
+    else:
+        try:
+            f = mutagen.File(path)
+        except:
+            raise MetadataError("%s: error in Mutagen" % path)
     
-    # sanitise tags
-    for k in ("title", "artist", "album"):        
-        meta[k] = meta[k].strip() if k in meta else ""
+    if f is None:
+        raise MetadataError("%s: not a media file" % path)
+    
+    meta = {}
+    
+    for k, v in f.items():
+        # FIXME what if v is not a list
+        try:
+            v = str(", ".join(v))   # flatten value
+        except TypeError:
+            raise MetadataError("%s: wrong type for %s" % (path, k))
+        
+        meta[k] = v
     
     return meta
 
@@ -89,74 +135,64 @@ class Indexer(GObject):
                         filelist.append(path)
 
         return filelist
-
+        
     def _update(self, folder):
         # local connection, so we can run as thread
         con = sqlite3.connect(db_file)
 
         disc_files = self._get_files(folder)
-        db_files = con.execute("SELECT uri FROM songs").fetchall()
+        db_files = con.execute("SELECT uri, strftime('%s', date) FROM songs").fetchall()
+        to_update = []
         
-        add_count = 0
+        mod_count = 0
 
-        for path, in db_files:
-            try:
+        for path, old_mtime in db_files:
+            if os.path.exists(path):
+                mtime = os.path.getmtime(path)
+                
+                if mtime - 1 > float(old_mtime): # float precision stuff
+                    to_update.append(path)
+                
                 disc_files.remove(str(path)) # convert unicode
-            except ValueError:
+            else:
                 con.execute("DELETE FROM songs WHERE uri = ?", (path,))
                 print "Removed: %s" % path
-
-        # add new files
-        for path in disc_files:
-            if path.lower().endswith("mp3"):
-                try:
-                    f = mutagen.easyid3.EasyID3(path)
-                except (ID3NoHeaderError, ID3BadUnsynchData):
-                    sys.stderr.write("Bad ID3 Header: %s\n" % path)
-                    f = {}
-                except IOError, e:
-                    sys.stderr.write(str(e)+"\n")
-                    continue
-            else:
-                try:
-                    f = mutagen.File(path)
-                except:
-                    sys.stderr.write("Skipped %s, error in Mutagen\n" % path)
-                    continue
-
-            if f is None:
-                sys.stderr.write("Not a media file, skipping: %s\n" % path)
+            
+        # update files
+        for path in to_update: 
+            try:        
+                song = get_metadata_sane(path)
+            except MetadataError, e:
+                sys.stderr.write("Skipped "+str(e)+"\n")
                 continue
-            
-            song = {}
-            
-            for k, v in f.items():
-                # FIXME what if v is not a list
-                try:
-                    v = str(", ".join(v))   # flatten value
-                except TypeError:
-                    sys.stderr.write("wrong type for %s in %s\n" % (k, path))
-                    continue
-                
-                song[k] = v
-            
-            song = sanitize_metadata(path, song)
-            extract_cover(path, song)
 
-            mtime = os.path.getmtime(path)
+            # store metadata in database (uri, title, artist, album, genre, tracknumber, playcount, date)
+            con.execute("""
+            UPDATE songs 
+            SET title = ?, artist = ?, album = ?, tracknumber = ?, date = datetime(?, 'unixepoch')
+            WHERE uri = ? """,
+            (song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"], unicode(path)))
 
-            # sqlite wants only unicode strings
-            for k, v in song.iteritems():
-                song[k] = unicode(v)
+            print "Updated: %s" % path
+            mod_count += 1
+  
+  
+        # add new files
+        for path in disc_files: 
+            try:        
+                song = get_metadata_sane(path)
+            except MetadataError, e:
+                sys.stderr.write("Skipped "+str(e)+"\n")
+                continue
 
             # store metadata in database (uri, title, artist, album, genre, tracknumber, playcount, date)
             con.execute("INSERT INTO songs VALUES (?, ?, ?, ?, '', ?, 0, datetime(?, 'unixepoch'))", \
-                (unicode(path), song["title"], song["artist"], song["album"], song["tracknumber"], mtime))
+                (unicode(path), song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"]))
 
             print "Added: %s" % path
-            add_count += 1
+            mod_count += 1
         
         con.commit()
         con.close()
 
-        self.emit("update-complete", add_count > 0)
+        self.emit("update-complete", mod_count > 0)

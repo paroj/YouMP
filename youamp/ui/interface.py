@@ -1,3 +1,4 @@
+from youamp.ui.detailswindow import DetailsWindow
 import gtk
 import pynotify
 import gtk.gdk
@@ -23,6 +24,8 @@ class UserInterface:
         library = controller.library
         scrobbler = controller.scrobbler
         
+        self.song_meta = controller.song_meta
+        
         self._controller = controller
         
         # Build Interface
@@ -31,7 +34,9 @@ class UserInterface:
         xml.add_from_file(data_path + "interface.ui")
 
         # Create Views
-        self.smenu = SongMenu(config, player, xml)
+        dw = DetailsWindow(controller.song_meta)
+        
+        self.smenu = SongMenu(config, player, dw, xml)
         self.plmenu = PlaylistMenu(xml)
         
         sw = SearchView(controller.main_list, controller, config, self.smenu, xml)
@@ -42,7 +47,9 @@ class UserInterface:
         self._view += lists
         
         # Windows
-        self.window = Window(player, xml)
+        self.window = Window(player, dw, self.song_meta, xml)
+        dw.set_transient_for(self.window._w)
+        
         about = xml.get_object("about")
         about.set_version(VERSION)
 
@@ -135,7 +142,7 @@ class UserInterface:
                                     xml_escape(song["album"]))
         self._notify.update(xml_escape(song["title"]), body)
 
-        path = song.get_cover_path()
+        path = self.song_meta.get_cover_path(song)
         
         if path is None:
             cover = gtk.icon_theme_get_default().load_icon("audio-x-generic", 128, 0)

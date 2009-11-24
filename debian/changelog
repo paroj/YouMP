@@ -1,3 +1,12 @@
+youamp (0.6.0~beta11-1) karmic; urgency=low
+
+  * indexer now updates tags
+  * cover download using last.fm
+  * thus do not extract embedded images to improve speed
+  * refactoring
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Tue, 03 Nov 2009 21:51:05 +0100
+
 youamp (0.6.0~beta10-1) karmic; urgency=low
 
   * refactor code

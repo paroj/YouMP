@@ -14,6 +14,7 @@ from youamp.ui.interface import UserInterface
 from youamp.playlist import Playlist, PlaylistMux, Song
 from youamp.library import Library, check_db
 from youamp.indexer import Indexer
+from youamp.songmeta import SongMetaLastFM
 from youamp.player import Player
 from youamp.config import Config
 import youamp.scrobbler as scrobbler
@@ -30,6 +31,7 @@ class Controller:
         check_config(self.config)
         self.player = Player(self.config)
         self.library = Library()
+        self.song_meta = SongMetaLastFM()
         indexer = Indexer()
         self.main_list = Playlist(None)
         self.main_list.title = _("Library")

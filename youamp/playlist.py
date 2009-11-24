@@ -4,7 +4,6 @@ import fnmatch
 
 import gobject
 import gtk
-import gtk.gdk
 
 from youamp.indexer import media_art_identifier
 
@@ -244,35 +243,5 @@ class Song(dict):
         self["trackno"] = int(data[5]) if data[5] != "" else 0
         self["mtime"] = data[6]
         
-        self._display_cover = data[2] != "" or data[3] != ""
-    
-    def _image_in_dir(self):
-        """
-        search for an image in the same directory as the music file
-        """    
-        dir = os.path.dirname(self.uri)
-        
-        try:
-            img = fnmatch.filter(os.listdir(dir), "*.jpg")[0]
-        except IndexError:
-            return None
-        
-        return os.path.join(dir, img)
-
-    def get_cover_path(self):
-        # there should be enough information or we do nonsense
-        if not self._display_cover:
-            return None
-        
-        # use the image in song directory
-        path = self._image_in_dir()
-
-        if path is None:
-            # no image in song directory
-            # try to look in media-art dir
-            path = media_art_identifier(self)
-            
-            if not os.path.exists(path):
-                return None
-
-        return path
+        # do not try display cover if tags are insufficient
+        self.display_cover = data[1] != "" and data[2] != ""
