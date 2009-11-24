@@ -798,4 +798,29 @@ audio-volume-medium</property>
       </object>
     </child>
   </object>
+  <object class="GtkWindow" id="details_window">
+    <property name="default_width">600</property>
+    <property name="type_hint">dialog</property>
+    <property name="transient_for">window</property>
+    <signal name="delete_event" handler="hide-on-delete"/>
+    <child>
+      <object class="GtkEventBox" id="details_ebox">
+        <property name="visible">True</property>
+        <property name="visible_window">False</property>
+        <signal name="button_release_event" handler="hide-on-delete"/>
+        <child>
+          <object class="GtkHBox" id="details_hbox">
+            <property name="visible">True</property>
+            <property name="spacing">5</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>

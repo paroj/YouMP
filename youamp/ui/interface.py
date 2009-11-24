@@ -34,7 +34,7 @@ class UserInterface:
         xml.add_from_file(data_path + "interface.ui")
 
         # Create Views
-        dw = DetailsWindow(controller.song_meta)
+        dw = DetailsWindow(controller.song_meta, xml)
         
         self.smenu = SongMenu(config, player, dw, xml)
         self.plmenu = PlaylistMenu(xml)
@@ -48,7 +48,6 @@ class UserInterface:
         
         # Windows
         self.window = Window(player, dw, self.song_meta, xml)
-        dw.set_transient_for(self.window._w)
         
         about = xml.get_object("about")
         about.set_version(VERSION)

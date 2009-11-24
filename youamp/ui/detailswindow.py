@@ -5,14 +5,11 @@ from youamp.songmeta import SongMetaLastFM
 class CoverImage(gtk.Image):
     def __init__(self):
         gtk.Image.__init__(self)
-        self._cl = SongMetaLastFM()
-        self.album = ""
 
     def set_generic(self):
         name = "audio-x-generic"
         pb = gtk.icon_theme_get_default().load_icon(name, self.size_request()[1], 0)
         self.set_from_pixbuf(pb)
-        self.album = None
 
     def set_from_path(self, path):
         if path is None:                
@@ -22,29 +19,22 @@ class CoverImage(gtk.Image):
         pb = gtk.gdk.pixbuf_new_from_file_at_size(path, *self.size_request())       
         self.set_from_pixbuf(pb)
 
-class DetailsWindow(gtk.Window):    
-    def __init__(self, song_meta):        
-        gtk.Window.__init__(self)
-        
+class DetailsWindow:    
+    def __init__(self, song_meta, xml):
+        self._w = xml.get_object("details_window")
+                      
         self._sm = song_meta
         
-        self.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
-        self.set_default_size(600, -1)
+        xml.get_object("details_ebox").connect("button-release-event", self._w.hide_on_delete)
     
         self._data = None
         self._transl = (("title", _("Title")),
                         ("artist", _("Artist")),
                         ("album", _("Album")),
                         ("playcount", _("Playcount")))
-        
-        ebox = gtk.EventBox()
-        ebox.set_visible_window(False)
-        self.add(ebox)
                 
         # content
-        hbox = gtk.HBox()
-        hbox.set_spacing(5)
-        ebox.add(hbox)
+        hbox = xml.get_object("details_hbox")
         
         self._cover = CoverImage()
         self._cover.set_size_request(300, 300)
@@ -61,9 +51,9 @@ class DetailsWindow(gtk.Window):
             
         row, self._loc = self._data_row(_("Location"))
         dbox.pack_start(row, expand=False)
-        
-        ebox.connect("button-release-event", self.hide_on_delete)     
-        self.connect("delete-event", self.hide_on_delete)
+    
+    def show_all(self):
+        self._w.show_all()
     
     def _data_row(self, tk):
         row = gtk.HBox()
@@ -83,10 +73,10 @@ class DetailsWindow(gtk.Window):
         return row, dlabel
             
     def set_data(self, song):
-        self.set_title(_("Details for {0}").format(song["title"]))
+        self._w.set_title(_("Details for {0}").format(song["title"]))
         
         self._cover.set_from_path(self._sm.get_cover_path(song))
-        self.set_icon_list(self._cover.get_pixbuf())
+        #self._w.set_icon_list(self._cover.get_pixbuf())
         
         for k, l in self._data.iteritems():
             l.set_text(str(song[k]))
