@@ -22,7 +22,7 @@ class SongMenu:
         
         self.song = None
         self.playlist = None
-        self.pos = None
+        self.remove_act = None
         self._details = dw
             
         self._config = config
@@ -46,11 +46,10 @@ class SongMenu:
         self._w.popup(*args)
 
     def _remove(self, *args):
-        m = self.playlist.get_model()
-        m.remove(m.get_iter(self.pos))
+        self.remove_act()
 
     def _jump_next_to(self, caller, player):
-        player.playlist.jump_to = (self.playlist.get_model(), self.song)
+        player.playlist.jump_to = (self.playlist, self.song)
         
     def _browse_artist(self, *args):
         self._config["search-artist"] = str(self.song["artist"])

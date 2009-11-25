@@ -81,13 +81,13 @@ class ListView(gtk.TreeView):
             sel.unselect_all()
             return
 
+        # block selection action when clicking on multiple slected rows
+        # => allows dnd of multiple rows
+        allow_sel = sel.count_selected_rows() <= 1 \
+                    or not sel.path_is_selected(path) \
+                    or ev.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK)
+
+        sel.set_select_function(lambda *args: allow_sel)
+        
         if ev.button == 3:
             self._popup_menu(ev)
-        elif ev.button == 1:
-            # block selection action when clicking on multiple slected rows
-            # => allows dnd of multiple rows
-            allow_sel = sel.count_selected_rows() <= 1 \
-                        or not sel.path_is_selected(path) \
-                        or ev.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK)
-
-            sel.set_select_function(lambda *args: allow_sel)

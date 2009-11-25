@@ -5,7 +5,6 @@ import urllib2
 import sys
 import dbus
 import os.path
-import gst
 from dbus.mainloop.glib import DBusGMainLoop
 
 from youamp import VERSION, KNOWN_EXTS
@@ -81,7 +80,7 @@ class Controller:
         paths = []
         
         for uri in uris:
-            path = gst.uri_get_location(uri)
+            path = uri[7:]
             
             if os.path.isdir(path):
                 for root, dirs, files in os.walk(path):

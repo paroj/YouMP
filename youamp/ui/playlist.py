@@ -83,10 +83,16 @@ class SonglistView(ListView):
         pos = self.get_path_at_pos(int(ev.x), int(ev.y))[0]
 
         self._menu.song = self._model[pos]
-        self._menu.playlist = self
-        self._menu.pos = pos
+        self._menu.playlist = self._model
+        self._menu.remove_act = self.remove_selection
         self._menu.popup(None, None, None, ev.button, ev.time)
 
+    def remove_selection(self):
+        model, paths = self.get_selection().get_selected_rows()
+        paths = [model.get_iter(p) for p in paths]
+
+        model.remove(paths)
+            
     def get_uris(self, paths):
         return ["file://"+self._model[p].uri for p in paths]
     
@@ -122,10 +128,7 @@ class PlaylistView(SongsTab):
         key = gtk.gdk.keyval_name(ev.keyval)
 
         if key == "Delete":
-            model, paths = self.playlist.get_selection().get_selected_rows()
-            paths = [model.get_iter(p) for p in paths]
-
-            model.remove(paths)
+            self.playlist.remove_selection()
 
     def _on_order_changed(self, caller):   
         self._controller.order_changed(caller, self.playlist.get_model())   
