@@ -1,4 +1,4 @@
-youamp (0.6.0~beta11-1) karmic; urgency=low
+youamp (0.6.0~beta12-1) karmic; urgency=low
 
   * indexer now updates tags
   * cover download using last.fm

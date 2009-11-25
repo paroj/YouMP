@@ -71,10 +71,14 @@ class ListView(gtk.TreeView):
         model.remove(paths)
 
     def _button_press(self, caller, ev):
+        sel = self.get_selection()
+        
         try:
             path = self.get_path_at_pos(int(ev.x), int(ev.y))[0]
         except TypeError:
             # path is None => no row at cursor position
+            sel.set_select_function(lambda *args: True)
+            sel.unselect_all()
             return
 
         if ev.button == 3:
@@ -82,8 +86,6 @@ class ListView(gtk.TreeView):
         elif ev.button == 1:
             # block selection action when clicking on multiple slected rows
             # => allows dnd of multiple rows
-            sel = self.get_selection()
-
             allow_sel = sel.count_selected_rows() <= 1 \
                         or not sel.path_is_selected(path) \
                         or ev.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK)

@@ -171,6 +171,7 @@ class Controller:
         
         # call library from main thread
         gobject.idle_add(self.library.increment_played, song.uri)
+        song["playcount"] += 1
 
         nm_connected = self._nm_props.Get("org.freedesktop.NetworkManager", "State") == NM_STATE_CONNECTED
 

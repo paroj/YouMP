@@ -1,6 +1,8 @@
 import sys
 import gst
 import gobject
+import urllib
+import os.path
 
 from gobject import GObject
 from youamp import MAX_VOL
@@ -128,8 +130,14 @@ class Player(GObject):
         if self._current is None:
             self._current = self.playlist[self.playlist.pos]
         
+        if not os.path.exists(self._current.uri):
+            print "trck does not exists, abort before bad things happen"
+            return
+        
+        uri = "file://"+urllib.quote(str(self._current.uri))
+        
         self._player.set_state(gst.STATE_NULL)
-        self._player.set_property("uri", "file://"+self._current.uri)
+        self._player.set_property("uri", uri)
         self._player.set_state(gst.STATE_PAUSED)
 
     def _on_state_changed(self, bus, message):

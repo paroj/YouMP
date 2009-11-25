@@ -800,6 +800,7 @@ audio-volume-medium</property>
   </object>
   <object class="GtkWindow" id="details_window">
     <property name="default_width">600</property>
+    <property name="icon_name">dialog-information</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
     <signal name="delete_event" handler="hide-on-delete"/>
