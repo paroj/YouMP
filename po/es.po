@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: youamp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-11-21 00:58+0100\n"
-"PO-Revision-Date: 2009-10-24 08:32+0000\n"
-"Last-Translator: Paco Molinero <paco@byasl.com>\n"
+"PO-Revision-Date: 2009-11-25 19:41+0000\n"
+"Last-Translator: DiegoJ <diegojromerolopez@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-11-21 04:48+0000\n"
+"X-Launchpad-Export-Date: 2009-11-26 04:39+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../youamp/controller.py:35
@@ -75,15 +75,15 @@ msgstr "de"
 
 #: ../youamp/ui/playlist.py:22
 msgid "album"
-msgstr ""
+msgstr "álbum"
 
 #: ../youamp/ui/playlist.py:23
 msgid "playcount"
-msgstr ""
+msgstr "contador de reproducciones"
 
 #: ../youamp/ui/playlist.py:24
 msgid "date added"
-msgstr ""
+msgstr "fecha añadida"
 
 #: ../youamp/ui/playlist.py:25
 msgid "shuffle"
@@ -91,7 +91,7 @@ msgstr "aleatorio"
 
 #: ../youamp/ui/playlist.py:30
 msgid "Order:"
-msgstr ""
+msgstr "Orden:"
 
 #: ../youamp/ui/preferences.py:48 ../youamp/ui/preferences.py:67
 msgid "Connected"
