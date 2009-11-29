@@ -1,3 +1,9 @@
+youamp (0.6.0~beta13-1) karmic; urgency=low
+
+  * bugfixes
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Wed, 25 Nov 2009 18:47:24 +0100
+
 youamp (0.6.0~beta12-1) karmic; urgency=low
 
   * indexer now updates tags

@@ -1,4 +1,4 @@
-from youamp.ui.detailswindow import DetailsWindow, CoverImage
+from youamp.ui.detailswindow import CoverImage
 from youamp.ui import xml_escape
 
 class Window:

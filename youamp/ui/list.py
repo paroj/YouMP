@@ -1,4 +1,5 @@
 import gtk
+import gtk.gdk
 import pango
 import os.path
 

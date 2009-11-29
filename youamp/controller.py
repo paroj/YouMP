@@ -1,6 +1,7 @@
 import gtk
 import gobject
 import time
+import urllib
 import urllib2
 import sys
 import dbus
@@ -80,7 +81,7 @@ class Controller:
         paths = []
         
         for uri in uris:
-            path = uri[7:]
+            path = urllib.unquote(uri[7:])
             
             if os.path.isdir(path):
                 for root, dirs, files in os.walk(path):

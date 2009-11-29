@@ -1,4 +1,5 @@
 import gtk
+import gtk.gdk
 import pango
 
 from youamp.ui.browser import Browser
@@ -25,7 +26,8 @@ class SearchView(SongsTab):
     def __init__(self, playlist, controller, config, song_menu, xml):
         SongsTab.__init__(self, playlist, controller, song_menu)
         
-        self.playlist.SINK = self.playlist.SINK[0:1] # dont allow adding to library
+        # dont allow adding to library
+        self.playlist.enable_model_drag_dest(self.playlist.SINK[0:1], gtk.gdk.ACTION_LINK)
         
         self._config = config
         self._is_browser = config["is-browser"]

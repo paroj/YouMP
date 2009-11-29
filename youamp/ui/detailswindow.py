@@ -1,7 +1,5 @@
 import gtk
 
-from youamp.songmeta import SongMetaLastFM
-
 class CoverImage(gtk.Image):
     def __init__(self):
         gtk.Image.__init__(self)
