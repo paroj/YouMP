@@ -93,7 +93,7 @@ class Controller:
                 paths.append(path)
         
         try:
-            songs = [self.song_from_path(p) for p in paths]
+            songs = [self._song_from_path(p) for p in paths]
         except KeyError:
             # FIXME
             # at least one of the songs is not in the library
@@ -111,7 +111,7 @@ class Controller:
         self.player.playlist.set(view._model)
         self.player.goto_pos(path[0])
 
-    def song_from_path(self, path):
+    def _song_from_path(self, path):
         return Song(self.library.get_metadata(path))
 
     def _update_pos(self, player, *args):                

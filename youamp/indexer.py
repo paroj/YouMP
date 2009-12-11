@@ -129,6 +129,8 @@ class Indexer(GObject):
         
         for folder in folders:
             for root, dirs, files in os.walk(folder):
+                if "/." in root:
+                    continue # hidden directory
                 for f in files:
                     if f.lower().endswith(KNOWN_EXTS):
                         path = os.path.join(root, f)
@@ -147,12 +149,12 @@ class Indexer(GObject):
         mod_count = 0
 
         for path, old_mtime in db_files:
-            if os.path.exists(path):
+            if os.path.exists(path) and "/." not in path: # FIXME transition fix
                 mtime = os.path.getmtime(path)
                 
                 if mtime - 1 > float(old_mtime): # float precision stuff
                     to_update.append(path)
-                
+
                 disc_files.remove(str(path)) # convert unicode
             else:
                 con.execute("DELETE FROM songs WHERE uri = ?", (path,))

@@ -98,7 +98,7 @@ class UserInterface:
                              "view-search": lambda caller: self._cur_view.search_mode(),
                              "view-browse": lambda caller: self._cur_view.browse_mode(),
                              "select-current": lambda caller: self._cur_view.playlist.select_current(),
-                             "new-playlist": lambda caller: self.add_playlist(library.get_new_playlist())})
+                             "new-playlist": lambda caller: self._add_playlist(library.get_new_playlist())})
 
         self._toggle = xml.get_object("playback_item")
         self._thndl = self._toggle.connect("toggled", lambda caller: player.toggle())
@@ -119,7 +119,7 @@ class UserInterface:
         n = self.nb.page_num(self._view[i])
         self.nb.set_current_page(n)
 
-    def add_playlist(self, playlist):
+    def _add_playlist(self, playlist):
         pl = PlaylistView(playlist, self._controller, self.smenu, self.plmenu)
         self._view.append(pl)
         self.nb.append_page(pl, pl.label)
