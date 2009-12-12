@@ -6,52 +6,49 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-18 13:28+0100\n"
+"POT-Creation-Date: 2009-11-21 00:58+0100\n"
 "PO-Revision-Date: 2009-10-11 07:55+0000\n"
 "Last-Translator: Pavel Rojtberg <pavel@rojtberg.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-11-20 04:43+0000\n"
+"X-Launchpad-Export-Date: 2009-11-21 04:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "Generated-By: pygettext.py 1.5\n"
 
-#: ../youamp/controller.py:32
+#: ../youamp/controller.py:35
 msgid "Library"
 msgstr "Bibliotheek"
 
-#: ../youamp/ui/browser.py:36
-msgid "None"
-msgstr "Geen"
-
-#: ../youamp/ui/browser.py:52
+#: ../youamp/ui/browser.py:50
 msgid "Albums"
 msgstr "Albums"
 
-#: ../youamp/ui/browser.py:56 ../youamp/ui/searchview.py:170
-#: ../youamp/ui/searchview.py:238
+#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:134
+#: ../youamp/ui/searchview.py:190
 msgid "All Albums"
 msgstr "Alle Albums"
 
-#: ../youamp/ui/browser.py:61 ../youamp/ui/detailswindow.py:47
+#: ../youamp/ui/browser.py:59 ../youamp/ui/detailswindow.py:47
+#: ../youamp/ui/playlist.py:51
 msgid "Artist"
 msgstr "Artiest"
 
-#: ../youamp/ui/browser.py:65 ../youamp/ui/searchview.py:166
-#: ../youamp/ui/searchview.py:227
+#: ../youamp/ui/browser.py:63 ../youamp/ui/searchview.py:130
+#: ../youamp/ui/searchview.py:179
 msgid "All Artists"
 msgstr "Alle Artiesten"
 
-#: ../youamp/ui/detailswindow.py:46
+#: ../youamp/ui/detailswindow.py:46 ../youamp/ui/playlist.py:50
 msgid "Title"
 msgstr "Titel"
 
-#: ../youamp/ui/detailswindow.py:48 ../data/interface.ui.h:8
+#: ../youamp/ui/detailswindow.py:48 ../youamp/ui/playlist.py:52
 msgid "Album"
 msgstr "Album"
 
-#: ../youamp/ui/detailswindow.py:49 ../data/interface.ui.h:20
+#: ../youamp/ui/detailswindow.py:49
 msgid "Playcount"
 msgstr "Aantal keren gespeeld"
 
@@ -63,36 +60,36 @@ msgstr "Lokatie"
 msgid "Details for {0}"
 msgstr "Details voor {0}"
 
-#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:129
+#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:136
 #: ../youamp/ui/window.py:60
 msgid "by"
 msgstr "door"
 
-#: ../youamp/ui/interface.py:131 ../youamp/ui/window.py:62
-msgid "from"
-msgstr "van"
-
-#: ../youamp/ui/playlist.py:33 ../data/interface.ui.h:14
+#: ../youamp/ui/elements.py:111 ../data/interface.ui.h:12
 msgid "New Playlist"
 msgstr "Nieuwe afspeellijst"
 
-#: ../youamp/ui/playlist.py:95 ../youamp/ui/searchview.py:91
+#: ../youamp/ui/interface.py:138 ../youamp/ui/window.py:62
+msgid "from"
+msgstr "van"
+
+#: ../youamp/ui/playlist.py:22
 msgid "album"
 msgstr ""
 
-#: ../youamp/ui/playlist.py:96 ../youamp/ui/searchview.py:92
+#: ../youamp/ui/playlist.py:23
 msgid "playcount"
 msgstr ""
 
-#: ../youamp/ui/playlist.py:97 ../youamp/ui/searchview.py:93
+#: ../youamp/ui/playlist.py:24
 msgid "date added"
 msgstr ""
 
-#: ../youamp/ui/playlist.py:98 ../youamp/ui/searchview.py:94
+#: ../youamp/ui/playlist.py:25
 msgid "shuffle"
 msgstr "Willekeurig"
 
-#: ../youamp/ui/playlist.py:105 ../youamp/ui/searchview.py:101
+#: ../youamp/ui/playlist.py:30
 msgid "Order:"
 msgstr ""
 
@@ -109,16 +106,16 @@ msgid "Disconnected"
 msgstr "Verbinding verbroken"
 
 #. Search Label
-#: ../youamp/ui/searchview.py:52 ../data/interface.ui.h:24
+#: ../youamp/ui/searchview.py:40 ../data/interface.ui.h:20
 msgid "Search"
 msgstr "Zoeken"
 
 #. Browse Button
-#: ../youamp/ui/searchview.py:57 ../data/interface.ui.h:9
+#: ../youamp/ui/searchview.py:45 ../data/interface.ui.h:8
 msgid "Browse"
 msgstr "Bladeren"
 
-#: ../youamp/ui/window.py:25 ../data/interface.ui.h:15
+#: ../youamp/ui/window.py:25 ../data/interface.ui.h:13
 msgid "No Track"
 msgstr "Geen Titel"
 
@@ -150,79 +147,71 @@ msgstr "<b>Status</b>"
 msgid "A lightweight Music Player for the Internet Tablet"
 msgstr ""
 
-#: ../data/interface.ui.h:10
-msgid "Date added"
-msgstr "Datum toegevoegd"
-
-#: ../data/interface.ui.h:11
+#: ../data/interface.ui.h:9
 msgid "Details"
 msgstr "Bijzonderheden"
 
-#: ../data/interface.ui.h:12
+#: ../data/interface.ui.h:10
 msgid "Fullscreen"
 msgstr "Volledig scherm"
 
-#: ../data/interface.ui.h:13
+#: ../data/interface.ui.h:11
 msgid "General"
 msgstr "Algemeen"
 
-#: ../data/interface.ui.h:16
-msgid "Order"
-msgstr "Sorteren"
-
-#: ../data/interface.ui.h:17
+#: ../data/interface.ui.h:14
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: ../data/interface.ui.h:18
+#: ../data/interface.ui.h:15
 msgid "Play this next"
 msgstr ""
 
-#: ../data/interface.ui.h:19
+#: ../data/interface.ui.h:16
 msgid "Playback"
 msgstr "Afspelen"
 
-#: ../data/interface.ui.h:21
+#: ../data/interface.ui.h:17
 msgid "Player"
 msgstr "Speler"
 
-#: ../data/interface.ui.h:22
+#: ../data/interface.ui.h:18
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: ../data/interface.ui.h:23
+#: ../data/interface.ui.h:19
 msgid "Rename"
 msgstr "Hernoemen"
 
-#: ../data/interface.ui.h:25
+#: ../data/interface.ui.h:21
 msgid "Select current Song"
 msgstr ""
 
-#: ../data/interface.ui.h:26
+#: ../data/interface.ui.h:22
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: ../data/interface.ui.h:27
+#: ../data/interface.ui.h:23
 msgid "View"
 msgstr "Beeld"
 
-#: ../data/interface.ui.h:28
+#: ../data/interface.ui.h:24
 msgid "View this Album"
 msgstr ""
 
-#: ../data/interface.ui.h:29
+#: ../data/interface.ui.h:25
 msgid "View this Artist"
 msgstr ""
 
-#: ../data/interface.ui.h:30
+#: ../data/interface.ui.h:26
 msgid "YouAmp Website"
 msgstr "YouAmp Website"
 
-#: ../data/interface.ui.h:31
+#: ../data/interface.ui.h:27
 msgid "last.fm"
 msgstr "last.fm"
 
-#: ../data/interface.ui.h:32
+#: ../data/interface.ui.h:28
 msgid "translator-credits"
 msgstr ""
 "Maarten Jongepier\n"
@@ -232,8 +221,17 @@ msgstr ""
 "  Maarten Jongepier https://launchpad.net/~maxisgek\n"
 "  Pavel Rojtberg https://launchpad.net/~rojtberg"
 
+#~ msgid "Date added"
+#~ msgstr "Datum toegevoegd"
+
+#~ msgid "Order"
+#~ msgstr "Sorteren"
+
 #~ msgid "Updating database"
 #~ msgstr "Updaten database"
 
 #~ msgid "No Replaygain Amp (db)"
 #~ msgstr "Geen Replaygain Versterking (db)"
+
+#~ msgid "None"
+#~ msgstr "Geen"
