@@ -1,7 +1,5 @@
 import os
 import sqlite3
-import fnmatch
-import gobject
 
 from youamp import db_file
 from youamp.playlist import Song, Playlist

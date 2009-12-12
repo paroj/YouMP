@@ -1,9 +1,5 @@
 import gtk
 import gtk.gdk
-import pango
-import os.path
-
-from youamp import KNOWN_EXTS
 
 class ListView(gtk.TreeView):
     SOURCE = [("text/x-youamp-reorder", gtk.TARGET_SAME_WIDGET, 0),

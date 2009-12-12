@@ -4,7 +4,6 @@ import pango
 
 from youamp.ui.browser import Browser
 from youamp.ui.playlist import SongsTab
-from youamp.ui.elements import PlaylistLabel
 from youamp.ui import ARTIST_SELECTED, ALBUM_SELECTED
 
 class BrowseButton(gtk.Button):

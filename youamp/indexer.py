@@ -1,5 +1,4 @@
 import sqlite3
-import gst
 import gobject
 import os
 import sys

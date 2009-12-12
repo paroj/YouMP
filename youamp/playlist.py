@@ -1,11 +1,7 @@
-import os.path
 import random
-import fnmatch
 
 import gobject
 import gtk
-
-from youamp.indexer import media_art_identifier
 
 class PlaylistMux(gobject.GObject):
     __gsignals__ = {"list-switched": (gobject.SIGNAL_RUN_LAST, None, (object,))}
