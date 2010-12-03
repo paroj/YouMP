@@ -1,6 +1,12 @@
 import gtk
 import time
 
+try:
+    import appindicator
+    HAS_APPINDICATOR = True
+except ImportError:
+    HAS_APPINDICATOR = False
+
 from youamp.ui import xml_escape
 
 class Controls:
@@ -30,17 +36,35 @@ class Controls:
 class Icon:
     def __init__(self, player, xml):
         self._icon = xml.get_object("statusicon1")
-        self._window = xml.get_object("window")
-        
+        vis_menu_toggle = xml.get_object("vis_menu_toggle")
+                                
         self._menu = xml.get_object("icon_menu")
 
+        self._window = xml.get_object("window")
+
+        if HAS_APPINDICATOR:
+            self._icon.set_visible(False)   
+            
+            self._ind = appindicator.Indicator ("youamp", "youamp",
+                            appindicator.CATEGORY_APPLICATION_STATUS)
+            
+            self._ind.set_status(appindicator.STATUS_ACTIVE)
+            self._ind.set_menu(self._menu)
+            
+            vis_menu_toggle.connect("toggled", self._toggle_window_ind)
+        else:
+            vis_menu_toggle.hide()
+            sep = xml.get_object("menuitem3")
+            sep.hide()
+            
+            self._icon.connect("activate", self._toggle_window)
+            self._icon.connect("popup-menu", self._popup_menu)
+            
+            self._hide_hndl = self._window.connect("window-state-event", self._ws_cb)
+            self._window.handler_block(self._hide_hndl)
+
         player.connect("song-changed", self._update_songinfo)
-        
-        self._icon.connect("activate", self._toggle_window)
-        self._icon.connect("popup-menu", self._popup_menu)
-        
-        self._hide_hndl = self._window.connect("window-state-event", self._ws_cb)
-        self._window.handler_block(self._hide_hndl)
+                
         self._iconified = False
 
     # hides window when it is iconified
@@ -70,7 +94,17 @@ class Icon:
                                                    xml_escape(newsong["artist"]))
         self._icon.set_property("tooltip-markup", text)
     
-    def _toggle_window(self, *args):        
+    def _toggle_window_ind(self, *args):
+        if not self._iconified:
+            self._window.iconify()
+            self._window.hide()
+        else:
+            self._window.present()
+            self._window.deiconify()
+            
+        self._iconified = not self._iconified
+        
+    def _toggle_window(self, *args):   
         if not self._iconified:
             self._set_iconify_geometry()
             self._window.iconify()
