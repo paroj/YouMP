@@ -6,84 +6,84 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-21 01:00+0100\n"
-"PO-Revision-Date: 2009-09-30 08:17+0000\n"
-"Last-Translator: Pavel Rojtberg <pavel@rojtberg.net>\n"
+"POT-Creation-Date: 2010-12-03 22:14+0100\n"
+"PO-Revision-Date: 2010-06-24 06:29+0000\n"
+"Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-12-13 04:38+0000\n"
+"X-Launchpad-Export-Date: 2010-12-04 05:19+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "Generated-By: pygettext.py 1.5\n"
 
-#: ../youamp/controller.py:35
+#: ../youamp/controller.py:37
 msgid "Library"
-msgstr ""
+msgstr "Kirjasto"
 
 #: ../youamp/ui/browser.py:50
 msgid "Albums"
 msgstr "Albumit"
 
-#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:134
-#: ../youamp/ui/searchview.py:190
+#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:136
+#: ../youamp/ui/searchview.py:192
 msgid "All Albums"
 msgstr "Kaikki albumit"
 
-#: ../youamp/ui/browser.py:59 ../youamp/ui/detailswindow.py:47
+#: ../youamp/ui/browser.py:59 ../youamp/ui/detailswindow.py:30
 #: ../youamp/ui/playlist.py:51
 msgid "Artist"
-msgstr "Artisti"
+msgstr "Esittäjä"
 
-#: ../youamp/ui/browser.py:63 ../youamp/ui/searchview.py:130
-#: ../youamp/ui/searchview.py:179
+#: ../youamp/ui/browser.py:63 ../youamp/ui/searchview.py:132
+#: ../youamp/ui/searchview.py:181
 msgid "All Artists"
-msgstr "Kaikki artistit"
+msgstr "Kaikki esittäjät"
 
-#: ../youamp/ui/detailswindow.py:46 ../youamp/ui/playlist.py:50
+#: ../youamp/ui/detailswindow.py:29 ../youamp/ui/playlist.py:50
 msgid "Title"
 msgstr "Kappale"
 
-#: ../youamp/ui/detailswindow.py:48 ../youamp/ui/playlist.py:52
+#: ../youamp/ui/detailswindow.py:31 ../youamp/ui/playlist.py:52
 msgid "Album"
 msgstr "Albumi"
 
-#: ../youamp/ui/detailswindow.py:49
+#: ../youamp/ui/detailswindow.py:32
 msgid "Playcount"
 msgstr "Soittokerrat"
 
-#: ../youamp/ui/detailswindow.py:73
+#: ../youamp/ui/detailswindow.py:50
 msgid "Location"
-msgstr ""
+msgstr "Sijainti"
 
-#: ../youamp/ui/detailswindow.py:97
+#: ../youamp/ui/detailswindow.py:74
 msgid "Details for {0}"
-msgstr ""
+msgstr "Tiedot ({0})"
 
-#: ../youamp/ui/elements.py:69 ../youamp/ui/interface.py:136
-#: ../youamp/ui/window.py:60
+#: ../youamp/ui/elements.py:93 ../youamp/ui/interface.py:138
+#: ../youamp/ui/window.py:68
 msgid "by"
 msgstr "esittäjältä"
 
-#: ../youamp/ui/elements.py:111 ../data/interface.ui.h:12
+#: ../youamp/ui/elements.py:145 ../data/interface.ui.h:12
 msgid "New Playlist"
-msgstr ""
+msgstr "Uusi soittolista"
 
-#: ../youamp/ui/interface.py:138 ../youamp/ui/window.py:62
+#: ../youamp/ui/interface.py:140 ../youamp/ui/window.py:70
 msgid "from"
 msgstr "albumilta"
 
 #: ../youamp/ui/playlist.py:22
 msgid "album"
-msgstr ""
+msgstr "albumi"
 
 #: ../youamp/ui/playlist.py:23
 msgid "playcount"
-msgstr ""
+msgstr "soittokerrat"
 
 #: ../youamp/ui/playlist.py:24
 msgid "date added"
-msgstr ""
+msgstr "lisäyspäivä"
 
 #: ../youamp/ui/playlist.py:25
 msgid "shuffle"
@@ -91,37 +91,43 @@ msgstr "Sekoita"
 
 #: ../youamp/ui/playlist.py:30
 msgid "Order:"
-msgstr ""
+msgstr "Järjestys:"
 
 #: ../youamp/ui/preferences.py:48 ../youamp/ui/preferences.py:67
 msgid "Connected"
-msgstr ""
+msgstr "Yhdistetty"
 
 #: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
 msgid "Wrong login data"
-msgstr ""
+msgstr "Väärät kirjautumistiedot"
 
 #: ../youamp/ui/preferences.py:52 ../youamp/ui/preferences.py:61
 msgid "Disconnected"
-msgstr ""
+msgstr "Yhteys katkaistu"
 
 #. Search Label
-#: ../youamp/ui/searchview.py:40 ../data/interface.ui.h:20
+#: ../youamp/ui/searchview.py:41 ../data/interface.ui.h:20
 msgid "Search"
 msgstr "Hae"
 
 #. Browse Button
-#: ../youamp/ui/searchview.py:45 ../data/interface.ui.h:8
+#: ../youamp/ui/searchview.py:46 ../data/interface.ui.h:8
 msgid "Browse"
 msgstr "Selaa"
 
-#: ../youamp/ui/window.py:25 ../data/interface.ui.h:13
+#: ../youamp/ui/window.py:26 ../data/interface.ui.h:13
 msgid "No Track"
-msgstr "Ei raitaa"
+msgstr "Ei kappaletta"
 
+#. image
+#: ../youamp/ui/window.py:79
+msgid "None"
+msgstr ""
+
+#. self._w.set_icon_list(self._cover.get_pixbuf())
 #: ../data/interface.ui.h:1
 msgid "<b><big>No Track</big></b>"
-msgstr ""
+msgstr "<b><big>Ei kappaletta</big></b>"
 
 #: ../data/interface.ui.h:2
 msgid "<b>Fallback Gain (db)</b>"
@@ -133,7 +139,7 @@ msgstr ""
 
 #: ../data/interface.ui.h:4
 msgid "<b>Music Folder</b>"
-msgstr ""
+msgstr "<b>Musiikkihakemisto</b>"
 
 #: ../data/interface.ui.h:5
 msgid "<b>Replaygain Preamp (db)</b>"
@@ -141,39 +147,39 @@ msgstr ""
 
 #: ../data/interface.ui.h:6
 msgid "<b>Status</b>"
-msgstr ""
+msgstr "<b>Tila</b>"
 
 #: ../data/interface.ui.h:7
 msgid "A lightweight Music Player for the Internet Tablet"
-msgstr ""
+msgstr "Keveä musiikkisoitin Internet-tableteille"
 
 #: ../data/interface.ui.h:9
 msgid "Details"
-msgstr ""
+msgstr "Tiedot"
 
 #: ../data/interface.ui.h:10
 msgid "Fullscreen"
-msgstr ""
+msgstr "Kokoruutu"
 
 #: ../data/interface.ui.h:11
 msgid "General"
-msgstr ""
+msgstr "Yleiset"
 
 #: ../data/interface.ui.h:14
 msgid "Password"
-msgstr ""
+msgstr "Salasana"
 
 #: ../data/interface.ui.h:15
 msgid "Play this next"
-msgstr ""
+msgstr "Soita tämä seuraavaksi"
 
 #: ../data/interface.ui.h:16
 msgid "Playback"
-msgstr ""
+msgstr "Toisto"
 
 #: ../data/interface.ui.h:17
 msgid "Player"
-msgstr ""
+msgstr "Soitin"
 
 #: ../data/interface.ui.h:18
 msgid "Preferences"
@@ -181,15 +187,15 @@ msgstr "Asetukset"
 
 #: ../data/interface.ui.h:19
 msgid "Rename"
-msgstr ""
+msgstr "Nimeä uudelleen"
 
 #: ../data/interface.ui.h:21
 msgid "Select current Song"
-msgstr ""
+msgstr "Valitse nykyinen kappale"
 
 #: ../data/interface.ui.h:22
 msgid "Username"
-msgstr ""
+msgstr "Käyttäjätunnus"
 
 #: ../data/interface.ui.h:23
 msgid "View"
@@ -197,26 +203,31 @@ msgstr "Näytä"
 
 #: ../data/interface.ui.h:24
 msgid "View this Album"
-msgstr ""
+msgstr "Näytä tämä albumi"
 
 #: ../data/interface.ui.h:25
 msgid "View this Artist"
-msgstr ""
+msgstr "Näytä tämä esittäjä"
 
 #: ../data/interface.ui.h:26
-msgid "YouAmp Website"
+msgid "Visible"
 msgstr ""
 
 #: ../data/interface.ui.h:27
-msgid "last.fm"
-msgstr ""
+msgid "YouAmp Website"
+msgstr "YouAmpin verkkosivusto"
 
 #: ../data/interface.ui.h:28
+msgid "last.fm"
+msgstr "last.fm"
+
+#: ../data/interface.ui.h:29
 msgid "translator-credits"
 msgstr ""
 "Markus Vuorio\n"
 "\n"
 "Launchpad Contributions:\n"
+"  Jiri Grönroos https://launchpad.net/~jiri-gronroos\n"
 "  Markus Vuorio https://launchpad.net/~markus-vuorio-gmx\n"
 "  Pavel Rojtberg https://launchpad.net/~rojtberg"
 
