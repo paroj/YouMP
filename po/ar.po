@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: youamp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-11-21 01:00+0100\n"
+"POT-Creation-Date: 2010-12-03 22:14+0100\n"
 "PO-Revision-Date: 2010-02-17 06:03+0000\n"
 "Last-Translator: Anwar Mohammed <zero-n@hotmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-18 04:48+0000\n"
+"X-Launchpad-Export-Date: 2010-12-04 05:19+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../youamp/controller.py:41
+#: ../youamp/controller.py:37
 msgid "Library"
 msgstr "مكتبة"
 
@@ -25,51 +25,51 @@ msgstr "مكتبة"
 msgid "Albums"
 msgstr "ألبومات"
 
-#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:123
-#: ../youamp/ui/searchview.py:179
+#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:136
+#: ../youamp/ui/searchview.py:192
 msgid "All Albums"
 msgstr "كل الألبومات"
 
-#: ../youamp/ui/browser.py:59 ../youamp/ui/detailswindow.py:32
-#: ../youamp/ui/playlist.py:102
+#: ../youamp/ui/browser.py:59 ../youamp/ui/detailswindow.py:30
+#: ../youamp/ui/playlist.py:51
 msgid "Artist"
 msgstr "الفنّان"
 
-#: ../youamp/ui/browser.py:63 ../youamp/ui/searchview.py:119
-#: ../youamp/ui/searchview.py:168
+#: ../youamp/ui/browser.py:63 ../youamp/ui/searchview.py:132
+#: ../youamp/ui/searchview.py:181
 msgid "All Artists"
 msgstr "كل الفنانين"
 
-#: ../youamp/ui/detailswindow.py:31 ../youamp/ui/playlist.py:101
+#: ../youamp/ui/detailswindow.py:29 ../youamp/ui/playlist.py:50
 msgid "Title"
 msgstr "العنوان"
 
-#: ../youamp/ui/detailswindow.py:33 ../youamp/ui/playlist.py:103
-#: ../data/interface.glade.h:8
+#: ../youamp/ui/detailswindow.py:31 ../youamp/ui/playlist.py:52
 msgid "Album"
 msgstr "الألبوم"
 
-#: ../youamp/ui/detailswindow.py:34 ../data/interface.glade.h:20
+#: ../youamp/ui/detailswindow.py:32
 msgid "Playcount"
 msgstr "عدد مرات التشغيل"
 
-#: ../youamp/ui/detailswindow.py:52
+#: ../youamp/ui/detailswindow.py:50
 msgid "Location"
 msgstr "المكان"
 
-#: ../youamp/ui/detailswindow.py:97
+#: ../youamp/ui/detailswindow.py:74
 msgid "Details for {0}"
 msgstr "تفاصيل عن { 0 }"
 
-#: ../youamp/ui/interface.py:207 ../youamp/ui/window.py:75
+#: ../youamp/ui/elements.py:93 ../youamp/ui/interface.py:138
+#: ../youamp/ui/window.py:68
 msgid "by"
 msgstr "بواسطة"
 
-#: ../youamp/ui/elements.py:155 ../data/interface.glade.h:14
+#: ../youamp/ui/elements.py:145 ../data/interface.ui.h:12
 msgid "New Playlist"
 msgstr "قائمة تشغيل جديدة"
 
-#: ../youamp/ui/interface.py:209 ../youamp/ui/window.py:77
+#: ../youamp/ui/interface.py:140 ../youamp/ui/window.py:70
 msgid "from"
 msgstr "من"
 
@@ -85,8 +85,7 @@ msgstr "عدد مرات التشغيل"
 msgid "date added"
 msgstr "تاريخ الاضافة"
 
-#. Order Combo
-#: ../youamp/ui/playlist.py:65
+#: ../youamp/ui/playlist.py:25
 msgid "shuffle"
 msgstr "خلط"
 
@@ -106,41 +105,47 @@ msgstr "بيانات تسجيل الدخول خاطئة"
 msgid "Disconnected"
 msgstr "غير متَّصل"
 
-#: ../youamp/ui/searchview.py:36 ../data/interface.glade.h:24
+#. Search Label
+#: ../youamp/ui/searchview.py:41 ../data/interface.ui.h:20
 msgid "Search"
 msgstr "بحث"
 
 #. Browse Button
-#: ../youamp/ui/searchview.py:39 ../data/interface.glade.h:9
+#: ../youamp/ui/searchview.py:46 ../data/interface.ui.h:8
 msgid "Browse"
 msgstr "تصفح"
 
-#: ../youamp/ui/window.py:33 ../data/interface.glade.h:15
+#: ../youamp/ui/window.py:26 ../data/interface.ui.h:13
 msgid "No Track"
 msgstr "لا يوجد مسار"
 
+#. image
+#: ../youamp/ui/window.py:79
+msgid "None"
+msgstr ""
+
 #. self._w.set_icon_list(self._cover.get_pixbuf())
-#: ../data/interface.glade.h:1
+#: ../data/interface.ui.h:1
 msgid "<b><big>No Track</big></b>"
 msgstr "<b><big>لا يوجد مسار</big></b>"
 
-#: ../data/interface.glade.h:2
+#: ../data/interface.ui.h:2
 msgid "<b>Fallback Gain (db)</b>"
 msgstr "<b>الكسب المتراجع (db)</b>"
 
-#: ../data/interface.glade.h:3
+#: ../data/interface.ui.h:3
 msgid "<b>Login</b>"
 msgstr "<b>تسجيل الدخول</b>"
 
-#: ../data/interface.glade.h:4
+#: ../data/interface.ui.h:4
 msgid "<b>Music Folder</b>"
 msgstr "<b>مجلّد الموسيقى</b>"
 
-#: ../data/interface.glade.h:5
+#: ../data/interface.ui.h:5
 msgid "<b>Replaygain Preamp (db)</b>"
 msgstr ""
 
-#: ../data/interface.glade.h:6
+#: ../data/interface.ui.h:6
 msgid "<b>Status</b>"
 msgstr "<b>الحالة</b>"
 
@@ -148,27 +153,27 @@ msgstr "<b>الحالة</b>"
 msgid "A lightweight Music Player for the Internet Tablet"
 msgstr "مشغل موسيقى خفيفة للوحيات المشغله للانترنت"
 
-#: ../data/interface.glade.h:11
+#: ../data/interface.ui.h:9
 msgid "Details"
 msgstr "التّفاصيل"
 
-#: ../data/interface.glade.h:12
+#: ../data/interface.ui.h:10
 msgid "Fullscreen"
 msgstr "ملء الشاشة"
 
-#: ../data/interface.glade.h:13
+#: ../data/interface.ui.h:11
 msgid "General"
 msgstr "عام"
 
-#: ../data/interface.glade.h:17
+#: ../data/interface.ui.h:14
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: ../data/interface.glade.h:18
+#: ../data/interface.ui.h:15
 msgid "Play this next"
 msgstr "قم بتشغيل هذا لاحقا"
 
-#: ../data/interface.glade.h:19
+#: ../data/interface.ui.h:16
 msgid "Playback"
 msgstr "إعادة التشغيل"
 
@@ -176,43 +181,47 @@ msgstr "إعادة التشغيل"
 msgid "Player"
 msgstr "المشغل"
 
-#: ../data/interface.glade.h:22
+#: ../data/interface.ui.h:18
 msgid "Preferences"
 msgstr "الخيارات"
 
-#: ../data/interface.glade.h:23
+#: ../data/interface.ui.h:19
 msgid "Rename"
 msgstr "إعادة التسمية"
 
-#: ../data/interface.glade.h:25
+#: ../data/interface.ui.h:21
 msgid "Select current Song"
 msgstr "اختيار الأغنية الحالية"
 
-#: ../data/interface.glade.h:26
+#: ../data/interface.ui.h:22
 msgid "Username"
 msgstr "إسم المستخدم"
 
-#: ../data/interface.glade.h:27
+#: ../data/interface.ui.h:23
 msgid "View"
 msgstr "العرض"
 
-#: ../data/interface.glade.h:28
+#: ../data/interface.ui.h:24
 msgid "View this Album"
 msgstr "قم بعرض هذا الالبوم"
 
-#: ../data/interface.glade.h:29
+#: ../data/interface.ui.h:25
 msgid "View this Artist"
 msgstr "قم بعرض هذا الفنان"
 
 #: ../data/interface.ui.h:26
+msgid "Visible"
+msgstr ""
+
+#: ../data/interface.ui.h:27
 msgid "YouAmp Website"
 msgstr "موقع YouAmp"
 
-#: ../data/interface.glade.h:30
+#: ../data/interface.ui.h:28
 msgid "last.fm"
 msgstr "last.fm"
 
-#: ../youamp/ui/elements.py:53
+#: ../data/interface.ui.h:29
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
