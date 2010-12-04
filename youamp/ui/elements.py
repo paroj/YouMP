@@ -26,6 +26,13 @@ class Controls:
         config.notify_add("volume", self._on_conf_volume_changed)
         player.connect("seek-changed", lambda caller, new_seek: pos.set_value(new_seek))
         player.connect("toggled", lambda c, playing: tb.set_image(self.img[playing]))
+        
+        pos.connect("button-press-event", self._on_seek_click)
+        pos.connect("button-release-event", self._on_seek_click)
+   
+    def _on_seek_click(self, scale, ev):
+        # forces jump to pos
+        ev.button = 2
    
     def _on_conf_volume_changed(self, client, cxn_id, entry, data):
         self.volume.set_value(entry.get_value().get_float())
