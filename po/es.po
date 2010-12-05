@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: youamp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-12-03 22:14+0100\n"
-"PO-Revision-Date: 2010-11-14 08:56+0000\n"
-"Last-Translator: Fitoschido <Unknown>\n"
+"POT-Creation-Date: 2010-12-04 11:12+0100\n"
+"PO-Revision-Date: 2010-12-04 15:30+0000\n"
+"Last-Translator: Ángel <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-04 05:19+0000\n"
+"X-Launchpad-Export-Date: 2010-12-05 04:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../youamp/controller.py:37
@@ -23,7 +23,7 @@ msgstr "Biblioteca"
 
 #: ../youamp/ui/browser.py:50
 msgid "Albums"
-msgstr ""
+msgstr "Álbumes"
 
 #: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:136
 #: ../youamp/ui/searchview.py:192
@@ -211,7 +211,7 @@ msgstr "Ver este artista"
 
 #: ../data/interface.ui.h:26
 msgid "Visible"
-msgstr ""
+msgstr "Visible"
 
 #: ../data/interface.ui.h:27
 msgid "YouAmp Website"
@@ -228,7 +228,8 @@ msgstr ""
 "  DiegoJ https://launchpad.net/~diegojromerolopez\n"
 "  Fitoschido https://launchpad.net/~fitoschido\n"
 "  José A. Fuentes Santiago https://launchpad.net/~joanfusan\n"
-"  Pavel Rojtberg https://launchpad.net/~rojtberg"
+"  Pavel Rojtberg https://launchpad.net/~rojtberg\n"
+"  Ángel https://launchpad.net/~pikapikan"
 
 #~ msgid "Date added"
 #~ msgstr "Fecha añadida"
