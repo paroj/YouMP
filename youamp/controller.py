@@ -6,6 +6,8 @@ import urllib2
 import sys
 import dbus
 import os.path
+
+from dbus.bus import REQUEST_NAME_REPLY_PRIMARY_OWNER
 from dbus.mainloop.glib import DBusGMainLoop
 
 from youamp import VERSION, KNOWN_EXTS
@@ -44,6 +46,13 @@ class Controller:
         # DBus Stuff
         session_bus = dbus.SessionBus()
         system_bus = dbus.SystemBus()
+        
+        ret = session_bus.request_name("org.mpris.MediaPlayer2.youamp")
+        
+        self._already_running = (ret != REQUEST_NAME_REPLY_PRIMARY_OWNER)
+        
+        if self._already_running:
+            return
 
         # Network Manager
         nmanager = system_bus.get_object("org.freedesktop.NetworkManager", "/org/freedesktop/NetworkManager")
@@ -58,6 +67,9 @@ class Controller:
         mmkeys = session_bus.get_object("org.gnome.SettingsDaemon", "/org/gnome/SettingsDaemon/MediaKeys")
         mmkeys.connect_to_signal("MediaPlayerKeyPressed", self._handle_mmkeys)
         
+        # MPRIS
+        
+                
         self.gui = UserInterface(self)
         
         self._restore()
@@ -202,7 +214,8 @@ class Controller:
             self.config["pos"] = model.pos
     
     def start(self):
-        gtk.main()
+        if not self._already_running:
+            gtk.main()
         
     def quit(self, *args):
         # submit to last.fm
