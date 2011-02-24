@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: youamp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-12-04 11:12+0100\n"
-"PO-Revision-Date: 2010-12-04 08:38+0000\n"
+"PO-Revision-Date: 2011-02-23 14:16+0000\n"
 "Last-Translator: Václav Čermák <vaclav.cermak@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-12-29 05:01+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-24 04:43+0000\n"
+"X-Generator: Launchpad (build 12351)\n"
 
 #: ../youamp/controller.py:37
 msgid "Library"
@@ -87,7 +87,7 @@ msgstr "datum přidání"
 
 #: ../youamp/ui/playlist.py:25
 msgid "shuffle"
-msgstr ""
+msgstr "Náhodné přehrávání"
 
 #: ../youamp/ui/playlist.py:30
 msgid "Order:"
@@ -99,7 +99,7 @@ msgstr "Připojen"
 
 #: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
 msgid "Wrong login data"
-msgstr ""
+msgstr "Chybné přihlašovací údaje"
 
 #: ../youamp/ui/preferences.py:52 ../youamp/ui/preferences.py:61
 msgid "Disconnected"
@@ -131,7 +131,7 @@ msgstr "<b><big>Žádná skladba</big></b>"
 
 #: ../data/interface.ui.h:2
 msgid "<b>Fallback Gain (db)</b>"
-msgstr ""
+msgstr "<b>Nouzové Zesílení (db)</b>"
 
 #: ../data/interface.ui.h:3
 msgid "<b>Login</b>"
@@ -139,11 +139,11 @@ msgstr "<b>Přihlášení</b>"
 
 #: ../data/interface.ui.h:4
 msgid "<b>Music Folder</b>"
-msgstr ""
+msgstr "<b>Hudební složka</b>"
 
 #: ../data/interface.ui.h:5
 msgid "<b>Replaygain Preamp (db)</b>"
-msgstr ""
+msgstr "<b>Předzesilovač Replaygain (db)</b>"
 
 #: ../data/interface.ui.h:6
 msgid "<b>Status</b>"
@@ -151,7 +151,7 @@ msgstr "<b>Stav</b>"
 
 #: ../data/interface.ui.h:7
 msgid "A lightweight Music Player for the Internet Tablet"
-msgstr ""
+msgstr "Lehký hudební přehrávač pro internetové tablety"
 
 #: ../data/interface.ui.h:9
 msgid "Details"
@@ -171,27 +171,27 @@ msgstr "Heslo"
 
 #: ../data/interface.ui.h:15
 msgid "Play this next"
-msgstr ""
+msgstr "Přehrát jako další"
 
 #: ../data/interface.ui.h:16
 msgid "Playback"
-msgstr ""
+msgstr "Přehrávání"
 
 #: ../data/interface.ui.h:17
 msgid "Player"
-msgstr ""
+msgstr "Přehrávač"
 
 #: ../data/interface.ui.h:18
 msgid "Preferences"
-msgstr ""
+msgstr "Nastavení"
 
 #: ../data/interface.ui.h:19
 msgid "Rename"
-msgstr ""
+msgstr "Přejmenovat"
 
 #: ../data/interface.ui.h:21
 msgid "Select current Song"
-msgstr ""
+msgstr "Vybrat aktuální Píseň"
 
 #: ../data/interface.ui.h:22
 msgid "Username"
@@ -211,7 +211,7 @@ msgstr "Zobrazit tohoto umělce"
 
 #: ../data/interface.ui.h:26
 msgid "Visible"
-msgstr ""
+msgstr "Viditelný"
 
 #: ../data/interface.ui.h:27
 msgid "YouAmp Website"
@@ -228,4 +228,5 @@ msgstr ""
 "  Konki https://launchpad.net/~pavel-konkol\n"
 "  Kuvaly [LCT] https://launchpad.net/~kuvaly\n"
 "  Pavel Rojtberg https://launchpad.net/~rojtberg\n"
-"  Václav Čermák https://launchpad.net/~kingskid"
+"  Václav Čermák https://launchpad.net/~kingskid\n"
+"  Zbyněk Schwarz https://launchpad.net/~tsbook"
