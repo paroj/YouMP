@@ -1,3 +1,10 @@
+youamp (0.6.5~beta) natty; urgency=low
+
+  * support MPRIS for sound menu
+  * hide on close if playing
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Fri, 03 Dec 2010 22:15:28 +0100
+
 youamp (0.6.1-1) maverick; urgency=low
 
   * add support for application indicators
