@@ -19,6 +19,9 @@ from youamp.indexer import Indexer
 from youamp.songmeta import SongMetaLastFM
 from youamp.player import Player
 from youamp.config import Config
+
+from youamp.soundmenu import SoundMenuControls
+
 import youamp.scrobbler as scrobbler
 
 NM_STATE_CONNECTED = 3
@@ -68,9 +71,15 @@ class Controller:
         mmkeys.connect_to_signal("MediaPlayerKeyPressed", self._handle_mmkeys)
         
         # MPRIS
-        
-                
+        self.sound_menu = SoundMenuControls("youamp")
+        self.sound_menu._sound_menu_next = self.player.next
+        self.sound_menu._sound_menu_previous = self.player.previous
+        self.sound_menu._sound_menu_play = self.player.toggle
+        self.sound_menu._sound_menu_pause = self.player.toggle
+        self.sound_menu._sound_menu_is_playing = lambda: self.player.playing
+    
         self.gui = UserInterface(self)
+        self.sound_menu._sound_menu_raise = self.gui.window.present
         
         self._restore()
         
@@ -79,6 +88,7 @@ class Controller:
         self.config.notify_add("is-browser", self._set_new_playlist)
         self.player.connect("song-changed", self._now_playing)
         self.player.connect("song-changed", self._update_pos)
+        self.player.connect("toggled", self._toggled)
         
         indexer.connect("update-complete", self._on_index_updated)
         
@@ -88,6 +98,12 @@ class Controller:
             index_dirs += [self.config["music-folder"]]
         
         indexer.update(index_dirs)
+    
+    def _toggled(self, caller, playing):
+        if playing:
+            self.sound_menu.signal_playing()
+        else:
+            self.sound_menu.signal_paused()
     
     def on_uri_drop(self, model, uris, before=None, after=None):     
         paths = []
@@ -193,8 +209,11 @@ class Controller:
             sys.stderr.write("scrobbler: song {0} discarded\n nm_connected: {1}\n".format(song["title"], nm_connected))
                 
 
-    def _now_playing(self, player, song):        
-        if not self.gui.window.visible():
+    def _now_playing(self, player, song):
+        self.sound_menu.song_changed(song["artist"],song["album"],song["title"])
+        self.sound_menu.signal_playing()
+        
+        if not self.gui.window.is_active():
             self.gui.show_notification(song)
 
         nm_connected = self._nm_props.Get("org.freedesktop.NetworkManager", "State") == NM_STATE_CONNECTED
@@ -218,6 +237,10 @@ class Controller:
             gtk.main()
         
     def quit(self, *args):
+        if self.player.playing:
+            self.gui.window.iconify()
+            return True
+        
         # submit to last.fm
         if self.scrobbler.is_connected():
             try:

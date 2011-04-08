@@ -2,7 +2,6 @@
 import gobject
 import youamp.controller
 import gettext
-import gtk.gdk
 
 gettext.install("youamp")
 

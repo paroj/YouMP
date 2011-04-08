@@ -41,13 +41,14 @@ class Controls:
         config["volume"] = val
 
 class Icon:
-    def __init__(self, player, xml):
+    def __init__(self, player, window, xml):
         self._icon = xml.get_object("statusicon1")
         vis_menu_toggle = xml.get_object("vis_menu_toggle")
                                 
         self._menu = xml.get_object("icon_menu")
 
-        self._window = xml.get_object("window")
+        self._window = window._w
+        self.win = window
 
         if HAS_APPINDICATOR:
             self._icon.set_visible(False)   
@@ -71,8 +72,6 @@ class Icon:
             self._window.handler_block(self._hide_hndl)
 
         player.connect("song-changed", self._update_songinfo)
-                
-        self._iconified = False
 
     # hides window when it is iconified
     def _ws_cb(self, win, event):
@@ -102,17 +101,13 @@ class Icon:
         self._icon.set_property("tooltip-markup", text)
     
     def _toggle_window_ind(self, *args):
-        if not self._iconified:
-            self._window.iconify()
-            self._window.hide()
+        if not self.win.iconified:
+            self.win.iconify()
         else:
-            self._window.present()
-            self._window.deiconify()
-            
-        self._iconified = not self._iconified
-        
+            self.win.present()
+
     def _toggle_window(self, *args):   
-        if not self._iconified:
+        if not self.win.iconified:
             self._set_iconify_geometry()
             self._window.iconify()
             self._window.handler_unblock(self._hide_hndl)
@@ -120,7 +115,7 @@ class Icon:
             self._window.present()
             self._window.deiconify()
 
-        self._iconified = not self._iconified
+        self.win.iconified = not self.win.iconified
 
 class PlaylistLabel(gtk.EventBox):
     def __init__(self, playlist=None, icon="audio-x-generic"):

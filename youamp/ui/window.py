@@ -7,6 +7,7 @@ class Window:
         self._player = player
         self._sm = sm
         self._last_album = None
+        self.iconified = False
         
         self._is_fullscreen = False
         self._ftoggle = xml.get_object("toggle_fullscreen")
@@ -34,13 +35,26 @@ class Window:
         self._cover.show()
         self._w.show()
 
-    def visible(self):
-        return self._w.get_property("visible")
+    def is_active(self):
+        return self._w.get_property("is-active")
     
     def _display_details(self, *args):
         self._details.set_data(self._player._current)
         self._details.show_all()
+            
+    def iconify(self):
+        if self.iconified:
+            return
+        
+        self._w.iconify()
+        self._w.hide()
+        self.iconified = True
     
+    def present(self):
+        self._w.present()
+        self._w.deiconify()
+        self.iconified = False
+        
     def toggle_fullscreen(self):
         if self._is_fullscreen:
             self._w.unfullscreen()

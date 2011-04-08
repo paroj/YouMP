@@ -27,7 +27,7 @@ class UserInterface:
         self.song_meta = controller.song_meta
         
         self._controller = controller
-        
+                
         # Build Interface
         xml = gtk.Builder()
         xml.set_translation_domain("youamp")
@@ -64,7 +64,7 @@ class UserInterface:
             xml.get_object("view_search").set_active(True)
 
         # Tray Icon
-        Icon(player, xml)
+        # Icon(player, self.window, xml)
                
         # Notification
         pynotify.init("YouAmp")
