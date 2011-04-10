@@ -50,7 +50,7 @@ class Controller:
         session_bus = dbus.SessionBus()
         system_bus = dbus.SystemBus()
         
-        ret = session_bus.request_name("org.mpris.MediaPlayer2.youamp")
+        ret = session_bus.request_name("org.mpris.MediaPlayer2.youamp-player")
         
         self._already_running = (ret != REQUEST_NAME_REPLY_PRIMARY_OWNER)
         
@@ -71,7 +71,7 @@ class Controller:
         mmkeys.connect_to_signal("MediaPlayerKeyPressed", self._handle_mmkeys)
         
         # MPRIS
-        self.sound_menu = SoundMenuControls("youamp")
+        self.sound_menu = SoundMenuControls("youamp-player")
         self.sound_menu._sound_menu_next = self.player.next
         self.sound_menu._sound_menu_previous = self.player.previous
         self.sound_menu._sound_menu_play = self.player.toggle
