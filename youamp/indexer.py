@@ -5,6 +5,7 @@ import sys
 import thread
 import gtk.gdk
 import hashlib
+import unicodedata
 
 import mutagen
 import mutagen.easyid3
@@ -93,12 +94,12 @@ def get_metadata_raw(path):
     return meta
 
 def media_art_identifier(meta):
-    artist = meta["artist"].lower()
-    album = meta["album"].lower()
-    album = hashlib.md5(album).hexdigest()
-    artist = hashlib.md5(artist).hexdigest()
+    """calculate media art identifier as in bgo #520516. (the same as banshee)"""
+    hashstr = "%s\t%s" % (meta["artist"], meta["album"])
+    hashstr = unicodedata.normalize("NFKD", hashstr)
+    hash = hashlib.md5(hashstr).hexdigest()
     
-    return media_art+"album-%s-%s.jpeg" % (artist, album)
+    return media_art+"album-%s.jpeg" % hash
         
 def extract_cover(path, meta):
     try:

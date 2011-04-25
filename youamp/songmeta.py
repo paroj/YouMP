@@ -6,6 +6,7 @@ from xml.etree.ElementTree import parse,dump
 
 import os.path
 import fnmatch
+import gtk.gdk
 
 from youamp.indexer import media_art_identifier
 
@@ -14,7 +15,7 @@ import threading
 # the API KEY is specific to this player
 # please get an own at: http://www.last.fm/api/account
 API_KEY = "2a7381c68a7b50cde9d9befac535c395"
-REQ_URL = "http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key={0}&artist={1}&track={2}"
+REQ_URL = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key={0}&artist={1}&album={2}"
 
 def download_file(source, dest):
     req = urllib2.urlopen(source)
@@ -57,7 +58,7 @@ class SongMetaLastFM(gobject.GObject):
         
         if os.path.exists(path):
             return path
-        
+                
         if self._downloader_th is not None:
             self._downloader_th.join(0)
         
@@ -68,13 +69,17 @@ class SongMetaLastFM(gobject.GObject):
         
     def _downloader(self, song, path):
         # try to download image
-        uris = self._search_cover(str(song["artist"]), str(song["title"]))
+        uris = self._search_cover(str(song["artist"]), str(song["album"]))
         
-        if len(uris) == 0 or uris[0].endswith("default_album_medium.png"):
-            # no cover found
+        if uris[0] is None:
+            # no cover found at requested resolution
             return
         
         download_file(uris[0], path)
+        
+        # rescale to 300px
+        pb = gtk.gdk.pixbuf_new_from_file_at_size(path, 300, 300)  
+        pb.save(path, "jpeg")
         
         self.emit("new-cover", path, song["album"])
 
@@ -87,4 +92,4 @@ class SongMetaLastFM(gobject.GObject):
             return []
         
         resp = parse(resp)
-        return [e.text for e in resp.findall("track/album/image") if e.get("size") == "extralarge"]
+        return [e.text for e in resp.findall("album/image") if e.get("size") == "extralarge"]

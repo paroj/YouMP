@@ -15,7 +15,8 @@ data_path = "data/"
 if not os.path.exists(data_path):
     data_path = "/usr/share/youamp/"
 
-media_art = xdg_cache_home+"/media-art/"
+# use high res dir
+media_art = xdg_cache_home+"/media-art/300/"
 db_file = xdg_data_home+"/youamp/musicdb"
 
 try:
