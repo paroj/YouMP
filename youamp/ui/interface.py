@@ -3,6 +3,8 @@ import gtk
 import pynotify
 import gtk.gdk
 
+import platform
+
 from youamp.ui.window import Window
 from youamp.ui.preferences import Preferences
 from youamp.ui.searchview import SearchView
@@ -62,9 +64,11 @@ class UserInterface:
             xml.get_object("view_browse").set_active(True)
         else:
             xml.get_object("view_search").set_active(True)
-
-        # Tray Icon
-        # Icon(player, self.window, xml)
+        
+        # hack, not to display tray icon on natty
+        if not platform.python_version().startswith("2.7"):
+            # Tray Icon
+            Icon(player, self.window, xml)
                
         # Notification
         pynotify.init("YouAmp")

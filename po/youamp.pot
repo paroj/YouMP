@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-04 11:12+0100\n"
+"POT-Creation-Date: 2011-04-25 15:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../youamp/controller.py:37
+#: ../youamp/controller.py:42
 msgid "Library"
 msgstr ""
 
@@ -60,16 +60,16 @@ msgstr ""
 msgid "Details for {0}"
 msgstr ""
 
-#: ../youamp/ui/elements.py:93 ../youamp/ui/interface.py:138
-#: ../youamp/ui/window.py:68
+#: ../youamp/ui/elements.py:99 ../youamp/ui/interface.py:138
+#: ../youamp/ui/window.py:82
 msgid "by"
 msgstr ""
 
-#: ../youamp/ui/elements.py:145 ../data/interface.ui.h:12
+#: ../youamp/ui/elements.py:147 ../data/interface.ui.h:12
 msgid "New Playlist"
 msgstr ""
 
-#: ../youamp/ui/interface.py:140 ../youamp/ui/window.py:70
+#: ../youamp/ui/interface.py:140 ../youamp/ui/window.py:84
 msgid "from"
 msgstr ""
 
@@ -115,12 +115,12 @@ msgstr ""
 msgid "Browse"
 msgstr ""
 
-#: ../youamp/ui/window.py:26 ../data/interface.ui.h:13
+#: ../youamp/ui/window.py:27 ../data/interface.ui.h:13
 msgid "No Track"
 msgstr ""
 
 #. image
-#: ../youamp/ui/window.py:79
+#: ../youamp/ui/window.py:93
 msgid "None"
 msgstr ""
 
