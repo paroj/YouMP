@@ -65,8 +65,8 @@ class UserInterface:
         else:
             xml.get_object("view_search").set_active(True)
         
-        # hack, not to display tray icon on natty
-        if not platform.python_version().startswith("2.7"):
+        # hack to display tray icon on lucid
+        if platform.linux_distribution()[2] == "lucid":
             # Tray Icon
             Icon(player, self.window, xml)
                
