@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: youamp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-12-04 11:12+0100\n"
+"POT-Creation-Date: 2011-04-25 15:42+0200\n"
 "PO-Revision-Date: 2011-02-24 21:53+0000\n"
 "Last-Translator: Václav Čermák <vaclav.cermak@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-04-18 05:07+0000\n"
-"X-Generator: Launchpad (build 12735)\n"
+"X-Launchpad-Export-Date: 2011-04-26 04:45+0000\n"
+"X-Generator: Launchpad (build 12758)\n"
 
-#: ../youamp/controller.py:37
+#: ../youamp/controller.py:42
 msgid "Library"
 msgstr "Knihovna"
 
@@ -60,16 +60,16 @@ msgstr "Umístění"
 msgid "Details for {0}"
 msgstr "Detaily pro {0}"
 
-#: ../youamp/ui/elements.py:93 ../youamp/ui/interface.py:138
-#: ../youamp/ui/window.py:68
+#: ../youamp/ui/elements.py:99 ../youamp/ui/interface.py:138
+#: ../youamp/ui/window.py:82
 msgid "by"
 msgstr "od"
 
-#: ../youamp/ui/elements.py:145 ../data/interface.ui.h:12
+#: ../youamp/ui/elements.py:147 ../data/interface.ui.h:12
 msgid "New Playlist"
 msgstr "Nový seznam skladeb"
 
-#: ../youamp/ui/interface.py:140 ../youamp/ui/window.py:70
+#: ../youamp/ui/interface.py:140 ../youamp/ui/window.py:84
 msgid "from"
 msgstr "z"
 
@@ -115,12 +115,12 @@ msgstr "Hledat"
 msgid "Browse"
 msgstr "Procházet"
 
-#: ../youamp/ui/window.py:26 ../data/interface.ui.h:13
+#: ../youamp/ui/window.py:27 ../data/interface.ui.h:13
 msgid "No Track"
 msgstr "Žádná skladba"
 
 #. image
-#: ../youamp/ui/window.py:79
+#: ../youamp/ui/window.py:93
 msgid "None"
 msgstr "Nic"
 
