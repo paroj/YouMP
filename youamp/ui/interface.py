@@ -12,7 +12,7 @@ from youamp.ui.searchview import SearchView
 from youamp.ui.playlist import PlaylistView
 from youamp.ui.popupmenu import SongMenu, PlaylistMenu
 
-from youamp.ui.elements import Controls, Icon
+from youamp.ui.elements import Controls, Icon, HAS_APPINDICATOR
 from youamp.ui import xml_escape
 
 from youamp import VERSION, data_path
@@ -73,7 +73,10 @@ class UserInterface:
         # Notification
         pynotify.init("YouAmp")
         self._notify = pynotify.Notification(" ")
-        self._notify.attach_to_status_icon(xml.get_object("statusicon1"))
+        
+        if not HAS_APPINDICATOR:
+            self._notify.attach_to_status_icon(xml.get_object("statusicon1"))
+            
         self._notify.set_urgency(pynotify.URGENCY_LOW)
 
         # Add {Search, Playlist}Views
