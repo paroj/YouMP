@@ -1,7 +1,5 @@
 from youamp.ui.detailswindow import DetailsWindow
-import gtk
-import pynotify
-import gtk.gdk
+from gi.repository import Gtk, Gdk, GdkPixbuf, Notify
 
 import platform
 
@@ -31,7 +29,7 @@ class UserInterface:
         self._controller = controller
                 
         # Build Interface
-        xml = gtk.Builder()
+        xml = Gtk.Builder()
         xml.set_translation_domain("youamp")
         xml.add_from_file(data_path + "interface.ui")
 
@@ -71,13 +69,9 @@ class UserInterface:
             Icon(player, self.window, xml)
                
         # Notification
-        pynotify.init("YouAmp")
-        self._notify = pynotify.Notification(" ")
-        
-        if not HAS_APPINDICATOR:
-            self._notify.attach_to_status_icon(xml.get_object("statusicon1"))
-            
-        self._notify.set_urgency(pynotify.URGENCY_LOW)
+        Notify.init("YouAmp")
+        self._notify = Notify.Notification()       
+        self._notify.set_urgency(Notify.Urgency.LOW)
 
         # Add {Search, Playlist}Views
         self.nb = xml.get_object("notebook1")
@@ -97,7 +91,7 @@ class UserInterface:
                              "show-about": lambda *args: about.show(),
                              "quit": controller.quit,
                              "key-press": self._handle_keypress,
-                             "hide-on-delete": gtk.Widget.hide_on_delete,
+                             "hide-on-delete": Gtk.Widget.hide_on_delete,
                              "toggle": lambda caller: player.toggle(),
                              "previous": lambda caller: player.previous(),
                              "next": lambda caller: player.next(),
@@ -115,7 +109,7 @@ class UserInterface:
         player.playlist.connect("list-switched", self._switch_to)
         
         # change to library on browsing
-        config.notify_add("is-browser", lambda *args: self.nb.set_current_page(0))
+        config.connect("changed::is-browser", lambda *args: self.nb.set_current_page(0))
 
     def _on_song_changed(self, player, newsong):
         # move cursor to new position       
@@ -151,9 +145,9 @@ class UserInterface:
         path = self.song_meta.get_cover_path(song)
         
         if path is None:
-            cover = gtk.icon_theme_get_default().load_icon("audio-x-generic", 128, 0)
+            cover = Gtk.IconTheme.get_default().load_icon("audio-x-generic", 128, 0)
         else:
-            cover = gtk.gdk.pixbuf_new_from_file_at_size(path, 128, 128)
+            cover = GdkPixbuf.Pixbuf.new_from_file_at_size(path, 128, 128)
             
         self._notify.set_icon_from_pixbuf(cover)
         self._notify.show()
@@ -168,7 +162,7 @@ class UserInterface:
         self._toggle.handler_unblock(self._thndl)
                   
     def _handle_keypress(self, widget, event):
-        key = gtk.gdk.keyval_name(event.keyval)
+        key = Gdk.keyval_name(event.keyval)
         
         if key == "F11":
             self.window.toggle_fullscreen()

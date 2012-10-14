@@ -26,8 +26,8 @@ class Window:
         self._label = xml.get_object("track_label")
         self._label.set_markup("<b><big>{0}</big></b>\n".format(_("No Track")))
                     
-        csize = xml.get_object("hbox2").size_request()[1]
-        self._cover.set_size_request(csize, csize)
+        r, n = xml.get_object("hbox2").get_preferred_size()
+        self._cover.set_size_request(r.height, r.height)
     
         self._player.connect("song-changed", self._update_songinfo)
         self._sm.connect("new-cover", self._update_cover)

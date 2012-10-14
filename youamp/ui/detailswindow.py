@@ -1,12 +1,14 @@
-import gtk
+from gi.repository import Gtk, GdkPixbuf
 
-class CoverImage(gtk.Image):
+class CoverImage(Gtk.Image):
     def __init__(self):
-        gtk.Image.__init__(self)
+        Gtk.Image.__init__(self)
 
     def set_generic(self):
         name = "audio-x-generic"
-        pb = gtk.icon_theme_get_default().load_icon(name, self.size_request()[1], 0)
+        m, n = self.get_preferred_size()
+        
+        pb = Gtk.IconTheme.get_default().load_icon(name, m.width, 0)
         self.set_from_pixbuf(pb)
 
     def set_from_path(self, path):
@@ -14,7 +16,9 @@ class CoverImage(gtk.Image):
             self.set_generic()
             return
         
-        pb = gtk.gdk.pixbuf_new_from_file_at_size(path, *self.size_request())       
+        m, n = self.get_preferred_size()
+        
+        pb = GdkPixbuf.Pixbuf.new_from_file_at_size(path, m.width, m.height)       
         self.set_from_pixbuf(pb)
 
 class DetailsWindow:    
@@ -36,37 +40,37 @@ class DetailsWindow:
         
         self._cover = CoverImage()
         self._cover.set_size_request(300, 300)
-        hbox.pack_start(self._cover, expand=False)
+        hbox.pack_start(self._cover, False, True, 0)
         
-        dbox = gtk.VBox()
-        hbox.pack_start(dbox)
+        dbox = Gtk.VBox()
+        hbox.pack_start(dbox, True, True, 0)
         
         self._data = {}
         
         for k, tk in self._transl:
             row, self._data[k] = self._data_row(tk)
-            dbox.pack_start(row, expand=False)
+            dbox.pack_start(row, False, True, 0)
             
         row, self._loc = self._data_row(_("Location"))
-        dbox.pack_start(row, expand=False)
+        dbox.pack_start(row, False, True, 0)
     
     def show_all(self):
         self._w.show_all()
     
     def _data_row(self, tk):
-        row = gtk.HBox()
+        row = Gtk.HBox()
         
-        kl = gtk.Label()
+        kl = Gtk.Label()
         kl.set_markup("<b>{0}</b>".format(tk))
         kl.set_size_request(120, -1)
         kl.set_alignment(0, 0)
-        row.pack_start(kl, expand=False)
+        row.pack_start(kl, False, True, 0)
         
-        dlabel = gtk.Label()
+        dlabel = Gtk.Label()
         dlabel.set_alignment(0, 0.5)
         dlabel.set_line_wrap(True)
         dlabel.set_size_request(280, -1)
-        row.pack_start(dlabel)
+        row.pack_start(dlabel, True, True, 0)
         
         return row, dlabel
             
@@ -76,7 +80,7 @@ class DetailsWindow:
         self._cover.set_from_path(self._sm.get_cover_path(song))
         #self._w.set_icon_list(self._cover.get_pixbuf())
         
-        for k, l in self._data.iteritems():
+        for k, l in self._data.items():
             l.set_text(str(song[k]))
         
         self._loc.set_text(song.uri)

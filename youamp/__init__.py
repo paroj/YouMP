@@ -1,9 +1,9 @@
 import os
 import os.path
 
-from xdg.BaseDirectory import xdg_cache_home, xdg_data_home
+from gi.repository import GLib
 
-VERSION = "0.6.0"
+VERSION = "12.10"
 
 IS_MAEMO = False
 
@@ -16,8 +16,8 @@ if not os.path.exists(data_path):
     data_path = "/usr/share/youamp/"
 
 # use high res dir
-media_art = xdg_cache_home+"/media-art/300/"
-db_file = xdg_data_home+"/youamp/musicdb"
+media_art = GLib.get_user_cache_dir()+"/media-art/300/"
+db_file = GLib.get_user_data_dir()+"/youamp/musicdb"
 
 try:
     os.makedirs(media_art)

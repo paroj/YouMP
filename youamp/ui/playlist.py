@@ -1,24 +1,22 @@
-import gtk
-import gtk.gdk
-import pango
+from gi.repository import Gtk, Gdk, Pango
 
 from youamp.ui.list import ListView
 from youamp.ui.elements import PlaylistLabel
 
-class SongsTab(gtk.VBox):
+class SongsTab(Gtk.VBox):
     def __init__(self, playlist, controller, menu):
-        gtk.VBox.__init__(self)
+        Gtk.VBox.__init__(self)
         self.set_spacing(5)
 
         self.label = PlaylistLabel(playlist)
         
-        self._navi = gtk.HBox()
+        self._navi = Gtk.HBox()
         self._navi.set_spacing(5)
         self._navi.set_border_width(5)
-        self.pack_start(self._navi, expand=False)
+        self.pack_start(self._navi, False, True, 0)
 
         # Order Combo
-        self.order = gtk.combo_box_new_text()
+        self.order = Gtk.ComboBoxText()
         self.order.append_text(_("album"))
         self.order.append_text(_("playcount"))
         self.order.append_text(_("date added"))
@@ -26,18 +24,18 @@ class SongsTab(gtk.VBox):
         # disable change by scrolling -> too expensive
         self.order.connect("scroll-event", lambda *args: True)
 
-        self._navi.pack_end(self.order, expand=False)
-        self._navi.pack_end(gtk.Label(_("Order:")), expand=False)
+        self._navi.pack_end(self.order, False, True, 0)
+        self._navi.pack_end(Gtk.Label(label=_("Order:")), False, True, 0)
 
         # Scrolled View
-        self._scroll = gtk.ScrolledWindow()
-        self._scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
-        self._scroll.set_shadow_type(gtk.SHADOW_IN)
+        self._scroll = Gtk.ScrolledWindow()
+        self._scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.ALWAYS)
+        self._scroll.set_shadow_type(Gtk.ShadowType.IN)
         
         self.playlist = SonglistView(playlist, controller, menu)
         self._scroll.add(self.playlist)
 
-        self.pack_start(self._scroll)
+        self.pack_start(self._scroll, True, True, 0)
 
 class SonglistView(ListView):
     def __init__(self, playlist, controller, menu):
@@ -51,12 +49,12 @@ class SonglistView(ListView):
                   ("artist", _("Artist")),
                   ("album", _("Album")))
 
-        cell = gtk.CellRendererText()
-        cell.set_property("ellipsize", pango.ELLIPSIZE_END)
+        cell = Gtk.CellRendererText()
+        cell.set_property("ellipsize", Pango.EllipsizeMode.END)
 
         for key, title in transl:
-            col = gtk.TreeViewColumn(title, cell)
-            col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+            col = Gtk.TreeViewColumn(title, cell)
+            col.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
             col.set_resizable(True)
             col.set_fixed_width(266)
             col.set_min_width(100)
@@ -111,7 +109,8 @@ class PlaylistView(SongsTab):
         self.order.set_active(0)
         self.order.connect("changed", self._on_order_changed)
         
-        self.label.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.playlist.SINK[2:3], gtk.gdk.ACTION_COPY)
+        # FIXME !!
+        # self.label.drag_dest_set(Gtk.DestDefaults.ALL, self.playlist.SINK[2:3], Gdk.DragAction.COPY)
         self.label.connect("drag-data-received", self.playlist._recieve_drag_data)
 
         self.menu = pl_menu
@@ -125,7 +124,7 @@ class PlaylistView(SongsTab):
         self.playlist.restore()
     
     def _on_key_press(self, caller, ev):
-        key = gtk.gdk.keyval_name(ev.keyval)
+        key = Gdk.keyval_name(ev.keyval)
 
         if key == "Delete":
             self.playlist.remove_selection()

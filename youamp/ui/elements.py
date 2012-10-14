@@ -1,4 +1,4 @@
-import gtk
+from gi.repository import Gtk
 import time
 
 try:
@@ -23,7 +23,7 @@ class Controls:
         self.volume.set_value(config["volume"])
         self.volume.connect("value-changed", self._on_volume_changed, config)
                         
-        config.notify_add("volume", self._on_conf_volume_changed)
+        config.connect("changed::volume", self._on_conf_volume_changed)
         player.connect("seek-changed", lambda caller, new_seek: pos.set_value(new_seek))
         player.connect("toggled", lambda c, playing: tb.set_image(self.img[playing]))
         
@@ -34,8 +34,8 @@ class Controls:
         # forces jump to pos
         ev.button = 2
    
-    def _on_conf_volume_changed(self, client, cxn_id, entry, data):
-        self.volume.set_value(entry.get_value().get_float())
+    def _on_conf_volume_changed(self, client, entry):
+        self.volume.set_value(client[entry])
     
     def _on_volume_changed(self, button, val, config):
         config["volume"] = val
@@ -75,7 +75,7 @@ class Icon:
 
     # hides window when it is iconified
     def _ws_cb(self, win, event):
-        if event.new_window_state & gtk.gdk.WINDOW_STATE_ICONIFIED:
+        if event.new_window_state & Gdk.WindowState.ICONIFIED:
             if win.is_composited():
                 # FIXME: workaround for compiz bug
                 time.sleep(0.25)
@@ -88,10 +88,10 @@ class Icon:
         g = self._icon.get_geometry()[1]
         icon_geom = (g.x, g.y, g.width, g.height)
         self._window.window.property_change("_NET_WM_ICON_GEOMETRY", "CARDINAL", \
-                                     32, gtk.gdk.PROP_MODE_REPLACE, icon_geom)
+                                     32, Gdk.PropMode.REPLACE, icon_geom)
 
     def _popup_menu(self, caller, button, time):
-        self._menu.popup(None, None, gtk.status_icon_position_menu, button, time, self._icon)
+        self._menu.popup(None, None, Gtk.status_icon_position_menu, button, time, self._icon)
             
     def _update_songinfo(self, caller, newsong):
         text = "<b>{0}</b>\n{1} <i>{2}</i>".format(
@@ -117,31 +117,31 @@ class Icon:
 
         self.win.iconified = not self.win.iconified
 
-class PlaylistLabel(gtk.EventBox):
+class PlaylistLabel(Gtk.EventBox):
     def __init__(self, playlist=None, icon="audio-x-generic"):
-        gtk.EventBox.__init__(self)
+        Gtk.EventBox.__init__(self)
 
         self.set_visible_window(False)
 
-        hbox = gtk.HBox()
+        hbox = Gtk.HBox()
         self.add(hbox)
         hbox.set_spacing(2)
-        #hbox.pack_start(gtk.image_new_from_icon_name(icon, gtk.ICON_SIZE_MENU))
+        #hbox.pack_start(Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.MENU))
 
-        self.entry = gtk.Entry()
+        self.entry = Gtk.Entry()
         self.entry.set_has_frame(False)
-        self.label = gtk.Label()
+        self.label = Gtk.Label()
         self.playlist = playlist
         self.editing = False
         self.just_created = False
 
-        hbox.pack_start(self.label)
-        hbox.pack_start(self.entry)
+        hbox.pack_start(self.label, True, True, 0)
+        hbox.pack_start(self.entry, True, True, 0)
 
         hbox.show_all()
 
-        h = self.label.size_request()[1]
-        self.entry.set_size_request(-1, h)
+        r, n = self.label.get_preferred_size()
+        self.entry.set_size_request(-1, r.height)
 
         if playlist.title is None:
             playlist.title = _("New Playlist")

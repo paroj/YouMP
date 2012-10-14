@@ -2,7 +2,7 @@ NOTHING_SELECTED = 0
 ARTIST_SELECTED = 2
 ALBUM_SELECTED = 4
 
-import gobject
+from gi.repository import GObject
 
 def xml_escape(text):
     "escape the xml escape char"

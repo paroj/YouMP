@@ -1,13 +1,18 @@
 import sys
-import gst
-import gobject
-import urllib
+
+import gi
+gi.require_version('Gst', '1.0')
+
+from gi.repository import GObject, Gst
+
+Gst.init(None)
+
+import urllib.request, urllib.parse, urllib.error
 import os.path
 
-from gobject import GObject
 from youamp import MAX_VOL
 
-class Player(GObject):
+class Player(GObject.GObject):
     """
     A Playlist based player
     
@@ -18,14 +23,14 @@ class Player(GObject):
     seek-chaned: the seek changed
     toggled: player was toggled
     """
-    __gsignals__ = {"song-changed": (gobject.SIGNAL_RUN_LAST, None, (object,)),
-                    "song-played": (gobject.SIGNAL_RUN_LAST, None, (object,)),
-                    "tags-updated": (gobject.SIGNAL_RUN_LAST, None, (object,)),
-                    "seek-changed": (gobject.SIGNAL_RUN_LAST, None, (float,)),
-                    "toggled": (gobject.SIGNAL_RUN_LAST, None, (bool,))}
+    __gsignals__ = {"song-changed": (GObject.SignalFlags.RUN_LAST, None, (object,)),
+                    "song-played": (GObject.SignalFlags.RUN_LAST, None, (object,)),
+                    "tags-updated": (GObject.SignalFlags.RUN_LAST, None, (object,)),
+                    "seek-changed": (GObject.SignalFlags.RUN_LAST, None, (float,)),
+                    "toggled": (GObject.SignalFlags.RUN_LAST, None, (bool,))}
                                    
     def __init__(self, config):
-        GObject.__init__(self)
+        GObject.GObject.__init__(self)
         self.playing = False
         self.playlist = None
         self._current = None
@@ -33,12 +38,12 @@ class Player(GObject):
         self._set_duration_id = None
         self._config = config
 
-        self._player = gst.element_factory_make("playbin2")
+        self._player = Gst.ElementFactory.make("playbin", None)
         
         rg_bin = """audioconvert ! rgvolume name="rgvolume" ! rglimiter ! 
                     audioconvert ! audioresample ! autoaudiosink"""#pulsesink name="sink" """
         
-        rg_bin = gst.parse_bin_from_description(rg_bin, True)
+        rg_bin = Gst.parse_bin_from_description(rg_bin, True)
         
         self._player.set_property("audio-sink", rg_bin)
         self._rgvolume = rg_bin.get_by_name("rgvolume")
@@ -59,9 +64,9 @@ class Player(GObject):
         if config["gapless"]:
             self._player.connect("about-to-finish", self._gapless)
      
-        self._config.notify_add("volume", self._set_volume)
-        self._config.notify_add("rg-preamp", lambda *args: self._apply_rg_settings())
-        self._config.notify_add("no-rg-preamp", lambda *args: self._apply_rg_settings())
+        self._config.connect("changed::volume", self._set_volume)
+        self._config.connect("changed::rg-preamp", lambda *args: self._apply_rg_settings())
+        self._config.connect("changed::no-rg-preamp", lambda *args: self._apply_rg_settings())
 
     def _gapless(self, player):
         self.next(play=False)
@@ -101,27 +106,27 @@ class Player(GObject):
     def get_time(self):
         """returns position in seconds"""
         try:
-            s = self._player.query_position(gst.FORMAT_TIME)[0]/ gst.SECOND
+            s = self._player.query_duration(Gst.Format.TIME)[1]/Gst.SECOND
             return s
-        except gst.QueryError, e:
+        except Gst.QueryError as e:
             sys.stderr.write("get_time: %s\n" % e)
 
     def get_seek(self):
         """returns position as fraction"""
         try:
-            length = float(self._player.query_duration(gst.FORMAT_TIME)[0])
-            return self._player.query_position(gst.FORMAT_TIME)[0]/length
-        except gst.QueryError, e:
+            length = float(self._player.query_duration(Gst.Format.TIME)[1])
+            return self._player.query_position(Gst.Format.TIME)[1]/length
+        except ZeroDivisionError as e:
             sys.stderr.write("get_seek: %s\n" % e)
             return 0.0           
 
     def seek_to(self, pos):
         try:
-            length = float(self._player.query_duration(gst.FORMAT_TIME)[0])
-        except gst.QueryError, e:
+            length = float(self._player.query_duration(Gst.Format.TIME)[1])
+        except Gst.QueryError as e:
             sys.stderr.write("seek_to: %s\n" % e)
         else:        
-            self._player.seek_simple(gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH, int(length*pos))
+            self._player.seek_simple(Gst.Format.TIME, Gst.SeekFlags.FLUSH, int(length*pos))
     
     def _emit_played(self):
         self.emit("song-played", self._current)
@@ -131,36 +136,36 @@ class Player(GObject):
             self._current = self.playlist[self.playlist.pos]
         
         if not os.path.exists(self._current.uri):
-            print "trck does not exists, abort before bad things happen"
+            print("trck does not exists, abort before bad things happen")
             return
         
-        uri = "file://"+urllib.quote(str(self._current.uri))
+        uri = "file://"+urllib.parse.quote(str(self._current.uri))
         
-        self._player.set_state(gst.STATE_NULL)
+        self._player.set_state(Gst.State.NULL)
         self._player.set_property("uri", uri)
-        self._player.set_state(gst.STATE_PAUSED)
+        self._player.set_state(Gst.State.PAUSED)
 
     def _on_state_changed(self, bus, message):
         # wait for decodebin to move from ready to paused
         # up to there all tag events were fired
         if message.src.get_name().startswith("decodebin"):
             state = message.parse_state_changed()
-            if state[0:2] == [gst.STATE_READY, gst.STATE_PAUSED]:
+            if state[0:2] == [Gst.State.READY, Gst.State.PAUSED]:
                 self._rgvolume.set_property("album-mode", self._is_same_album())
                 
                 try:
-                    self._current["duration"] = int(self._player.query_duration(gst.FORMAT_TIME)[0]/gst.SECOND)
-                except gst.QueryError:
+                    self._current["duration"] = int(self._player.query_duration(Gst.Format.TIME)[1]/Gst.SECOND)
+                except Gst.QueryError:
                     sys.stderr.write("could not set song length\n")
                     
                 self.emit("song-changed", self._current)
   
     def start_playback(self):
         self.load_track()
-        self._player.set_state(gst.STATE_PLAYING)
+        self._player.set_state(Gst.State.PLAYING)
         
         if not self.playing:
-            self._emit_seek_id = gobject.timeout_add_seconds(1, self._emit_seek)
+            self._emit_seek_id = GObject.timeout_add_seconds(1, self._emit_seek)
             self.emit("toggled", True)
 
         self.playing = True
@@ -169,23 +174,23 @@ class Player(GObject):
         sys.stderr.write("Error: %s\n" % message.parse_error()[0])
         
     def __del__(self):
-        self._player.set_state(gst.STATE_NULL)
+        self._player.set_state(Gst.State.NULL)
         
-    def _set_volume(self, client, cxn_id, entry, data):
-        vol = min(1.0, max(0.0, entry.get_value().get_float()))
+    def _set_volume(self, client, entry):
+        vol = min(1.0, max(0.0, client[entry]))
 
         self._player.set_property("volume", vol*MAX_VOL)       
 		
     def toggle(self):
         if self.playing:
-            self._player.set_state(gst.STATE_PAUSED)
+            self._player.set_state(Gst.State.PAUSED)
             self.playing = False
-            gobject.source_remove(self._emit_seek_id)
+            GObject.source_remove(self._emit_seek_id)
         else:
-            self._player.set_state(gst.STATE_PLAYING)
+            self._player.set_state(Gst.State.PLAYING)
             self.playing = True
             
-            self._emit_seek_id = gobject.timeout_add_seconds(1, self._emit_seek)
+            self._emit_seek_id = GObject.timeout_add_seconds(1, self._emit_seek)
         
         self.emit("toggled", self.playing)
 
@@ -220,8 +225,11 @@ class Player(GObject):
         self._update_song(message.parse_tag())
         self.emit("tags-updated", self._current)
         
-    def _update_song(self, new_tags):        
-        for key in new_tags.keys():
+    def _update_song(self, new_tags):
+        # FIXME
+        return
+        new_tags.foreach(lambda tl, key, data: print(key), None)
+        for key in list(new_tags.keys()):
             v = new_tags[key]
 
             if key in ("artist", "album", "title"):

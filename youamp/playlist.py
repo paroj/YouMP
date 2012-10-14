@@ -1,13 +1,14 @@
 import random
+import functools
 
-import gobject
-import gtk
+from gi.repository import GObject
+from gi.repository import Gtk
 
-class PlaylistMux(gobject.GObject):
-    __gsignals__ = {"list-switched": (gobject.SIGNAL_RUN_LAST, None, (object,))}
+class PlaylistMux(GObject.GObject):
+    __gsignals__ = {"list-switched": (GObject.SignalFlags.RUN_LAST, None, (object,))}
 
     def __init__(self, cur):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         
         self.current = cur
         self.jump_to = None
@@ -60,9 +61,9 @@ class PlaylistMux(gobject.GObject):
     def update(self, new_list):
         self.current.update(new_list)
 
-class Playlist(gtk.ListStore):    
+class Playlist(Gtk.ListStore):    
     def __init__(self, backend):
-        gtk.ListStore.__init__(self, object)
+        Gtk.ListStore.__init__(self, object)
 
         self.pos = 0
         self.backend = backend
@@ -73,7 +74,7 @@ class Playlist(gtk.ListStore):
             self.title = backend.name
             
             for elt in self.backend.get_songs():
-                gtk.ListStore.append(self, (elt,))
+                Gtk.ListStore.append(self, (elt,))
 
             self.connect("row-inserted", self._sync)
             self.connect("row-deleted", self._sync)
@@ -83,7 +84,7 @@ class Playlist(gtk.ListStore):
             return
         
         # use idle add to make sure song was added
-        gobject.idle_add(self._perform_sync)
+        GObject.idle_add(self._perform_sync)
         
     def _perform_sync(self):
         self.backend.update([e[0] for e in self])
@@ -97,16 +98,16 @@ class Playlist(gtk.ListStore):
         return self.pos
 
     def order_by(self, order):
-        l = range(0, len(self)) # new order
+        l = list(range(0, len(self))) # new order
 
         if order == "album":
-            l.sort(self._sort_album)
+            l.sort(key=self._sort_album)
         elif order == "date":
-            l.sort(self._sort_date)
+            l.sort(key=self._sort_date)
         elif order == "shuffle":
             random.shuffle(l)
         else:
-            l.sort(self._sort_playcount)
+            l.sort(key=self._sort_playcount)
 
         self.reorder(l)
         self._sync(self)
@@ -122,39 +123,18 @@ class Playlist(gtk.ListStore):
         self.clear()
         self.append([s for s in playlist])
 
-    def _sort_playcount(self, i1, i2):
+    def _sort_playcount(self, i1):
         s1 = self[i1]
-        s2 = self[i2]
-
-        score = -cmp(s1["playcount"], s2["playcount"])
-
-        if score == 0:
-            score = self._sort_album(i1, i2)
-        
-        return score
+        return str(1/s1["playcount"])+self._sort_album(i1)
   
-    def _sort_album(self, i1, i2):
+    def _sort_album(self, i1):
         s1 = self[i1]
-        s2 = self[i2]
-
-        # sort by album and then by trackno
-        score = cmp(s1["album"], s2["album"])
-        
-        if score == 0:
-            score = cmp(s1["trackno"], s2["trackno"])
-
-        return score
+        return s1["album"]+str(s1["trackno"])
     
-    def _sort_date(self, i1, i2):
+    def _sort_date(self, i1):
         s1 = self[i1]
-        s2 = self[i2]
         
-        score = -cmp(s1["mtime"], s2["mtime"])
-        
-        if score == 0:
-            score = self._sort_album(i1, i2)
-        
-        return score
+        return s1["mtime"]+self._sort_album(i1)
     
     def rename(self, new_title):
         self.backend.rename(new_title)
@@ -164,10 +144,10 @@ class Playlist(gtk.ListStore):
         self.backend.delete()
 
     def __getitem__(self, k):
-        return gtk.ListStore.__getitem__(self, k)[0]
+        return Gtk.ListStore.__getitem__(self, k)[0]
     
     def __setitem__(self, k, v):
-        gtk.ListStore.__getitem__(self, k)[0] = v
+        Gtk.ListStore.__getitem__(self, k)[0] = v
     
     def next(self, v):
         return self.index(v) + 1
@@ -177,51 +157,51 @@ class Playlist(gtk.ListStore):
             self.nosync = True
             
             for d in data:
-                gtk.ListStore.insert_before(self, itr, (d,))
+                Gtk.ListStore.insert_before(self, itr, (d,))
                 
             self.nosync = False
             self._sync(self)
         else:
-            gtk.ListStore.insert_before(self, itr, data)
+            Gtk.ListStore.insert_before(self, itr, data)
     
     def insert_after(self, itr, data):
         if isinstance(data, list):
             self.nosync = True
             
             for d in data:
-                gtk.ListStore.insert_after(self, itr, (d,))
+                Gtk.ListStore.insert_after(self, itr, (d,))
                 
             self.nosync = False
             self._sync(self)
         else:
-            gtk.ListStore.insert_after(self, itr, data)
+            Gtk.ListStore.insert_after(self, itr, data)
     
     def append(self, elts):
         if isinstance(elts, list):
             self.nosync = True
                         
             for elt in elts:
-                gtk.ListStore.append(self, (elt,))
+                Gtk.ListStore.append(self, (elt,))
             
             self.nosync = False
             self._sync(self)
         else:
-            gtk.ListStore.append(self, (elts,))
+            Gtk.ListStore.append(self, (elts,))
     
     def remove(self, paths):
         if isinstance(paths, list):
             self.nosync = True
             
             for path in paths:
-                gtk.ListStore.remove(self, path)
+                Gtk.ListStore.remove(self, path)
                 
             self.nosync = False
             self._sync(self)
         else:
-            gtk.ListStore.remove(self, paths)
+            Gtk.ListStore.remove(self, paths)
     
     def index(self, v):
-        for i in xrange(len(self)):
+        for i in range(len(self)):
             if self[i] is v:
                 return i
         

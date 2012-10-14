@@ -1,24 +1,19 @@
-from youamp import IS_MAEMO
+from gi.repository import GConf
 
-if IS_MAEMO:
-    import gnome.gconf as gconf
-else:
-    import gconf
-
-class Config(gconf.Client):
-    """A dictonary like proxy for gconf.Client""" 
+class Config(GConf.Client):
+    """A dictonary like proxy for GConf.Client""" 
     
     def __init__(self, base_path):
         """@param base_path: the base path for further use"""
-        gconf.Client.__init__(self)
+        GConf.Client.__init__(self)
         self._base_path = base_path
-        self.add_dir(base_path[0:-1], gconf.CLIENT_PRELOAD_RECURSIVE)
+        self.add_dir(base_path[0:-1], GConf.ClientPreloadType.PRELOAD_RECURSIVE)
                  
     def notify_add(self, k, f):
-        return gconf.Client.notify_add(self, self._base_path + k, f)
+        return GConf.Client.notify_add(self, self._base_path + k, f)
 
     def notify(self, k):
-        gconf.Client.notify(self, self._base_path + k)
+        GConf.Client.notify(self, self._base_path + k)
     
     def __contains__(self, k):
         return self.get(self._base_path + k) is not None
@@ -37,6 +32,6 @@ class Config(gconf.Client):
         if v is None:
             self.unset(self._base_path + k)
         elif isinstance(v, list):
-            self.set_list(self._base_path+k, gconf.VALUE_STRING, [str(e) for e in v])
+            self.set_list(self._base_path+k, GConf.ValueType.STRING, [str(e) for e in v])
         else:
             self.set_value(self._base_path + k, v)

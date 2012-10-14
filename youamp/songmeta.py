@@ -1,12 +1,12 @@
 # coding: utf-8
-import gobject
-import urllib2
-import urllib
+from gi.repository import GObject, Gdk, GdkPixbuf
+
+import urllib.request, urllib.error, urllib.parse
+
 from xml.etree.ElementTree import parse,dump
 
 import os.path
 import fnmatch
-import gtk.gdk
 
 from youamp.indexer import media_art_identifier
 
@@ -18,14 +18,14 @@ API_KEY = "2a7381c68a7b50cde9d9befac535c395"
 REQ_URL = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key={0}&artist={1}&album={2}"
 
 def download_file(source, dest):
-    req = urllib2.urlopen(source)
-    file(dest, "w").write(req.read())
+    req = urllib.request.urlopen(source)
+    open(dest, "wb").write(req.read())
 
-class SongMetaLastFM(gobject.GObject):
-    __gsignals__ = {"new-cover": (gobject.SIGNAL_RUN_LAST, None, (str, str))}
+class SongMetaLastFM(GObject.GObject):
+    __gsignals__ = {"new-cover": (GObject.SignalFlags.RUN_LAST, None, (str, str))}
     
     def __init__(self):
-        gobject.GObject.__init__(self)
+        GObject.GObject.__init__(self)
         
         self._downloader_th = None
     
@@ -78,17 +78,17 @@ class SongMetaLastFM(gobject.GObject):
         download_file(uris[0], path)
         
         # rescale to 300px
-        pb = gtk.gdk.pixbuf_new_from_file_at_size(path, 300, 300)  
-        pb.save(path, "jpeg")
+        pb = GdkPixbuf.Pixbuf.new_from_file_at_size(path, 300, 300)  
+        pb.savev(path, "jpeg", [], [])
         
         self.emit("new-cover", path, song["album"])
 
     def _search_cover(self, artist, title):
-        req = REQ_URL.format(API_KEY, urllib.quote(artist), urllib.quote(title))
+        req = REQ_URL.format(API_KEY, urllib.parse.quote(artist), urllib.parse.quote(title))
         
         try:
-            resp = urllib2.urlopen(req)
-        except urllib2.HTTPError:
+            resp = urllib.request.urlopen(req)
+        except urllib.error.HTTPError:
             return []
         
         resp = parse(resp)

@@ -1,8 +1,7 @@
-import gtk
-import gobject
+from gi.repository import GObject, Gtk, Gio
+
 import time
-import urllib
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import sys
 import dbus
 import os.path
@@ -32,8 +31,7 @@ class Controller:
     def __init__(self):
         check_db()
         DBusGMainLoop(set_as_default=True)
-        self.config = Config("/apps/youamp/")
-        check_config(self.config)
+        self.config = Gio.Settings("net.rojtberg.youamp")
         self.player = Player(self.config)
         self.library = Library()
         self.song_meta = SongMetaLastFM()
@@ -44,7 +42,7 @@ class Controller:
         self.jump_to = None
         self.player.playlist = PlaylistMux(self.main_list)
 
-        gobject.set_application_name("YouAmp")
+        GObject.set_application_name("YouAmp")
 
         # DBus Stuff
         session_bus = dbus.SessionBus()
@@ -84,8 +82,8 @@ class Controller:
         self._restore()
         
         self.player.connect("song-played", self._on_song_played)
-        self.config.notify_add("music-folder", self._set_new_playlist)
-        self.config.notify_add("is-browser", self._set_new_playlist)
+        self.config.connect("changed::music-folder", self._set_new_playlist)
+        self.config.connect("changed::is-browser", self._set_new_playlist)
         self.player.connect("song-changed", self._now_playing)
         self.player.connect("song-changed", self._update_pos)
         self.player.connect("toggled", self._toggled)
@@ -109,7 +107,7 @@ class Controller:
         paths = []
         
         for uri in uris:
-            path = urllib.unquote(uri[7:])
+            path = urllib.parse.unquote(uri[7:])
             
             if os.path.isdir(path):
                 for root, dirs, files in os.walk(path):
@@ -148,7 +146,7 @@ class Controller:
 
     def _on_index_updated(self, caller, was_updated):        
         if was_updated:
-            gobject.idle_add(self._refresh_playlist)
+            GObject.idle_add(self._refresh_playlist)
 
     def _restore(self):
         self._refresh_playlist()
@@ -169,7 +167,7 @@ class Controller:
         action = dict()
         action["Play"] = self.player.toggle
         action["Previous"] = self.player.previous
-        action["Next"] = self.player.next
+        action["Next"] = self.player.__next__
         
         action[key]()
     
@@ -198,7 +196,7 @@ class Controller:
             return
         
         # call library from main thread
-        gobject.idle_add(self.library.increment_played, song.uri)
+        GObject.idle_add(self.library.increment_played, song.uri)
         song["playcount"] += 1
 
         nm_connected = self._nm_props.Get("org.freedesktop.NetworkManager", "State") == NM_STATE_CONNECTED
@@ -234,7 +232,7 @@ class Controller:
     
     def start(self):
         if not self._already_running:
-            gtk.main()
+            Gtk.main()
         
     def quit(self, *args):
         if self.player.playing:
@@ -245,42 +243,7 @@ class Controller:
         if self.scrobbler.is_connected():
             try:
                 self.scrobbler.flush()
-            except urllib2.URLError, e:
+            except urllib.error.URLError as e:
                 sys.stderr.write("lastfm.submit: %s\n" % e)
         
-        gtk.main_quit()
-
-def check_config(config):
-    if not "volume" in config:
-        # write default config
-        config["volume"] = 0.5
-        config["search-str"] = ""
-        config["search-artist"] = ""
-        config["search-album"] = ""
-        config["pos"] = 0
-        config["is-browser"] = False
-        config["rg-preamp"] = 0     # preamp to adjust the default of 89db (value: db)
-        config["no-rg-preamp"] = -10  # amp value to be used if no rg info is available (value: db)
-    
-    # order by was added in v0.3.5, therefore check for it seperately
-    if not "order-by" in config:
-        config["order-by"] = "album"
-
-    # order by renamed in v0.5.8
-    if config["order-by"] == "artist":
-        config["order-by"] = "album"
-
-    # music-folder was added in v0.3.8
-    if not "music-folder" in config:
-        config["music-folder"] = os.path.expanduser("~")
-        
-    # last.fm support was added in v0.4.0
-    if not "lastfm-user" in config:
-        config["lastfm-user"] = ""
-        config["lastfm-pass"] = ""
-
-    # added in v0.6.0
-    if not "gapless" in config:
-        config["gapless"] = True
-    
-    # config["shuffle"] removed in 0.6.0
+        Gtk.main_quit()

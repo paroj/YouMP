@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="2.16"/>
-  <!-- interface-naming-policy toplevel-contextual -->
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkAboutDialog" id="about">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -38,12 +37,12 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
     <signal name="delete-event" handler="hide-on-delete" swapped="no"/>
     <signal name="response" handler="hide-on-delete" swapped="no"/>
     <child internal-child="vbox">
-      <object class="GtkVBox" id="dialog-vbox1">
+      <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="dialog-action_area1">
+          <object class="GtkButtonBox" id="dialog-action_area1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
@@ -86,7 +85,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
         <property name="label" translatable="yes">Play this next</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="image">image4</property>
         <property name="use_stock">False</property>
       </object>
@@ -101,7 +99,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
       <object class="GtkMenuItem" id="view_artist">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="label" translatable="yes">View this Artist</property>
         <property name="use_underline">True</property>
       </object>
@@ -110,7 +107,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
       <object class="GtkMenuItem" id="view_album">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="label" translatable="yes">View this Album</property>
         <property name="use_underline">True</property>
       </object>
@@ -126,7 +122,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
         <property name="label">gtk-remove</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="use_underline">True</property>
         <property name="use_stock">True</property>
       </object>
@@ -142,7 +137,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
         <property name="label" translatable="yes">Details</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="image">image6</property>
         <property name="use_stock">False</property>
       </object>
@@ -184,7 +178,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
       <object class="GtkCheckMenuItem" id="vis_menu_toggle">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="label" translatable="yes">Visible</property>
         <property name="use_underline">True</property>
         <property name="active">True</property>
@@ -200,7 +193,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
       <object class="GtkCheckMenuItem" id="playback_item">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="label" translatable="yes">Playback</property>
         <property name="use_underline">True</property>
       </object>
@@ -210,7 +202,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
         <property name="label">gtk-media-next</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="use_underline">True</property>
         <property name="use_stock">True</property>
         <signal name="activate" handler="next" swapped="no"/>
@@ -221,7 +212,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
         <property name="label">gtk-media-previous</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="use_underline">True</property>
         <property name="use_stock">True</property>
         <signal name="activate" handler="previous" swapped="no"/>
@@ -238,7 +228,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
         <property name="label">gtk-quit</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="use_underline">True</property>
         <property name="use_stock">True</property>
         <signal name="activate" handler="quit" swapped="no"/>
@@ -278,7 +267,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
       <object class="GtkMenuItem" id="playlist_rename">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="label" translatable="yes">Rename</property>
         <property name="use_underline">True</property>
       </object>
@@ -288,7 +276,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
         <property name="label">gtk-delete</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="use_underline">True</property>
         <property name="use_stock">True</property>
       </object>
@@ -336,7 +323,7 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="action">select-folder</property>
-                    <property name="title" translatable="yes"></property>
+                    <property name="title" translatable="yes"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -364,7 +351,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                   <object class="GtkHScale" id="rg_preamp">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="update_policy">delayed</property>
                     <property name="adjustment">adjustment2</property>
                     <property name="restrict_to_fill_level">False</property>
                   </object>
@@ -394,7 +380,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                   <object class="GtkHScale" id="no_rg_preamp">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="update_policy">delayed</property>
                     <property name="adjustment">adjustment3</property>
                     <property name="restrict_to_fill_level">False</property>
                   </object>
@@ -471,13 +456,11 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                         <property name="can_focus">True</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
-                        <property name="primary_icon_sensitive">True</property>
-                        <property name="secondary_icon_sensitive">True</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
-                        <property name="x_options"></property>
+                        <property name="x_options"/>
                       </packing>
                     </child>
                     <child>
@@ -487,15 +470,13 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                         <property name="visibility">False</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
-                        <property name="primary_icon_sensitive">True</property>
-                        <property name="secondary_icon_sensitive">True</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="right_attach">2</property>
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
-                        <property name="x_options"></property>
+                        <property name="x_options"/>
                       </packing>
                     </child>
                   </object>
@@ -566,7 +547,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -594,7 +574,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="receives_default">True</property>
-    <property name="use_action_appearance">False</property>
     <property name="relief">none</property>
     <property name="yalign">0.50999999046325684</property>
     <child>
@@ -613,7 +592,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
       <object class="GtkRadioMenuItem" id="view_search">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="label" translatable="yes">Search</property>
         <property name="use_underline">True</property>
         <property name="draw_as_radio">True</property>
@@ -624,7 +602,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
       <object class="GtkRadioMenuItem" id="view_browse">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="use_action_appearance">False</property>
         <property name="label" translatable="yes">Browse</property>
         <property name="use_underline">True</property>
         <property name="draw_as_radio">True</property>
@@ -654,7 +631,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
               <object class="GtkMenuItem" id="menuitem16">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">Player</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
@@ -666,7 +642,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                         <property name="label" translatable="yes">New Playlist</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="image">image5</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="new-playlist" swapped="no"/>
@@ -683,7 +658,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                         <property name="label">gtk-preferences</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="show-preferences" swapped="no"/>
@@ -694,7 +668,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="show-about" swapped="no"/>
@@ -708,7 +681,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
               <object class="GtkMenuItem" id="menuitem12">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="label" translatable="yes">View</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
@@ -719,7 +691,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                       <object class="GtkCheckMenuItem" id="toggle_fullscreen">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="label" translatable="yes">Fullscreen</property>
                         <property name="use_underline">True</property>
                       </object>
@@ -735,7 +706,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                         <property name="label" translatable="yes">Select current Song</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="image">image1</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="select-current" swapped="no"/>
@@ -788,8 +758,8 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                     <property name="ellipsize">end</property>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -805,7 +775,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="use_action_appearance">False</property>
                         <signal name="clicked" handler="toggle" swapped="no"/>
                         <child>
                           <object class="GtkImage" id="image_play">
@@ -828,7 +797,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="use_action_appearance">False</property>
                         <signal name="clicked" handler="previous" swapped="no"/>
                         <child>
                           <object class="GtkImage" id="image3">
@@ -851,7 +819,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="use_action_appearance">False</property>
                         <signal name="clicked" handler="next" swapped="no"/>
                         <child>
                           <object class="GtkImage" id="image2">
@@ -871,7 +838,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                       <object class="GtkHScale" id="seek">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="update_policy">delayed</property>
                         <property name="adjustment">adjustment1</property>
                         <property name="restrict_to_fill_level">False</property>
                         <property name="fill_level">0</property>
@@ -890,7 +856,6 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="has_tooltip">True</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="relief">none</property>
                         <property name="focus_on_click">False</property>
                         <property name="orientation">vertical</property>
@@ -923,7 +888,7 @@ audio-volume-medium</property>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
+            <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
         </child>
@@ -933,7 +898,6 @@ audio-volume-medium</property>
             <property name="can_focus">True</property>
             <property name="show_border">False</property>
             <property name="scrollable">True</property>
-            <property name="tab_hborder">6</property>
             <child>
               <placeholder/>
             </child>

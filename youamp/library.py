@@ -48,7 +48,7 @@ class PlaylistBackend:
             self._conn.execute("""
             INSERT INTO playlist_song 
             VALUES 
-            (?, (SELECT rowid FROM songs WHERE uri = ?))""", (self._id, unicode(s.uri)))
+            (?, (SELECT rowid FROM songs WHERE uri = ?))""", (self._id, str(s.uri)))
         
         self._conn.commit()
     
@@ -87,7 +87,7 @@ class Library:
         SELECT DISTINCT artist 
         FROM songs
         WHERE uri LIKE ?
-        ORDER BY artist ASC""", (unicode(config["music-folder"]+"%"),))
+        ORDER BY artist ASC""", (str(config["music-folder"]+"%"),))
         
         return artists
     
@@ -95,17 +95,17 @@ class Library:
         ret = self._cursor.execute("""
         SELECT """+SONG_FIELDS+"""
         FROM songs 
-        WHERE uri = ?""", (unicode(path),))
+        WHERE uri = ?""", (str(path),))
         
         try:
-            return list(ret.next())
+            return list(next(ret))
         except StopIteration:
             raise KeyError
     
     def get_albums(self, config):
-        artist = unicode(config["search-artist"])
+        artist = str(config["search-artist"])
         where_clause = ""
-        variables = (unicode(config["music-folder"]+"%"),)
+        variables = (str(config["music-folder"]+"%"),)
         
         if artist != "":
             where_clause += " AND artist = ?"
@@ -128,7 +128,7 @@ class Library:
         else:
             order_clause = "ORDER BY %s" % order[config["order-by"]]
         
-        variables = [unicode(v) for v in variables]
+        variables = [str(v) for v in variables]
                         
         playlist = self._cursor.execute("""
         SELECT """+SONG_FIELDS+"""
@@ -173,7 +173,7 @@ class Library:
         return (where_clause, variables)
 
     def increment_played(self, song_uri):
-        self._cursor.execute("""UPDATE songs SET playcount = playcount + 1 WHERE uri = ?""", (unicode(song_uri),))
+        self._cursor.execute("""UPDATE songs SET playcount = playcount + 1 WHERE uri = ?""", (str(song_uri),))
         self._conn.commit()
 
 def check_db():

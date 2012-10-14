@@ -1,22 +1,21 @@
-import gtk
-import gtk.gdk
-import pango
+from gi.repository import Gtk
+from gi.repository import Gtk, Gdk, Pango
 
 from youamp.ui.browser import Browser
 from youamp.ui.playlist import SongsTab
 from youamp.ui import ARTIST_SELECTED, ALBUM_SELECTED
 
-class BrowseButton(gtk.Button):
+class BrowseButton(Gtk.Button):
     def __init__(self):
-        gtk.Button.__init__(self)
+        Gtk.Button.__init__(self)
         
         self.set_size_request(200, -1)
         
-        self.label = gtk.Label()
-        self.label.set_ellipsize(pango.ELLIPSIZE_END)
+        self.label = Gtk.Label()
+        self.label.set_ellipsize(Pango.EllipsizeMode.END)
         
         self.add(self.label)
-        self.unset_flags(gtk.CAN_FOCUS)
+        self.set_can_focus(False)
     
     def set_text(self, txt):
         self.label.set_text(txt)
@@ -26,7 +25,7 @@ class SearchView(SongsTab):
         SongsTab.__init__(self, playlist, controller, song_menu)
         
         # dont allow adding to library
-        self.playlist.enable_model_drag_dest(self.playlist.SINK[0:1], gtk.gdk.ACTION_LINK)
+        self.playlist.enable_model_drag_dest(self.playlist.SINK[0:1], Gdk.DragAction.LINK)
         
         self._config = config
         self._is_browser = config["is-browser"]
@@ -34,22 +33,22 @@ class SearchView(SongsTab):
         # Navi Controls        
         navi = self._navi
         
-        hbox = gtk.HBox()
-        navi.pack_start(hbox, expand=False)
+        hbox = Gtk.HBox()
+        navi.pack_start(hbox, False, True, 0)
         
         # Search Label
-        self._search_label = gtk.Label(_("Search"))
+        self._search_label = Gtk.Label(label=_("Search"))
         self._search_label.set_size_request(100, -1)
-        hbox.pack_start(self._search_label, expand=False)
+        hbox.pack_start(self._search_label, False, True, 0)
         
         # Browse Button
-        self._browse_button = gtk.Button(_("Browse"))
+        self._browse_button = Gtk.Button(_("Browse"))
         self._browse_button.connect("clicked", self._show_artists)
         self._browse_button.set_size_request(100, -1)
-        hbox.pack_start(self._browse_button, expand=False)
+        hbox.pack_start(self._browse_button, False, True, 0)
 
         arrow = xml.get_object("sw_arrow")
-        hbox.pack_start(arrow, expand=False)
+        hbox.pack_start(arrow, False, True, 0)
 
         m = xml.get_object("view_menu")
         m.attach_to_widget(arrow, lambda *args: None)
@@ -59,35 +58,35 @@ class SearchView(SongsTab):
         # Navi Artist Button
         self._artist = BrowseButton()
         self._artist.connect("clicked", self._show_albums)
-        navi.pack_start(self._artist, expand=False)
+        navi.pack_start(self._artist, False, True, 0)
         
         # Navi Album Button
         self._album = BrowseButton()
         self._album.connect("clicked", self._select_album)
-        navi.pack_start(self._album, expand=False)
+        navi.pack_start(self._album, False, True, 0)
         
         # Navi Search Entry
-        self._search_entry = gtk.Entry()
+        self._search_entry = Gtk.Entry()
         self._search_entry.connect("activate", self._on_search_click)
         self._search_entry.set_text(self._config["search-str"])
-        navi.pack_start(self._search_entry, expand=True)
+        navi.pack_start(self._search_entry, True, True, 0)
         
         # Order ComboBox
         self.order.set_active(controller.ORDER_MAPPING.index(config["order-by"]))       
         self.order.connect("changed", controller.order_changed, playlist)
       
-        self._nb = gtk.Notebook()
+        self._nb = Gtk.Notebook()
         self._nb.set_show_tabs(False)
         self._nb.set_show_border(False)
-        self.pack_start(self._nb)
+        self.pack_start(self._nb, True, True, 0)
         
         # move playlist to notebook
         self._scroll.reparent(self._nb)
         
-        browser_scroll = gtk.ScrolledWindow()
-        browser_scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
-        browser_scroll.set_shadow_type(gtk.SHADOW_IN)
-        self._nb.append_page(browser_scroll)
+        browser_scroll = Gtk.ScrolledWindow()
+        browser_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.ALWAYS)
+        browser_scroll.set_shadow_type(Gtk.ShadowType.IN)
+        self._nb.append_page(browser_scroll, None)
         
         self._browser = Browser(config, controller.library)
         browser_scroll.add(self._browser)
@@ -95,19 +94,20 @@ class SearchView(SongsTab):
         self.show_all()
 
         # browser callbacks
-        self._config.notify_add("search-artist", self._on_artist_changed)
-        self._config.notify_add("search-album", self._on_album_changed)
-        self._config.notify_add("is-browser", self._on_view_changed)
-        self._config.notify_add("pos", lambda *a: self.playlist.set_cursor(self.playlist._model.pos))
+        self._config.connect("changed::search-artist", self._on_artist_changed)
+        self._config.connect("changed::search-album", self._on_album_changed)
+        self._config.connect("changed::is-browser", self._on_view_changed)
+        self._config.connect("changed::pos", lambda *a: self.playlist.set_cursor(self.playlist._model.pos))
 
     def _view_menu_pop(self, button, m):
         a = button.get_allocation()
         ap = button.get_parent_window().get_position()
 
-        m.popup(None, None, lambda *arg: (a.x + ap[0], a.y + a.height + ap[1], False), 0, 0)
+        # FIXME??
+        m.popup(None, None, lambda *arg: (a.x + ap[0], a.y + a.height + ap[1], False), 0, 0, Gtk.get_current_event_time())
          
-    def _on_view_changed(self, client, cxn_id, entry, data):
-        is_browser = entry.get_value().get_bool()
+    def _on_view_changed(self, client, entry):
+        is_browser = client[entry]
         
         if is_browser:
             self.browse_mode()
@@ -149,16 +149,12 @@ class SearchView(SongsTab):
     def _browse_complete(self):        
         self._search_entry.set_text("")
         self._config["is-browser"] = True
-        self._config.notify("is-browser")
                 
         self._show_playlist()
  
     def _on_search_click(self, caller):
         self._config["search-str"] = caller.get_text()
         self._config["is-browser"] = False
-        self._config.notify("is-browser")
-   
-        self._config.notify("search-str")
     
     def search_mode(self):
         self._browse_button.hide()
@@ -175,10 +171,8 @@ class SearchView(SongsTab):
     def _show_browser(self):
         self._nb.set_current_page(1)
 
-    def _on_artist_changed(self, client, cxn_id, entry, data):
-        val = entry.get_value().get_string()
-
-        val = val if val != "" else _("All Artists")
+    def _on_artist_changed(self, client, key):
+        val = key if key != "" else _("All Artists")
         
         self._artist.set_text(val)
         self._artist.show()
@@ -186,10 +180,8 @@ class SearchView(SongsTab):
         if not (self._browser.selected & ALBUM_SELECTED):
             self._album.hide()
 
-    def _on_album_changed(self, client, cxn_id, entry, data):
-        val = entry.get_value().get_string()
-  
-        val = val if val != "" else _("All Albums")
+    def _on_album_changed(self, client, key):
+        val = key if key != "" else _("All Albums")
         
         self._album.set_text(val)
         self._album.show()
@@ -199,7 +191,7 @@ class SearchView(SongsTab):
     def _select_album(self, caller):        
         if not (self._browser.selected & ALBUM_SELECTED):
             self._browser.selected |= ALBUM_SELECTED
-            self._config.notify("search-album")
+            self._config["search-album"] = self._config["search-album"]
         
     def _show_albums(self, caller):
         self._show_browser()

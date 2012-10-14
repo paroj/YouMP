@@ -41,7 +41,7 @@ class ConfigFile(dict):
         typemap = {int: "i", float: "f", str: "s", bool: "b"}
         file = open(self._path, "w")
         
-        for k, v in self.iteritems():
+        for k, v in self.items():
             t = typemap[type(v)]
             file.write("%s = %s:%s\n" % (k, t, v))
         
@@ -55,10 +55,10 @@ class ConfigFile(dict):
             f(None, None, ValueBox(self[k]), None)
     
     def __setitem__(self, k, v):
-        if not self._callbacks.has_key(k):
+        if k not in self._callbacks:
             self._callbacks[k] = []
 
-        old_v = self[k] if self.has_key(k) else None
+        old_v = self[k] if k in self else None
         
         dict.__setitem__(self, k, v)
 

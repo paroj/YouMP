@@ -1,12 +1,14 @@
-#!/usr/bin/env python
-import gobject
-import youamp.controller
+#!/usr/bin/env python3
+
 import gettext
+
+from gi.repository import GObject
+import youamp.controller
 
 gettext.install("youamp")
 
 def main():
-    gobject.threads_init()
+    GObject.threads_init()
 
     player = youamp.controller.Controller()
     player.start()

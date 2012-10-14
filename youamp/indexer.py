@@ -1,18 +1,20 @@
 import sqlite3
-import gobject
+
+from gi.repository import GObject, Gdk, GdkPixbuf
+
 import os
 import sys
-import thread
-import gtk.gdk
+import _thread
+
 import hashlib
 import unicodedata
 
-import mutagen
-import mutagen.easyid3
+#import mutagen
+#import mutagen.easyid3
+#from mutagen.id3 import ID3, ID3NoHeaderError, ID3BadUnsynchData
 
-from gobject import GObject
 from youamp import db_file, media_art, KNOWN_EXTS
-from mutagen.id3 import ID3, ID3NoHeaderError, ID3BadUnsynchData
+
 
 class MetadataError(Exception): pass
 
@@ -57,19 +59,20 @@ def get_metadata_sane(path):
             meta[k] = meta[k].strip() if k in meta else ""
 
     # sqlite wants only unicode strings
-    for k, v in meta.iteritems():
-        meta[k] = unicode(v)
+    for k, v in meta.items():
+        meta[k] = str(v)
 
     return meta
 
 def get_metadata_raw(path):
+    return dict()
     if path.lower().endswith("mp3"):
         try:
             f = mutagen.easyid3.EasyID3(path)
         except (ID3NoHeaderError, ID3BadUnsynchData):
             sys.stderr.write("Bad ID3 Header: %s\n" % path)
             f = {}
-        except IOError, e:
+        except IOError as e:
             raise MetadataError(str(e))
     else:
         try:
@@ -82,7 +85,7 @@ def get_metadata_raw(path):
     
     meta = {}
     
-    for k, v in f.items():
+    for k, v in list(f.items()):
         # FIXME what if v is not a list
         try:
             v = str(", ".join(v))   # flatten value
@@ -97,7 +100,7 @@ def media_art_identifier(meta):
     """calculate media art identifier as in bgo #520516. (the same as banshee)"""
     hashstr = "%s\t%s" % (meta["artist"], meta["album"])
     hashstr = unicodedata.normalize("NFKD", hashstr)
-    hash = hashlib.md5(hashstr).hexdigest()
+    hash = hashlib.md5(hashstr.encode("utf-8")).hexdigest()
     
     return media_art+"album-%s.jpeg" % hash
         
@@ -106,7 +109,7 @@ def extract_cover(path, meta):
         id3 = ID3(path)
         if len(id3.getall('APIC')) > 0:
             apic = id3.getall('APIC')[0]
-            loader = gtk.gdk.PixbufLoader()
+            loader = GdkPixbuf.PixbufLoader()
             loader.write(apic.data)
             loader.close()
             pb = loader.get_pixbuf()
@@ -114,15 +117,15 @@ def extract_cover(path, meta):
     except:
         pass
 
-class Indexer(GObject):
-    __gsignals__ = {"update-complete": (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (bool,))}
+class Indexer(GObject.GObject):
+    __gsignals__ = {"update-complete": (GObject.SignalFlags.RUN_LAST, None, (bool,))}
         
     def __init__(self):
-        GObject.__init__(self)
+        GObject.GObject.__init__(self)
 
     # start update thread
     def update(self, folders):
-        thread.start_new_thread(self._update, (folders,))
+        _thread.start_new_thread(self._update, (folders,))
 
     def _get_files(self, folders):
         filelist = []
@@ -158,13 +161,13 @@ class Indexer(GObject):
                 disc_files.remove(str(path)) # convert unicode
             else:
                 con.execute("DELETE FROM songs WHERE uri = ?", (path,))
-                print "Removed: %s" % path
+                print("Removed: %s" % path)
             
         # update files
         for path in to_update: 
             try:        
                 song = get_metadata_sane(path)
-            except MetadataError, e:
+            except MetadataError as e:
                 sys.stderr.write("Skipped "+str(e)+"\n")
                 continue
 
@@ -173,9 +176,9 @@ class Indexer(GObject):
             UPDATE songs 
             SET title = ?, artist = ?, album = ?, tracknumber = ?, date = datetime(?, 'unixepoch')
             WHERE uri = ? """,
-            (song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"], unicode(path)))
+            (song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"], str(path)))
 
-            print "Updated: %s" % path
+            print("Updated: %s" % path)
             mod_count += 1
   
   
@@ -183,15 +186,15 @@ class Indexer(GObject):
         for path in disc_files: 
             try:        
                 song = get_metadata_sane(path)
-            except MetadataError, e:
+            except MetadataError as e:
                 sys.stderr.write("Skipped "+str(e)+"\n")
                 continue
 
             # store metadata in database (uri, title, artist, album, genre, tracknumber, playcount, date)
             con.execute("INSERT INTO songs VALUES (?, ?, ?, ?, '', ?, 0, datetime(?, 'unixepoch'))", \
-                (unicode(path), song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"]))
+                (str(path), song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"]))
 
-            print "Added: %s" % path
+            print("Added: %s" % path)
             mod_count += 1
         
         con.commit()
