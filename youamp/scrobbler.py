@@ -14,8 +14,7 @@ import threading
 
 import urllib.request, urllib.parse, urllib.error
 
-from datetime import datetime
-from datetime import timedelta
+from datetime import timedelta, datetime
 from hashlib import md5
 
 "Forwards Audioscrobbler errors"

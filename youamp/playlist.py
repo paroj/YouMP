@@ -1,8 +1,7 @@
 import random
 import functools
 
-from gi.repository import GObject
-from gi.repository import Gtk
+from gi.repository import GObject, Gtk
 
 class PlaylistMux(GObject.GObject):
     __gsignals__ = {"list-switched": (GObject.SignalFlags.RUN_LAST, None, (object,))}

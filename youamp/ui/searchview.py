@@ -1,4 +1,3 @@
-from gi.repository import Gtk
 from gi.repository import Gtk, Gdk, Pango
 
 from youamp.ui.browser import Browser

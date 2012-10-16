@@ -1,6 +1,4 @@
-from gi.repository import GObject
-from gi.repository import Gtk
-from gi.repository import Pango
+from gi.repository import GObject, Gtk, Pango
 
 from youamp.ui import NOTHING_SELECTED, ARTIST_SELECTED, ALBUM_SELECTED
    
