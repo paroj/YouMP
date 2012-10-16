@@ -8,7 +8,7 @@ from youamp.ui.searchview import SearchView
 from youamp.ui.playlist import PlaylistView
 from youamp.ui.popupmenu import SongMenu, PlaylistMenu
 
-from youamp.ui.elements import Controls, Icon, HAS_APPINDICATOR
+from youamp.ui.elements import Controls, HAS_APPINDICATOR
 from youamp.ui import xml_escape
 
 from youamp import VERSION, data_path
@@ -84,7 +84,7 @@ class UserInterface:
                              "show-about": lambda *args: about.show(),
                              "quit": controller.quit,
                              "key-press": self._handle_keypress,
-                             "hide-on-delete": Gtk.Widget.hide_on_delete,
+                             "hide-on-delete": lambda w, *args: w.hide_on_delete(),
                              "toggle": lambda caller: player.toggle(),
                              "previous": lambda caller: player.previous(),
                              "next": lambda caller: player.next(),

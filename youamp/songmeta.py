@@ -2,6 +2,7 @@
 from gi.repository import GObject, Gdk, GdkPixbuf
 
 import urllib
+import urllib2
 
 from xml.etree.ElementTree import parse,dump
 
@@ -18,7 +19,7 @@ API_KEY = "2a7381c68a7b50cde9d9befac535c395"
 REQ_URL = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key={0}&artist={1}&album={2}"
 
 def download_file(source, dest):
-    req = urllib.request.urlopen(source)
+    req = urllib2.urlopen(source)
     open(dest, "wb").write(req.read())
 
 class SongMetaLastFM(GObject.GObject):
@@ -84,11 +85,11 @@ class SongMetaLastFM(GObject.GObject):
         self.emit("new-cover", path, song["album"])
 
     def _search_cover(self, artist, title):
-        req = REQ_URL.format(API_KEY, urllib.parse.quote(artist), urllib.parse.quote(title))
+        req = REQ_URL.format(API_KEY, urllib.quote(artist), urllib.quote(title))
         
         try:
-            resp = urllib.request.urlopen(req)
-        except urllib.error.HTTPError:
+            resp = urllib2.urlopen(req)
+        except urllib2.HTTPError:
             return []
         
         resp = parse(resp)

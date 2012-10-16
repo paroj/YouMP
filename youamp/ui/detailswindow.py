@@ -27,7 +27,7 @@ class DetailsWindow:
                       
         self._sm = song_meta
         
-        xml.get_object("details_ebox").connect("button-release-event", self._w.hide_on_delete)
+        xml.get_object("details_ebox").connect("button-release-event", lambda *args: self._w.hide_on_delete())
     
         self._data = None
         self._transl = (("title", _("Title")),

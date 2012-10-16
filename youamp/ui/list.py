@@ -73,7 +73,7 @@ class ListView(Gtk.TreeView):
             path = self.get_path_at_pos(int(ev.x), int(ev.y))[0]
         except TypeError:
             # path is None => no row at cursor position
-            sel.set_select_function(lambda *args: True)
+            sel.set_select_function(lambda *args: True, None)
             sel.unselect_all()
             return
 

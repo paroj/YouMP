@@ -83,7 +83,7 @@ class SonglistView(ListView):
         self._menu.song = self._model[pos]
         self._menu.playlist = self._model
         self._menu.remove_act = self.remove_selection
-        self._menu.popup(None, None, None, ev.button, ev.time)
+        self._menu.popup(None, None, None, None, ev.button, ev.time)
 
     def remove_selection(self):
         model, paths = self.get_selection().get_selected_rows()
@@ -109,8 +109,7 @@ class PlaylistView(SongsTab):
         self.order.set_active(0)
         self.order.connect("changed", self._on_order_changed)
         
-        # FIXME !!
-        # self.label.drag_dest_set(Gtk.DestDefaults.ALL, self.playlist.SINK[2:3], Gdk.DragAction.COPY)
+        self.label.drag_dest_set(Gtk.DestDefaults.ALL, [Gtk.TargetEntry.new(*t) for t in self.playlist.SINK[2:3]], Gdk.DragAction.COPY)
         self.label.connect("drag-data-received", self.playlist._recieve_drag_data)
 
         self.menu = pl_menu
@@ -140,4 +139,4 @@ class PlaylistView(SongsTab):
     def __popup_menu(self, caller, ev):
         if ev.button == 3 and not self.label.editing:
             self.menu.view = self
-            self.menu.popup(None, None, None, ev.button, ev.time)
+            self.menu.popup(None, None, None, None, ev.button, ev.time)

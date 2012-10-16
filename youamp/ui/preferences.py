@@ -16,7 +16,7 @@ class Preferences:
 
     def _create(self, config, scrobbler, xml):
         self.w = xml.get_object("preferences")
-        xml.get_object("preferences_close").connect("clicked", self.w.hide_on_delete)
+        xml.get_object("preferences_close").connect("clicked", lambda *args: self.w.hide_on_delete())
 
         self.config = config
         self._scrobbler = scrobbler
