@@ -7,7 +7,7 @@ from gi.repository import GObject, Gst
 
 Gst.init(None)
 
-import urllib.request, urllib.parse, urllib.error
+import urllib
 import os.path
 
 from youamp import MAX_VOL
@@ -139,7 +139,7 @@ class Player(GObject.GObject):
             print("trck does not exists, abort before bad things happen")
             return
         
-        uri = "file://"+urllib.parse.quote(str(self._current.uri))
+        uri = "file://"+urllib.quote(str(self._current.uri))
         
         self._player.set_state(Gst.State.NULL)
         self._player.set_property("uri", uri)
@@ -228,7 +228,7 @@ class Player(GObject.GObject):
     def _update_song(self, new_tags):
         # FIXME
         return
-        new_tags.foreach(lambda tl, key, data: print(key), None)
+        #new_tags.foreach(lambda tl, key, data: print(key), None)
         for key in list(new_tags.keys()):
             v = new_tags[key]
 

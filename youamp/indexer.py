@@ -4,7 +4,7 @@ from gi.repository import GObject, Gdk, GdkPixbuf
 
 import os
 import sys
-import _thread
+import thread
 
 import hashlib
 import unicodedata
@@ -125,7 +125,7 @@ class Indexer(GObject.GObject):
 
     # start update thread
     def update(self, folders):
-        _thread.start_new_thread(self._update, (folders,))
+        thread.start_new_thread(self._update, (folders,))
 
     def _get_files(self, folders):
         filelist = []

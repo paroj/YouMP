@@ -1,11 +1,7 @@
 from gi.repository import Gtk
 import time
 
-try:
-    import appindicator
-    HAS_APPINDICATOR = True
-except ImportError:
-    HAS_APPINDICATOR = False
+HAS_APPINDICATOR = False
 
 from youamp.ui import xml_escape
 

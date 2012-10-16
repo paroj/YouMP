@@ -1,6 +1,6 @@
-from youamp.ui.detailswindow import DetailsWindow
 from gi.repository import Gtk, Gdk, GdkPixbuf, Notify
 
+from youamp.ui.detailswindow import DetailsWindow
 from youamp.ui.window import Window
 from youamp.ui.preferences import Preferences
 from youamp.ui.searchview import SearchView

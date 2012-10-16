@@ -1,7 +1,7 @@
 # coding: utf-8
 from gi.repository import GObject, Gdk, GdkPixbuf
 
-import urllib.request, urllib.error, urllib.parse
+import urllib
 
 from xml.etree.ElementTree import parse,dump
 

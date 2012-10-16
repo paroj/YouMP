@@ -6,13 +6,14 @@ ruined by Pavel Rojtberg (http://www.rojtberg.net/)
 
 License: LGPL v3
 """
-import _thread
+import thread
 from time import mktime
 
 from gi.repository import GObject
 import threading
 
-import urllib.request, urllib.parse, urllib.error
+import urllib
+import urllib2
 
 from datetime import timedelta, datetime
 from hashlib import md5
@@ -90,7 +91,7 @@ class Scrobbler(GObject.GObject):
         tstamp = int(mktime(datetime.now().timetuple()))
         url = "http://post.audioscrobbler.com/"
         
-        token = md5(("%s%d" % (self._pass, int(tstamp))).encode("utf-8")).hexdigest()
+        token = md5("%s%d" % (self._pass, int(tstamp))).hexdigest()
         values = {
             'hs': 'true',
             'p': self._protocol_version,
@@ -101,10 +102,10 @@ class Scrobbler(GObject.GObject):
             'a': token
             }
        
-        data = urllib.parse.urlencode(values)
-        req = urllib.request.Request("%s?%s" % (url, data))
-        response = urllib.request.urlopen(req)
-        result = str(response.read())
+        data = urllib.urlencode(values)
+        req = urllib2.Request("%s?%s" % (url, data))
+        response = urllib2.urlopen(req)
+        result = response.read()
         lines = result.split('\n')
        
         if lines[0] in ("BADAUTH", "BANNED", "BADTIME"):
@@ -152,19 +153,19 @@ class Scrobbler(GObject.GObject):
         assert trackno == "" or isinstance(int, trackno), "trackno should be of type int"
     
         values = {'s': self._session_id,
-            'a': str(artist).encode('utf-8'),
-            't': str(track).encode('utf-8'),
-            'b': str(album).encode('utf-8'),
+            'a': unicode(artist).encode('utf-8'),
+            't': unicode(track).encode('utf-8'),
+            'b': unicode(album).encode('utf-8'),
             'l': length,
             'n': trackno,
             'm': mbid}
     
-        data = urllib.parse.urlencode(values)
-        req = urllib.request.Request(self._now_uri, data)
+        data = urllib.urlencode(values)
+        req = urllib2.Request(self._now_uri, data)
 
         try:
-            response = urllib.request.urlopen(req)
-        except urllib.error.URLError as e:
+            response = urllib2.urlopen(req)
+        except urllib2.URLError as e:
             self.emit("error", E_ASCROBBLER, e)
             return
 
@@ -176,8 +177,8 @@ class Scrobbler(GObject.GObject):
             self._login()
     
             # retry to submit the data
-            req = urllib.request.Request(self._now_uri, data)
-            response = urllib.request.urlopen(req)
+            req = urllib2.Request(self._now_uri, data)
+            response = urllib2.urlopen(req)
             result = response.read()
     
             if result.strip() == "OK":
@@ -255,20 +256,20 @@ class Scrobbler(GObject.GObject):
         assert isinstance(time, int), "The time parameter must be a unix timestamp"
     
         self._submit_cache.append(
-                                  {'a': str(artist).encode('utf-8'),
-                                  't': str(track).encode('utf-8'),
+                                  {'a': unicode(artist).encode('utf-8'),
+                                  't': unicode(track).encode('utf-8'),
                                   'i': time,
                                   'o': source,
                                   'r': rating,
                                   'l': length,
-                                  'b': str(album).encode('utf-8'),
+                                  'b': unicode(album).encode('utf-8'),
                                   'n': trackno,
                                   'm': mbid
                                   }
                                   )
     
         if autoflush or len(self._submit_cache) >= self._max_cache:
-            _thread.start_new_thread(self.flush, ())
+            thread.start_new_thread(self.flush, ())
 
     def flush(self, inner_call=False):
         """Sends the cached songs to AS.
@@ -289,9 +290,9 @@ class Scrobbler(GObject.GObject):
     
         values['s'] = self._session_id
     
-        data = urllib.parse.urlencode(values)
-        req = urllib.request.Request(self._post_uri, data)
-        response = urllib.request.urlopen(req)
+        data = urllib.urlencode(values)
+        req = urllib2.Request(self._post_uri, data)
+        response = urllib2.urlopen(req)
         result = response.read()
         lines = result.split('\n')
        
@@ -302,7 +303,7 @@ class Scrobbler(GObject.GObject):
                 self._login()
                 self.flush(inner_call=True)
             else:
-                print("Warning: infinite loop prevented")
+                print "Warning: infinite loop prevented"
                 return
         elif lines[0].startswith('FAILED'):
             self._handle_hard_error()
