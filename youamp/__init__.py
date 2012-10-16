@@ -11,9 +11,11 @@ IS_MAEMO = False
 MAX_VOL = 2.0
 KNOWN_EXTS = ("mp3", "ogg", "oga", "mp4", "m4a", "wma", "wav", "flac")
 
-data_path = "data/"
-if not os.path.exists(data_path):
-    data_path = "/usr/share/youamp/"
+GETTEXT_DOMAIN = "youamp"
+
+DATA_DIR = "data/"
+if not os.path.exists(DATA_DIR):
+    DATA_DIR = "/opt/extras.ubuntu.com/youamp/"
 
 # use high res dir
 media_art = GLib.get_user_cache_dir()+"/media-art/300/"

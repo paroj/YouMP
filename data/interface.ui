@@ -33,7 +33,7 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pro
     <property name="authors">Pavel Rojtberg</property>
     <property name="translator_credits" translatable="yes">translator-credits</property>
     <property name="artists">Pavel Rojtberg</property>
-    <property name="logo_icon_name">youamp</property>
+    <property name="logo">youamp.svg</property>
     <signal name="delete-event" handler="hide-on-delete" swapped="no"/>
     <signal name="response" handler="hide-on-delete" swapped="no"/>
     <child internal-child="vbox">

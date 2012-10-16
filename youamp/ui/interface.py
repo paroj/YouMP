@@ -8,10 +8,10 @@ from youamp.ui.searchview import SearchView
 from youamp.ui.playlist import PlaylistView
 from youamp.ui.popupmenu import SongMenu, PlaylistMenu
 
-from youamp.ui.elements import Controls, HAS_APPINDICATOR
+from youamp.ui.elements import Controls
 from youamp.ui import xml_escape
 
-from youamp import VERSION, data_path
+from youamp import VERSION, DATA_DIR, GETTEXT_DOMAIN
 
 class UserInterface:
     NOTIFY_STR = "{0} <i>{1}</i>\n{2} <i>{3}</i>"
@@ -28,8 +28,8 @@ class UserInterface:
                 
         # Build Interface
         xml = Gtk.Builder()
-        xml.set_translation_domain("youamp")
-        xml.add_from_file(data_path + "interface.ui")
+        xml.set_translation_domain(GETTEXT_DOMAIN)
+        xml.add_from_file(DATA_DIR + "interface.ui")
 
         # Create Views
         dw = DetailsWindow(controller.song_meta, xml)

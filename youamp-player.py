@@ -1,11 +1,18 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
-import gettext
+import locale
+import __builtin__
 
 from gi.repository import GObject
+
 import youamp.controller
 
-gettext.install("youamp")
+from youamp import DATA_DIR, GETTEXT_DOMAIN
+
+# use locale instead of gettext, so GTK gets the change
+#locale.bindtextdomain(GETTEXT_DOMAIN, DATA_DIR+"locale/")
+locale.textdomain(GETTEXT_DOMAIN)
+__builtin__.__dict__['_'] = locale.gettext
 
 def main():
     GObject.threads_init()

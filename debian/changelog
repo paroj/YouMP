@@ -1,3 +1,12 @@
+youamp (12.10) quantal; urgency=low
+
+  * move to /opt/
+  * port to GTK3/ GStreamer1.0
+  * port to tagpy
+  * cleanup
+
+ -- Pavel Rojtberg <pavel@rojtberg.net>  Tue, 16 Oct 2012 22:11:31 +0200
+
 youamp (0.6.5~beta) natty; urgency=low
 
   * support MPRIS for sound menu

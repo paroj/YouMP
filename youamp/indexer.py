@@ -59,8 +59,8 @@ def get_metadata_sane(path):
             meta[k] = meta[k].strip() if k in meta else ""
 
     # sqlite wants only unicode strings
-    for k, v in meta.items():
-        meta[k] = str(v)
+    for k, v in meta.iteritems():
+        meta[k] = unicode(v)
 
     return meta
 
@@ -100,7 +100,7 @@ def media_art_identifier(meta):
     """calculate media art identifier as in bgo #520516. (the same as banshee)"""
     hashstr = "%s\t%s" % (meta["artist"], meta["album"])
     hashstr = unicodedata.normalize("NFKD", hashstr)
-    hash = hashlib.md5(hashstr.encode("utf-8")).hexdigest()
+    hash = hashlib.md5(hashstr).hexdigest()
     
     return media_art+"album-%s.jpeg" % hash
         
@@ -161,7 +161,7 @@ class Indexer(GObject.GObject):
                 disc_files.remove(str(path)) # convert unicode
             else:
                 con.execute("DELETE FROM songs WHERE uri = ?", (path,))
-                print("Removed: %s" % path)
+                print "Removed: %s" % path
             
         # update files
         for path in to_update: 
@@ -176,9 +176,9 @@ class Indexer(GObject.GObject):
             UPDATE songs 
             SET title = ?, artist = ?, album = ?, tracknumber = ?, date = datetime(?, 'unixepoch')
             WHERE uri = ? """,
-            (song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"], str(path)))
+            (song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"], unicode(path)))
 
-            print("Updated: %s" % path)
+            print "Updated: %s" % path
             mod_count += 1
   
   
@@ -192,9 +192,9 @@ class Indexer(GObject.GObject):
 
             # store metadata in database (uri, title, artist, album, genre, tracknumber, playcount, date)
             con.execute("INSERT INTO songs VALUES (?, ?, ?, ?, '', ?, 0, datetime(?, 'unixepoch'))", \
-                (str(path), song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"]))
+                (unicode(path), song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"]))
 
-            print("Added: %s" % path)
+            print "Added: %s" % path
             mod_count += 1
         
         con.commit()
