@@ -17,7 +17,6 @@ from youamp.library import Library, check_db
 from youamp.indexer import Indexer
 from youamp.songmeta import SongMetaLastFM
 from youamp.player import Player
-from youamp.config import Config
 
 from youamp.soundmenu import SoundMenuControls
 

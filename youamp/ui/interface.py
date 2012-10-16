@@ -1,8 +1,6 @@
 from youamp.ui.detailswindow import DetailsWindow
 from gi.repository import Gtk, Gdk, GdkPixbuf, Notify
 
-import platform
-
 from youamp.ui.window import Window
 from youamp.ui.preferences import Preferences
 from youamp.ui.searchview import SearchView
@@ -63,11 +61,6 @@ class UserInterface:
         else:
             xml.get_object("view_search").set_active(True)
         
-        # hack to display tray icon on lucid
-        if platform.linux_distribution()[2] == "lucid":
-            # Tray Icon
-            Icon(player, self.window, xml)
-               
         # Notification
         Notify.init("YouAmp")
         self._notify = Notify.Notification()       
