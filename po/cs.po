@@ -7,89 +7,89 @@ msgid ""
 msgstr ""
 "Project-Id-Version: youamp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2011-04-25 15:42+0200\n"
+"POT-Creation-Date: 2012-10-16 22:56+0200\n"
 "PO-Revision-Date: 2011-10-20 05:56+0000\n"
 "Last-Translator: Václav Čermák <vaclav.cermak@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-10-21 04:56+0000\n"
-"X-Generator: Launchpad (build 14165)\n"
+"X-Launchpad-Export-Date: 2012-10-17 04:38+0000\n"
+"X-Generator: Launchpad (build 16152)\n"
 
-#: ../youamp/controller.py:42
+#: ../youamp/controller.py:39
 msgid "Library"
 msgstr "Knihovna"
 
-#: ../youamp/ui/browser.py:50
+#. generate "changed::"
+#: ../youamp/ui/browser.py:48
 msgid "Albums"
 msgstr "Alba"
 
-#: ../youamp/ui/browser.py:54 ../youamp/ui/searchview.py:136
-#: ../youamp/ui/searchview.py:192
+#: ../youamp/ui/browser.py:52 ../youamp/ui/searchview.py:135
+#: ../youamp/ui/searchview.py:183
 msgid "All Albums"
 msgstr "Všechna alba"
 
-#: ../youamp/ui/browser.py:59 ../youamp/ui/detailswindow.py:30
-#: ../youamp/ui/playlist.py:51
+#: ../youamp/ui/browser.py:57 ../youamp/ui/detailswindow.py:34
+#: ../youamp/ui/playlist.py:49
 msgid "Artist"
 msgstr "Interpret"
 
-#: ../youamp/ui/browser.py:63 ../youamp/ui/searchview.py:132
-#: ../youamp/ui/searchview.py:181
+#: ../youamp/ui/browser.py:61 ../youamp/ui/searchview.py:131
+#: ../youamp/ui/searchview.py:174
 msgid "All Artists"
 msgstr "Všichni umělci"
 
-#: ../youamp/ui/detailswindow.py:29 ../youamp/ui/playlist.py:50
+#: ../youamp/ui/detailswindow.py:33 ../youamp/ui/playlist.py:48
 msgid "Title"
 msgstr "Název"
 
-#: ../youamp/ui/detailswindow.py:31 ../youamp/ui/playlist.py:52
+#: ../youamp/ui/detailswindow.py:35 ../youamp/ui/playlist.py:50
 msgid "Album"
 msgstr "Album"
 
-#: ../youamp/ui/detailswindow.py:32
+#: ../youamp/ui/detailswindow.py:36
 msgid "Playcount"
 msgstr "Počet přehrávání"
 
-#: ../youamp/ui/detailswindow.py:50
+#: ../youamp/ui/detailswindow.py:54
 msgid "Location"
 msgstr "Umístění"
 
-#: ../youamp/ui/detailswindow.py:74
+#: ../youamp/ui/detailswindow.py:78
 msgid "Details for {0}"
 msgstr "Detaily pro {0}"
 
-#: ../youamp/ui/elements.py:99 ../youamp/ui/interface.py:138
-#: ../youamp/ui/window.py:82
-msgid "by"
-msgstr "od"
-
-#: ../youamp/ui/elements.py:147 ../data/interface.ui.h:12
+#: ../youamp/ui/elements.py:65 ../data/interface.ui.h:25
 msgid "New Playlist"
 msgstr "Nový seznam skladeb"
 
-#: ../youamp/ui/interface.py:140 ../youamp/ui/window.py:84
+#: ../youamp/ui/interface.py:132 ../youamp/ui/window.py:82
+msgid "by"
+msgstr "od"
+
+#: ../youamp/ui/interface.py:134 ../youamp/ui/window.py:84
 msgid "from"
 msgstr "z"
 
-#: ../youamp/ui/playlist.py:22
+#: ../youamp/ui/playlist.py:20
 msgid "album"
 msgstr "album"
 
-#: ../youamp/ui/playlist.py:23
+#: ../youamp/ui/playlist.py:21
 msgid "playcount"
 msgstr "počet přehrání"
 
-#: ../youamp/ui/playlist.py:24
+#: ../youamp/ui/playlist.py:22
 msgid "date added"
 msgstr "datum přidání"
 
-#: ../youamp/ui/playlist.py:25
+#: ../youamp/ui/playlist.py:23
 msgid "shuffle"
 msgstr "Náhodné přehrávání"
 
-#: ../youamp/ui/playlist.py:30
+#: ../youamp/ui/playlist.py:28
 msgid "Order:"
 msgstr "Pořadí:"
 
@@ -106,16 +106,16 @@ msgid "Disconnected"
 msgstr "Odpojeno"
 
 #. Search Label
-#: ../youamp/ui/searchview.py:41 ../data/interface.ui.h:20
+#: ../youamp/ui/searchview.py:39 ../data/interface.ui.h:21
 msgid "Search"
 msgstr "Hledat"
 
 #. Browse Button
-#: ../youamp/ui/searchview.py:46 ../data/interface.ui.h:8
+#: ../youamp/ui/searchview.py:44 ../data/interface.ui.h:22
 msgid "Browse"
 msgstr "Procházet"
 
-#: ../youamp/ui/window.py:27 ../data/interface.ui.h:13
+#: ../youamp/ui/window.py:27 ../data/interface.ui.h:23
 msgid "No Track"
 msgstr "Žádná skladba"
 
@@ -126,102 +126,14 @@ msgstr "Nic"
 
 #. self._w.set_icon_list(self._cover.get_pixbuf())
 #: ../data/interface.ui.h:1
-msgid "<b><big>No Track</big></b>"
-msgstr "<b><big>Žádná skladba</big></b>"
-
-#: ../data/interface.ui.h:2
-msgid "<b>Fallback Gain (db)</b>"
-msgstr "<b>Nouzové Zesílení (db)</b>"
-
-#: ../data/interface.ui.h:3
-msgid "<b>Login</b>"
-msgstr "<b>Přihlášení</b>"
-
-#: ../data/interface.ui.h:4
-msgid "<b>Music Folder</b>"
-msgstr "<b>Hudební složka</b>"
-
-#: ../data/interface.ui.h:5
-msgid "<b>Replaygain Preamp (db)</b>"
-msgstr "<b>Předzesilovač Replaygain (db)</b>"
-
-#: ../data/interface.ui.h:6
-msgid "<b>Status</b>"
-msgstr "<b>Stav</b>"
-
-#: ../data/interface.ui.h:7
 msgid "A lightweight Music Player for the Internet Tablet"
 msgstr "Lehký hudební přehrávač pro internetové tablety"
 
-#: ../data/interface.ui.h:9
-msgid "Details"
-msgstr "Podrobnosti"
-
-#: ../data/interface.ui.h:10
-msgid "Fullscreen"
-msgstr "Celá obrazovka"
-
-#: ../data/interface.ui.h:11
-msgid "General"
-msgstr "Všeobecné"
-
-#: ../data/interface.ui.h:14
-msgid "Password"
-msgstr "Heslo"
-
-#: ../data/interface.ui.h:15
-msgid "Play this next"
-msgstr "Přehrát jako další"
-
-#: ../data/interface.ui.h:16
-msgid "Playback"
-msgstr "Přehrávání"
-
-#: ../data/interface.ui.h:17
-msgid "Player"
-msgstr "Přehrávač"
-
-#: ../data/interface.ui.h:18
-msgid "Preferences"
-msgstr "Nastavení"
-
-#: ../data/interface.ui.h:19
-msgid "Rename"
-msgstr "Přejmenovat"
-
-#: ../data/interface.ui.h:21
-msgid "Select current Song"
-msgstr "Vybrat aktuální Píseň"
-
-#: ../data/interface.ui.h:22
-msgid "Username"
-msgstr "Uživatelské jméno"
-
-#: ../data/interface.ui.h:23
-msgid "View"
-msgstr "Pohled"
-
-#: ../data/interface.ui.h:24
-msgid "View this Album"
-msgstr "Zobrazit toto album"
-
-#: ../data/interface.ui.h:25
-msgid "View this Artist"
-msgstr "Zobrazit tohoto umělce"
-
-#: ../data/interface.ui.h:26
-msgid "Visible"
-msgstr "Viditelný"
-
-#: ../data/interface.ui.h:27
+#: ../data/interface.ui.h:2
 msgid "YouAmp Website"
 msgstr "Stránky YouAmp"
 
-#: ../data/interface.ui.h:28
-msgid "last.fm"
-msgstr "last.fm"
-
-#: ../data/interface.ui.h:29
+#: ../data/interface.ui.h:3
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -230,6 +142,94 @@ msgstr ""
 "  Pavel Rojtberg https://launchpad.net/~rojtberg\n"
 "  Václav Čermák https://launchpad.net/~kingskid\n"
 "  Zbyněk Schwarz https://launchpad.net/~tsbook"
+
+#: ../data/interface.ui.h:4
+msgid "Play this next"
+msgstr "Přehrát jako další"
+
+#: ../data/interface.ui.h:5
+msgid "View this Artist"
+msgstr "Zobrazit tohoto umělce"
+
+#: ../data/interface.ui.h:6
+msgid "View this Album"
+msgstr "Zobrazit toto album"
+
+#: ../data/interface.ui.h:7
+msgid "Details"
+msgstr "Podrobnosti"
+
+#: ../data/interface.ui.h:8
+msgid "Visible"
+msgstr "Viditelný"
+
+#: ../data/interface.ui.h:9
+msgid "Playback"
+msgstr "Přehrávání"
+
+#: ../data/interface.ui.h:10
+msgid "Rename"
+msgstr "Přejmenovat"
+
+#: ../data/interface.ui.h:11
+msgid "Preferences"
+msgstr "Nastavení"
+
+#: ../data/interface.ui.h:12
+msgid "<b>Music Folder</b>"
+msgstr "<b>Hudební složka</b>"
+
+#: ../data/interface.ui.h:13
+msgid "<b>Replaygain Preamp (db)</b>"
+msgstr "<b>Předzesilovač Replaygain (db)</b>"
+
+#: ../data/interface.ui.h:14
+msgid "<b>Fallback Gain (db)</b>"
+msgstr "<b>Nouzové Zesílení (db)</b>"
+
+#: ../data/interface.ui.h:15
+msgid "General"
+msgstr "Všeobecné"
+
+#: ../data/interface.ui.h:16
+msgid "<b>Login</b>"
+msgstr "<b>Přihlášení</b>"
+
+#: ../data/interface.ui.h:17
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+#: ../data/interface.ui.h:18
+msgid "Password"
+msgstr "Heslo"
+
+#: ../data/interface.ui.h:19
+msgid "<b>Status</b>"
+msgstr "<b>Stav</b>"
+
+#: ../data/interface.ui.h:20
+msgid "last.fm"
+msgstr "last.fm"
+
+#: ../data/interface.ui.h:24
+msgid "Player"
+msgstr "Přehrávač"
+
+#: ../data/interface.ui.h:26
+msgid "View"
+msgstr "Pohled"
+
+#: ../data/interface.ui.h:27
+msgid "Fullscreen"
+msgstr "Celá obrazovka"
+
+#: ../data/interface.ui.h:28
+msgid "Select current Song"
+msgstr "Vybrat aktuální Píseň"
+
+#: ../data/interface.ui.h:29
+msgid "<b><big>No Track</big></b>"
+msgstr "<b><big>Žádná skladba</big></b>"
 
 #~ msgid "Date added"
 #~ msgstr "Datum přidání"
