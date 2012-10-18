@@ -65,6 +65,7 @@ class Controller:
                 
         # MMKeys
         mmkeys = session_bus.get_object("org.gnome.SettingsDaemon", "/org/gnome/SettingsDaemon/MediaKeys")
+        mmkeys.GrabMediaPlayerKeys("youamp", int(time.time()), dbus_interface='org.gnome.SettingsDaemon.MediaKeys')
         mmkeys.connect_to_signal("MediaPlayerKeyPressed", self._handle_mmkeys)
         
         # MPRIS
@@ -166,7 +167,7 @@ class Controller:
         action = dict()
         action["Play"] = self.player.toggle
         action["Previous"] = self.player.previous
-        action["Next"] = self.player.__next__
+        action["Next"] = self.player.next
         
         action[key]()
     
