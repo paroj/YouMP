@@ -55,13 +55,11 @@ class SongMenu:
         self._config["search-artist"] = str(self.song["artist"])
         self._config["search-album"] = "" 
         self._config["is-browser"] = True
-        self._config.notify("is-browser")
 
     def _browse_album(self, *args):
         self._config["search-artist"] = ""
         self._config["search-album"] = str(self.song["album"])
         self._config["is-browser"] = True
-        self._config.notify("is-browser")
  
     def _display_details(self, *args):
         self._details.set_data(self.song)

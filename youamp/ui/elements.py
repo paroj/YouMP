@@ -2,8 +2,6 @@ from gi.repository import Gtk
 
 import time
 
-from youamp.ui import xml_escape
-
 class Controls:
     def __init__(self, player, config, xml):        
         # is playing
@@ -21,14 +19,7 @@ class Controls:
         config.connect("changed::volume", self._on_conf_volume_changed)
         player.connect("seek-changed", lambda caller, new_seek: pos.set_value(new_seek))
         player.connect("toggled", lambda c, playing: tb.set_image(self.img[playing]))
-        
-        pos.connect("button-press-event", self._on_seek_click)
-        pos.connect("button-release-event", self._on_seek_click)
-   
-    def _on_seek_click(self, scale, ev):
-        # forces jump to pos
-        ev.button = 2
-   
+
     def _on_conf_volume_changed(self, client, entry):
         self.volume.set_value(client[entry])
     

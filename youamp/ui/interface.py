@@ -9,7 +9,6 @@ from youamp.ui.playlist import PlaylistView
 from youamp.ui.popupmenu import SongMenu, PlaylistMenu
 
 from youamp.ui.elements import Controls
-from youamp.ui import xml_escape
 
 from youamp import VERSION, DATA_DIR, GETTEXT_DOMAIN
 
@@ -128,21 +127,17 @@ class UserInterface:
         player.playlist.set(self._cur_view.playlist.get_model())
 
     def show_notification(self, song):
-        body = self.NOTIFY_STR.format(
-                                    _("by"),
-                                    xml_escape(song["artist"]),
-                                    _("from"),
-                                    xml_escape(song["album"]))
-        self._notify.update(xml_escape(song["title"]), body)
-
         path = self.song_meta.get_cover_path(song)
         
-        if path is None:
-            cover = Gtk.IconTheme.get_default().load_icon("audio-x-generic", 128, 0)
-        else:
-            cover = GdkPixbuf.Pixbuf.new_from_file_at_size(path, 128, 128)
-            
-        self._notify.set_icon_from_pixbuf(cover)
+        cover = "audio-x-generic" if path is None else path
+        
+        body = self.NOTIFY_STR.format(
+                                    _("by"),
+                                    song["artist"],
+                                    _("from"),
+                                    song["album"])
+        self._notify.update(song["title"], body, cover)
+
         self._notify.show()
     
     def restore(self):

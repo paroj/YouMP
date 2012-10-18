@@ -171,7 +171,7 @@ class SearchView(SongsTab):
         self._nb.set_current_page(1)
 
     def _on_artist_changed(self, client, key):
-        val = key if key != "" else _("All Artists")
+        val = client[key] if client[key] != "" else _("All Artists")
         
         self._artist.set_text(val)
         self._artist.show()
@@ -180,7 +180,7 @@ class SearchView(SongsTab):
             self._album.hide()
 
     def _on_album_changed(self, client, key):
-        val = key if key != "" else _("All Albums")
+        val = client[key] if client[key] != "" else _("All Albums")
         
         self._album.set_text(val)
         self._album.show()

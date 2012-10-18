@@ -199,7 +199,7 @@ class Controller:
         GObject.idle_add(self.library.increment_played, song.uri)
         song["playcount"] += 1
 
-        nm_connected = self._nm_props.Get("org.freedesktop.NetworkManager", "State") == NM_STATE_CONNECTED
+        nm_connected = self._nm_props.Get("org.freedesktop.NetworkManager", "State") == NM_STATE_CONNECTED_GLOBAL
 
         if self.scrobbler.is_connected() and nm_connected:
             self.scrobbler.submit(song["artist"], song["title"], int(time.time()), album=song["album"], length=song["duration"])
