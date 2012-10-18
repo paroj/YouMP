@@ -11,10 +11,6 @@ import unicodedata
 
 import tagpy
 
-#import mutagen
-#import mutagen.easyid3
-#from mutagen.id3 import ID3, ID3NoHeaderError, ID3BadUnsynchData
-
 from youamp import db_file, media_art, KNOWN_EXTS
 
 

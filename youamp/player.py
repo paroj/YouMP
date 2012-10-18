@@ -106,7 +106,7 @@ class Player(GObject.GObject):
     def get_time(self):
         """returns position in seconds"""
         try:
-            s = self._player.query_duration(Gst.Format.TIME)[1]/Gst.SECOND
+            s = self._player.query_position(Gst.Format.TIME)[1]/Gst.SECOND
             return s
         except Gst.QueryError as e:
             sys.stderr.write("get_time: %s\n" % e)
@@ -115,7 +115,7 @@ class Player(GObject.GObject):
         """returns position as fraction"""
         try:
             length = float(self._player.query_duration(Gst.Format.TIME)[1])
-            return self._player.query_position(Gst.Format.TIME)[1]/length
+            return 0 if length == 0 else self._player.query_position(Gst.Format.TIME)[1]/length
         except ZeroDivisionError as e:
             sys.stderr.write("get_seek: %s\n" % e)
             return 0.0           
@@ -150,14 +150,14 @@ class Player(GObject.GObject):
         # up to there all tag events were fired
         if message.src.get_name().startswith("decodebin"):
             state = message.parse_state_changed()
-            if state[0:2] == [Gst.State.READY, Gst.State.PAUSED]:
+            
+            if state[0:2] == (Gst.State.READY, Gst.State.PAUSED):
                 self._rgvolume.set_property("album-mode", self._is_same_album())
-                
                 try:
                     self._current["duration"] = int(self._player.query_duration(Gst.Format.TIME)[1]/Gst.SECOND)
                 except Gst.QueryError:
                     sys.stderr.write("could not set song length\n")
-                    
+                
                 self.emit("song-changed", self._current)
   
     def start_playback(self):

@@ -75,7 +75,7 @@ class Scrobbler(GObject.GObject):
            @param length:  The song length in seconds
            @param trackno: The track number
            @param mbid:    The MusicBrainz Track ID"""
-        _thread.start_new_thread(self._now_playing,
+        thread.start_new_thread(self._now_playing,
                                 (artist, track, album, length, trackno, mbid))
 
     def _login(self):    

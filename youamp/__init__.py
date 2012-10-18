@@ -9,7 +9,7 @@ IS_MAEMO = False
 
 # device specific settings
 MAX_VOL = 2.0
-KNOWN_EXTS = ("mp3", "ogg", "oga", "mp4", "m4a", "wma", "wav", "flac")
+KNOWN_EXTS = ("mp3", "ogg", "oga", "flac", "mpc") # "mp4", "m4a", "wma", "wav" tagpy limitation, taglib has support
 
 GETTEXT_DOMAIN = "youamp"
 

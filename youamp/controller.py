@@ -22,7 +22,7 @@ from youamp.soundmenu import SoundMenuControls
 
 import youamp.scrobbler as scrobbler
 
-NM_STATE_CONNECTED = 3
+NM_STATE_CONNECTED_GLOBAL = 70
 
 class Controller:
     ORDER_MAPPING = ("album", "playcount", "date", "shuffle")
@@ -214,7 +214,7 @@ class Controller:
         if not self.gui.window.is_active():
             self.gui.show_notification(song)
 
-        nm_connected = self._nm_props.Get("org.freedesktop.NetworkManager", "State") == NM_STATE_CONNECTED
+        nm_connected = self._nm_props.Get("org.freedesktop.NetworkManager", "State") == NM_STATE_CONNECTED_GLOBAL
 
         if self.scrobbler.is_connected() and nm_connected:
             self.scrobbler.now_playing(song["artist"], song["title"], song["album"])
