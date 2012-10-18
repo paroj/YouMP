@@ -72,7 +72,7 @@ class SongMetaLastFM(GObject.GObject):
         # try to download image
         uris = self._search_cover(str(song["artist"]), str(song["album"]))
         
-        if uris[0] is None:
+        if len(uris) == 0 or uris[0] is None:
             # no cover found at requested resolution
             return
         

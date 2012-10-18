@@ -9,14 +9,14 @@ import thread
 import hashlib
 import unicodedata
 
+import tagpy
+
 #import mutagen
 #import mutagen.easyid3
 #from mutagen.id3 import ID3, ID3NoHeaderError, ID3BadUnsynchData
 
 from youamp import db_file, media_art, KNOWN_EXTS
 
-
-class MetadataError(Exception): pass
 
 def get_metadata_sane(path):
     meta = get_metadata_raw(path)
@@ -26,24 +26,6 @@ def get_metadata_sane(path):
 
     meta["mtime"] = os.path.getmtime(path)
 
-    if "tracknumber" in meta:
-        v = meta["tracknumber"]
-        
-        try:
-            slash = v.index("/")
-            v = v[0:slash]
-        except ValueError:
-            pass
-        
-        try:
-            v = int(v)
-        except ValueError:
-            v = 0
-    else:
-        v = 0
-    
-    meta["tracknumber"] = v
-   
     # no visible tags -> set title = filename
     if "title" not in meta and \
        "artist" not in meta and \
@@ -58,43 +40,13 @@ def get_metadata_sane(path):
         for k in ("title", "artist", "album"):        
             meta[k] = meta[k].strip() if k in meta else ""
 
-    # sqlite wants only unicode strings
-    for k, v in meta.iteritems():
-        meta[k] = unicode(v)
-
     return meta
 
 def get_metadata_raw(path):
-    return dict()
-    if path.lower().endswith("mp3"):
-        try:
-            f = mutagen.easyid3.EasyID3(path)
-        except (ID3NoHeaderError, ID3BadUnsynchData):
-            sys.stderr.write("Bad ID3 Header: %s\n" % path)
-            f = {}
-        except IOError as e:
-            raise MetadataError(str(e))
-    else:
-        try:
-            f = mutagen.File(path)
-        except:
-            raise MetadataError("%s: error in Mutagen" % path)
+    f = tagpy.FileRef(path)
+    t = f.tag()
     
-    if f is None:
-        raise MetadataError("%s: not a media file" % path)
-    
-    meta = {}
-    
-    for k, v in list(f.items()):
-        # FIXME what if v is not a list
-        try:
-            v = str(", ".join(v))   # flatten value
-        except TypeError:
-            raise MetadataError("%s: wrong type for %s" % (path, k))
-        
-        meta[k] = v
-    
-    return meta
+    return {"title": t.title, "artist": t.artist, "album": t.album, "tracknumber": t.track}
 
 def media_art_identifier(meta):
     """calculate media art identifier as in bgo #520516. (the same as banshee)"""
@@ -158,7 +110,7 @@ class Indexer(GObject.GObject):
                 if mtime - 1 > float(old_mtime): # float precision stuff
                     to_update.append(path)
 
-                disc_files.remove(str(path)) # convert unicode
+                disc_files.remove(path.encode("utf-8")) # convert unicode
             else:
                 con.execute("DELETE FROM songs WHERE uri = ?", (path,))
                 print "Removed: %s" % path
@@ -167,8 +119,8 @@ class Indexer(GObject.GObject):
         for path in to_update: 
             try:        
                 song = get_metadata_sane(path)
-            except MetadataError as e:
-                sys.stderr.write("Skipped "+str(e)+"\n")
+            except ValueErrir as e:
+                sys.stderr.write("Skipped "+path+"\n")
                 continue
 
             # store metadata in database (uri, title, artist, album, genre, tracknumber, playcount, date)
@@ -186,13 +138,13 @@ class Indexer(GObject.GObject):
         for path in disc_files: 
             try:        
                 song = get_metadata_sane(path)
-            except MetadataError as e:
-                sys.stderr.write("Skipped "+str(e)+"\n")
+            except ValueError as e:
+                sys.stderr.write("Skipped "+path+"\n")
                 continue
 
             # store metadata in database (uri, title, artist, album, genre, tracknumber, playcount, date)
             con.execute("INSERT INTO songs VALUES (?, ?, ?, ?, '', ?, 0, datetime(?, 'unixepoch'))", \
-                (unicode(path), song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"]))
+                (path.decode("utf-8"), song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"]))
 
             print "Added: %s" % path
             mod_count += 1
