@@ -7,7 +7,7 @@ from gi.repository import GObject, Gst
 
 Gst.init(None)
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import os.path
 
 from youamp import MAX_VOL
@@ -41,7 +41,7 @@ class Player(GObject.GObject):
         self._player = Gst.ElementFactory.make("playbin", None)
         
         rg_bin = """audioconvert ! rgvolume name="rgvolume" ! rglimiter ! 
-                    audioconvert ! audioresample ! autoaudiosink"""#pulsesink name="sink" """
+                    audioconvert ! audioresample ! autoaudiosink"""
         
         rg_bin = Gst.parse_bin_from_description(rg_bin, True)
         
@@ -136,10 +136,10 @@ class Player(GObject.GObject):
             self._current = self.playlist[self.playlist.pos]
         
         if not os.path.exists(self._current.uri):
-            print("trck does not exists, abort before bad things happen")
+            print("track does not exists, abort before bad things happen")
             return
         
-        uri = "file://"+urllib.quote(str(self._current.uri))
+        uri = "file://"+urllib.parse.quote(str(self._current.uri))
         
         self._player.set_state(Gst.State.NULL)
         self._player.set_property("uri", uri)
@@ -195,9 +195,10 @@ class Player(GObject.GObject):
         self.emit("toggled", self.playing)
 
     def has_rg_info(self):
+        return True
         cur = self._current
         
-        return "replaygain-track-gain" in cur or "replaygain-album-gain" in cur
+        return Gst.TAG_TRACK_GAIN in cur or Gst.TAG_ALBUM_GAIN in cur
     
     def _is_same_album(self):
         pos = self.playlist.pos
@@ -226,10 +227,15 @@ class Player(GObject.GObject):
         self.emit("tags-updated", self._current)
         
     def _update_song(self, new_tags):
-        # FIXME
+        def fun(lst, key, data):
+            if key == Gst.TAG_TRACK_GAIN:
+                print("aaa")
+        
+        new_tags.foreach(fun, None)
+
         return
-        #new_tags.foreach(lambda tl, key, data: print(key), None)
-        for key in list(new_tags.keys()):
+
+        for key in new_tags.keys():
             v = new_tags[key]
 
             if key in ("artist", "album", "title"):

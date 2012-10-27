@@ -4,15 +4,14 @@ from gi.repository import GObject, Gdk, GdkPixbuf
 
 import os
 import sys
-import thread
+import _thread
 
 import hashlib
 import unicodedata
 
-import tagpy
+import youamp.taglib
 
 from youamp import db_file, media_art, KNOWN_EXTS
-
 
 def get_metadata_sane(path):
     meta = get_metadata_raw(path)
@@ -39,16 +38,15 @@ def get_metadata_sane(path):
     return meta
 
 def get_metadata_raw(path):
-    f = tagpy.FileRef(path)
-    t = f.tag()
-    
-    return {"title": t.title, "artist": t.artist, "album": t.album, "tracknumber": t.track}
+    f = youamp.taglib.FileRef(path)
+
+    return {"title": f.title, "artist": f.artist, "album": f.album, "tracknumber": f.track}
 
 def media_art_identifier(meta):
     """calculate media art identifier as in bgo #520516. (the same as banshee)"""
     hashstr = "%s\t%s" % (meta["artist"], meta["album"])
     hashstr = unicodedata.normalize("NFKD", hashstr)
-    hash = hashlib.md5(hashstr).hexdigest()
+    hash = hashlib.md5(hashstr.encode('utf_8')).hexdigest()
     
     return media_art+"album-%s.jpeg" % hash
         
@@ -73,7 +71,7 @@ class Indexer(GObject.GObject):
 
     # start update thread
     def update(self, folders):
-        thread.start_new_thread(self._update, (folders,))
+        _thread.start_new_thread(self._update, (folders,))
 
     def _get_files(self, folders):
         filelist = []
@@ -106,16 +104,16 @@ class Indexer(GObject.GObject):
                 if mtime - 1 > float(old_mtime): # float precision stuff
                     to_update.append(path)
 
-                disc_files.remove(path.encode("utf-8")) # convert unicode
+                disc_files.remove(path)
             else:
                 con.execute("DELETE FROM songs WHERE uri = ?", (path,))
-                print "Removed: %s" % path
+                print(("Removed: %s" % path))
             
         # update files
         for path in to_update: 
             try:        
                 song = get_metadata_sane(path)
-            except ValueErrir as e:
+            except:
                 sys.stderr.write("Skipped "+path+"\n")
                 continue
 
@@ -124,9 +122,9 @@ class Indexer(GObject.GObject):
             UPDATE songs 
             SET title = ?, artist = ?, album = ?, tracknumber = ?, date = datetime(?, 'unixepoch')
             WHERE uri = ? """,
-            (song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"], unicode(path)))
+            (song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"], str(path)))
 
-            print "Updated: %s" % path
+            print(("Updated: %s" % path))
             mod_count += 1
   
   
@@ -142,7 +140,7 @@ class Indexer(GObject.GObject):
             con.execute("INSERT INTO songs VALUES (?, ?, ?, ?, '', ?, 0, datetime(?, 'unixepoch'))", \
                 (path.decode("utf-8"), song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"]))
 
-            print "Added: %s" % path
+            print(("Added: %s" % path))
             mod_count += 1
         
         con.commit()

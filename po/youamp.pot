@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-16 23:02+0200\n"
+"POT-Creation-Date: 2012-10-24 21:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,15 +61,15 @@ msgstr ""
 msgid "Details for {0}"
 msgstr ""
 
-#: ../youamp/ui/elements.py:65 ../data/interface.ui.h:25
+#: ../youamp/ui/elements.py:56 ../data/interface.ui.h:25
 msgid "New Playlist"
 msgstr ""
 
-#: ../youamp/ui/interface.py:132 ../youamp/ui/window.py:82
+#: ../youamp/ui/interface.py:135 ../youamp/ui/window.py:82
 msgid "by"
 msgstr ""
 
-#: ../youamp/ui/interface.py:134 ../youamp/ui/window.py:84
+#: ../youamp/ui/interface.py:137 ../youamp/ui/window.py:84
 msgid "from"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgstr ""
 
 #. self._w.set_icon_list(self._cover.get_pixbuf())
 #: ../data/interface.ui.h:1
-msgid "A lightweight Music Player for the Internet Tablet"
+msgid "A lightweight music player"
 msgstr ""
 
 #: ../data/interface.ui.h:2

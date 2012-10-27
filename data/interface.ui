@@ -10,8 +10,8 @@
     <property name="type_hint">normal</property>
     <property name="transient_for">window</property>
     <property name="program_name">YouAmp</property>
-    <property name="copyright">Copyright (C) 2008 Pavel Rojtberg</property>
-    <property name="comments" translatable="yes">A lightweight Music Player for the Internet Tablet</property>
+    <property name="copyright">Copyright (C) 2012 Pavel Rojtberg</property>
+    <property name="comments" translatable="yes">A lightweight music player</property>
     <property name="website">http://www.rojtberg.net/workspace/youamp</property>
     <property name="website_label" translatable="yes">YouAmp Website</property>
     <property name="license">YouAmp Music Player

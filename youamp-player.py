@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import locale
-import __builtin__
+import builtins
 
 from gi.repository import GObject
 
@@ -12,7 +12,7 @@ from youamp import DATA_DIR, GETTEXT_DOMAIN
 # use locale instead of gettext, so GTK gets the change
 #locale.bindtextdomain(GETTEXT_DOMAIN, DATA_DIR+"locale/")
 locale.textdomain(GETTEXT_DOMAIN)
-__builtin__.__dict__['_'] = locale.gettext
+builtins.__dict__['_'] = locale.gettext
 
 def main():
     GObject.threads_init()

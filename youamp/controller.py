@@ -1,7 +1,7 @@
 from gi.repository import GObject, Gtk, Gio
 
 import time
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import sys
 import dbus
 import os.path
