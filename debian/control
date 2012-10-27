@@ -8,7 +8,7 @@ Homepage: http://www.rojtberg.net/workspace/youamp/
 
 Package: youamp
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends}, python (>= 3), gir1.2-gtk-3.0, gir1.2-gstreamer-1.0,
+Depends: ${python:Depends}, ${misc:Depends}, python3 (>= 3.2.3), gir1.2-gtk-3.0, gir1.2-gstreamer-1.0,
  gir1.2-notify-0.7, python-dbus, gstreamer1.0-plugins-good, gstreamer1.0-pulseaudio, libtagc0
 Description: a lightweight music player
  YouAmp places the focus on playback features instead of fancy graphics. 
