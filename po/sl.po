@@ -1,49 +1,49 @@
-# YouAmp Translation File.
-# Copyright (C) 2008 Pavel Rojtberg
-# Pavel Rojtberg <pavel@rojtberg.net>, 2008.
+# Slovenian translation for youamp
+# Copyright (c) 2018 Rosetta Contributors and Canonical Ltd 2018
+# This file is distributed under the same license as the youamp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.4.0\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: youamp\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-04-26 05:21+0000\n"
 "PO-Revision-Date: 2018-02-18 06:18+0000\n"
 "Last-Translator: Pavel Rojtberg <pavel.r@gmx.de>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2018-04-27 05:23+0000\n"
 "X-Generator: Launchpad (build 18623)\n"
-"Generated-By: pygettext.py 1.5\n"
 
 #: ../youamp/controller.py:39
 msgid "Library"
-msgstr "Musiksammlung"
+msgstr "Knjižnica"
 
 #. generate "changed::"
 #: ../youamp/ui/browser.py:48
 msgid "Albums"
-msgstr "Alben"
+msgstr "Albumi"
 
 #: ../youamp/ui/browser.py:52 ../youamp/ui/searchview.py:135
 #: ../youamp/ui/searchview.py:183
 msgid "All Albums"
-msgstr "Alle Alben"
+msgstr "Vsi albumi"
 
 #: ../youamp/ui/browser.py:57 ../youamp/ui/detailswindow.py:34
 #: ../youamp/ui/playlist.py:49
 msgid "Artist"
-msgstr "Künstler"
+msgstr "Izvajalec"
 
 #: ../youamp/ui/browser.py:61 ../youamp/ui/searchview.py:131
 #: ../youamp/ui/searchview.py:174
 msgid "All Artists"
-msgstr "Alle Künstler"
+msgstr "Vsi izvajalci"
 
 #: ../youamp/ui/detailswindow.py:33 ../youamp/ui/playlist.py:48
 msgid "Title"
-msgstr "Titel"
+msgstr "Naslov"
 
 #: ../youamp/ui/detailswindow.py:35 ../youamp/ui/playlist.py:50
 msgid "Album"
@@ -51,163 +51,159 @@ msgstr "Album"
 
 #: ../youamp/ui/detailswindow.py:36
 msgid "Playcount"
-msgstr "Wiedergaben"
+msgstr "Število predvajanj"
 
 #: ../youamp/ui/detailswindow.py:54
 msgid "Location"
-msgstr "Ort"
+msgstr "Mesto"
 
 #: ../youamp/ui/detailswindow.py:78
 #, python-brace-format
 msgid "Details for {0}"
-msgstr "Details für {0}"
+msgstr "Podrobnosti za {0}"
 
 #: ../youamp/ui/elements.py:56 ../data/interface.ui.h:25
 msgid "New Playlist"
-msgstr "Neue Wiedergabeliste"
+msgstr "Nov seznam predvajanja"
 
 #: ../youamp/ui/interface.py:135 ../youamp/ui/window.py:82
 msgid "by"
-msgstr "von"
+msgstr "od"
 
 #: ../youamp/ui/interface.py:137 ../youamp/ui/window.py:84
 msgid "from"
-msgstr "aus"
+msgstr "iz"
 
 #: ../youamp/ui/playlist.py:20
 msgid "album"
-msgstr "Album"
+msgstr "album"
 
 #: ../youamp/ui/playlist.py:21
 msgid "playcount"
-msgstr "Wiedergaben"
+msgstr "število predvajanj"
 
 #: ../youamp/ui/playlist.py:22
 msgid "date added"
-msgstr "Hinzufügedatum"
+msgstr "dodano dne"
 
 #: ../youamp/ui/playlist.py:23
 msgid "shuffle"
-msgstr "mischen"
+msgstr "naključno"
 
 #: ../youamp/ui/playlist.py:28
 msgid "Order:"
-msgstr "Reihenfolge:"
+msgstr "Vrstni red:"
 
 #: ../youamp/ui/preferences.py:48 ../youamp/ui/preferences.py:67
 msgid "Connected"
-msgstr "Verbunden"
+msgstr "Povezano"
 
 #: ../youamp/ui/preferences.py:50 ../youamp/ui/preferences.py:59
 msgid "Wrong login data"
-msgstr "Falsche Login Daten"
+msgstr ""
 
 #: ../youamp/ui/preferences.py:52 ../youamp/ui/preferences.py:61
 msgid "Disconnected"
-msgstr "Nicht Verbunden"
+msgstr "Brez povezave"
 
 #. Search Label
 #: ../youamp/ui/searchview.py:39 ../data/interface.ui.h:21
 msgid "Search"
-msgstr "Suche"
+msgstr "Iskanje"
 
 #. Browse Button
 #: ../youamp/ui/searchview.py:44 ../data/interface.ui.h:22
 msgid "Browse"
-msgstr "Blättern"
+msgstr "Brskanje"
 
 #: ../youamp/ui/window.py:27 ../data/interface.ui.h:23
 msgid "No Track"
-msgstr "Kein Titel"
+msgstr ""
 
 #. image
 #: ../youamp/ui/window.py:93
 msgid "None"
-msgstr "Kein"
+msgstr "Brez"
 
 #. self._w.set_icon_list(self._cover.get_pixbuf())
 #: ../data/interface.ui.h:1
 msgid "A lightweight music player"
-msgstr "Eine leichtgewichtige Musikwiedergabe"
+msgstr ""
 
 #: ../data/interface.ui.h:2
 msgid "YouAmp Website"
-msgstr "YouAmp Webseite"
+msgstr "YouAmp spletna stran"
 
 #: ../data/interface.ui.h:3
 msgid "translator-credits"
 msgstr ""
-"Pavel Rojtberg\n"
-"\n"
 "Launchpad Contributions:\n"
-"  Daniel Winzen https://launchpad.net/~q-d-deactivatedaccount\n"
-"  Dennis Baudys https://launchpad.net/~thecondordb\n"
-"  Georg Haas https://launchpad.net/~hax404\n"
+"  Matic Gradišer https://launchpad.net/~0micky\n"
 "  Pavel Rojtberg https://launchpad.net/~rojtberg"
 
 #: ../data/interface.ui.h:4
 msgid "Play this next"
-msgstr "Als nächstes spielen"
+msgstr ""
 
 #: ../data/interface.ui.h:5
 msgid "View this Artist"
-msgstr "Diesen Künstler anzeigen"
+msgstr ""
 
 #: ../data/interface.ui.h:6
 msgid "View this Album"
-msgstr "Dieses Album anzeigen"
+msgstr ""
 
 #: ../data/interface.ui.h:7
 msgid "Details"
-msgstr "Details"
+msgstr "Podrobnosti"
 
 #: ../data/interface.ui.h:8
 msgid "Visible"
-msgstr "Anzeigen"
+msgstr "Vidno"
 
 #: ../data/interface.ui.h:9
 msgid "Playback"
-msgstr "Wiedergabe"
+msgstr "Predvajanje"
 
 #: ../data/interface.ui.h:10
 msgid "Rename"
-msgstr "Umbenennen"
+msgstr "Preimenuj"
 
 #: ../data/interface.ui.h:11
 msgid "Preferences"
-msgstr "Einstellungen"
+msgstr "Nastavitve"
 
 #: ../data/interface.ui.h:12
 msgid "<b>Music Folder</b>"
-msgstr "<b>Musikordner</b>"
+msgstr "<b>Glasbena mapa</b>"
 
 #: ../data/interface.ui.h:13
 msgid "<b>Replaygain Preamp (db)</b>"
-msgstr "<b>Replaygain Verstärkung (db)</b>"
+msgstr ""
 
 #: ../data/interface.ui.h:14
 msgid "<b>Fallback Gain (db)</b>"
-msgstr "<b>Ersatzverstärkung (db)</b>"
+msgstr ""
 
 #: ../data/interface.ui.h:15
 msgid "General"
-msgstr "Allgemein"
+msgstr "Splošno"
 
 #: ../data/interface.ui.h:16
 msgid "<b>Login</b>"
-msgstr "<b>Anmelden</b>"
+msgstr "<b>Prijava</b>"
 
 #: ../data/interface.ui.h:17
 msgid "Username"
-msgstr "Benutzername"
+msgstr "Uporabniško ime"
 
 #: ../data/interface.ui.h:18
 msgid "Password"
-msgstr "Passwort"
+msgstr "Geslo"
 
 #: ../data/interface.ui.h:19
 msgid "<b>Status</b>"
-msgstr "<b>Status</b>"
+msgstr "<b>Stanje</b>"
 
 #: ../data/interface.ui.h:20
 msgid "last.fm"
@@ -215,29 +211,20 @@ msgstr "last.fm"
 
 #: ../data/interface.ui.h:24
 msgid "Player"
-msgstr "Player"
+msgstr "Predvajalnik"
 
 #: ../data/interface.ui.h:26
 msgid "View"
-msgstr "Ansicht"
+msgstr "Pogled"
 
 #: ../data/interface.ui.h:27
 msgid "Fullscreen"
-msgstr "Vollbild"
+msgstr "Celozaslonsko"
 
 #: ../data/interface.ui.h:28
 msgid "Select current Song"
-msgstr "Aktuellen Song auswählen"
+msgstr ""
 
 #: ../data/interface.ui.h:29
 msgid "<b><big>No Track</big></b>"
-msgstr "<b><big>Kein Titel</big></b>"
-
-#~ msgid "Date added"
-#~ msgstr "Hinzufügedatum"
-
-#~ msgid "Order"
-#~ msgstr "Ordnen"
-
-#~ msgid "Updating database"
-#~ msgstr "Datenbank wird aktualisiert."
+msgstr ""
