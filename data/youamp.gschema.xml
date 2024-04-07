@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema path="/net/rojtberg/youamp/" id="net.rojtberg.youamp">
+        <key name="pos" type="i">
+            <default>0</default>
+        </key>
+        <key name="rg-preamp" type="d">
+            <default>0</default>
+        </key>
+        <key name="no-rg-preamp" type="d">
+            <default>0</default>
+        </key>
+        <key name="gapless" type="b">
+            <default>false</default>
+        </key>
+        <key name="lastfm-user" type="s">
+            <default>""</default>
+        </key>
+        <key name="lastfm-pass" type="s">
+            <default>""</default>
+        </key>
+        <key name="is-browser" type="b">
+            <default>false</default>
+        </key>
+        <key name="search-str" type="s">
+            <default>""</default>
+        </key>
+        <key name="order-by" type="s">
+            <default>"date"</default>
+        </key>
+        <key name="volume" type="d">
+            <default>0.5</default>
+        </key>
+        <key name="music-folder" type="s">
+            <default>"/home/pavel/Musik"</default>
+        </key>
+        <key name="search-artist" type="s">
+            <default>""</default>
+        </key>
+        <key name="search-album" type="s">
+            <default>""</default>
+        </key>
+    </schema>
+</schemalist>

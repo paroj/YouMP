@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import locale
 import builtins
 
@@ -17,6 +18,7 @@ builtins.__dict__['_'] = locale.gettext
 def main():
     GObject.threads_init()
 
+    os.environ["GSETTINGS_SCHEMA_DIR"] = DATA_DIR
     player = youamp.controller.Controller()
     player.start()
 
