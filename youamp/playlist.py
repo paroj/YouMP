@@ -124,7 +124,7 @@ class Playlist(Gtk.ListStore):
 
     def _sort_playcount(self, i1):
         s1 = self[i1]
-        return str(1/s1["playcount"])+self._sort_album(i1)
+        return str(1/s1["playcount"])+self._sort_album(i1) if s1["playcount"] else self._sort_album(i1)
   
     def _sort_album(self, i1):
         s1 = self[i1]

@@ -138,7 +138,7 @@ class Indexer(GObject.GObject):
 
             # store metadata in database (uri, title, artist, album, genre, tracknumber, playcount, date)
             con.execute("INSERT INTO songs VALUES (?, ?, ?, ?, '', ?, 0, datetime(?, 'unixepoch'))", \
-                (path.decode("utf-8"), song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"]))
+                (path, song["title"], song["artist"], song["album"], song["tracknumber"], song["mtime"]))
 
             print(("Added: %s" % path))
             mod_count += 1
