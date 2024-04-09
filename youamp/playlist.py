@@ -102,7 +102,7 @@ class Playlist(Gtk.ListStore):
         if order == "album":
             l.sort(key=self._sort_album)
         elif order == "date":
-            l.sort(key=self._sort_date)
+            l.sort(key=self._sort_date, reverse=True)
         elif order == "shuffle":
             random.shuffle(l)
         else:
